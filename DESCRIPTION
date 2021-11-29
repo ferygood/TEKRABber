@@ -1,0 +1,29 @@
+Package: TEKRABber
+Type: Package
+Title: An R package estimates the correlations of orthologs and transposable elements between two species 
+Version: 0.99.0
+Description: TEKRABber estimate one to one correlations comparing orthologs and transposable elements from two different species. User needs to provide scientific specifices name and gene/transposable elements expression counts data.
+Authors@R: person("Yao-Chung", "Chen", email="yao-chung.chen@fu-berlin.de", role = c("aut", "cre"))
+Encoding: UTF-8
+License: GPL (>= 2)
+Imports: 
+    biomaRt,
+    DESeq2,
+    dplyr,
+    ggplot2,
+    ggpubr,
+    Rcpp (>= 1.0.7),
+    SCBN,
+    shiny,
+    stats,
+    utils
+LinkingTo: Rcpp
+Depends: 
+    R (>= 4.0)
+LazyData: true
+Suggests: 
+    rmarkdown, knitr, testthat (>= 3.0.0), BiocStyle
+VignetteBuilder: knitr
+VignetteEngine: knitr
+RoxygenNote: 7.1.2
+biocViews: DifferentialExpression, Normalization, Transcription
