@@ -38,7 +38,7 @@ head(hmGene)
 
 ### Query ortholog information and estimate scaling factor
 In the first step, we use `orthologScale()` to get ortholog information and calculate the scaling factor between two species. The species name needs to be the abbreviation of scientific species name used in Ensembl. (This step might take some time based on your data size). 
-```{r, message=FALSE}
+```{r, message=FALSE, cache=TRUE}
 fetchData <- orthologScale(
     geneCountRef = hmGene,
     geneCountCompare = chimpGene,
