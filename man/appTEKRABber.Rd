@@ -23,3 +23,47 @@ To help user explore their results using TEKRABber, it visualize the results
 using a self-written shiny app with two tabs, including the expression and correlation of
 genes and TEs.
 }
+\examples{
+data(geneInputDE)
+data(teInputDE)
+metaExp <- data.frame(experiment = c(rep("control", 5), rep("treatment", 5)))
+rownames(metaExp) <- colnames(geneInputDE)
+metaExp$experiment <- factor(metaExp$experiment, levels = c("control", "treatment"))
+
+resultDE <- DEgeneTE(
+  geneTable = geneInputDE,
+  teTable = teInputDE,
+  metadata = metaExp,
+  contrastVector = c("experiment", "control", "treatment"),
+  expDesign = FALSE
+)
+
+data(geneConCorrInput)
+data(teConCorrInput)
+data(geneTreatCorrInput)
+data(teTreatCorrInput)
+
+controlCorr <- corrOrthologTE(
+  geneInput = geneConCorrInput,
+  teInput = teConCorrInput,
+  corrMethod = "pearson",
+  padjMethod = "fdr",
+  filename = "controlCorrResult.csv"
+)
+
+treatmentCorr <- corrOrthologTE(
+  geneInput = geneTreatCorrInput,
+  teInput = teTreatCorrInput,
+  corrMethod = "pearson",
+  padjMethod = "fdr",
+  filename = "treatmentCorrResult.csv"
+)
+
+appTEKRABber(
+  DEresult = resultDE,
+  corrRef = controlCorr,
+  corrCompare = treatmentCorr,
+  metadata = metaExp
+)
+
+}
