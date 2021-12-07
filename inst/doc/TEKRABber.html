@@ -246,7 +246,10 @@ head(hmGene)</code></pre>
 ## 6        137         93        108        197         69</code></pre>
 <div id="query-ortholog-information-and-estimate-scaling-factor" class="section level3" number="3.1.1">
 <h3><span class="header-section-number">3.1.1</span> Query ortholog information and estimate scaling factor</h3>
-<p>In the first step, we use <code>orthologScale()</code> to get ortholog information and calculate the scaling factor between two species. The species name needs to be the abbreviation of scientific species name used in Ensembl. (Note: (1)This step queries information using biomaRt (2)It might take some time to calculate scaling factor based on your data size).</p>
+<p>In the first step, we use <code>orthologScale()</code> to get ortholog information and calculate the scaling factor between two species. The species name needs to be the abbreviation of scientific species name used in Ensembl. (Note: (1)This step queries information using biomaRt and it might need some time or try different mirror due to connection to Ensembl (2)It might take some time to calculate scaling factor based on your data size).</p>
+<pre class="r"><code># You can use the code below to search for species name
+ensembl &lt;- biomaRt::useEnsembl(biomart = &quot;genes&quot;)
+biomaRt::listDatasets(ensembl)</code></pre>
 <pre class="r"><code>fetchData &lt;- orthologScale(
     geneCountRef = hmGene,
     geneCountCompare = chimpGene,

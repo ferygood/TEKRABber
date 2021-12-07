@@ -26,10 +26,10 @@ orthology score and expression counts
 \examples{
 data(hmGene)
 data(chimpGene)
-fetchData <- orthologScale(
-  speciesRef = "hsapiens",
-  speciesCompare = "ptroglodytes",
-  geneCountRef = hmGene,
-  geneCountCompare = chimpGene
-)
+#fetchData <- orthologScale(
+#  speciesRef = "hsapiens",
+#  speciesCompare = "ptroglodytes",
+#  geneCountRef = hmGene,
+#  geneCountCompare = chimpGene
+#)
 }

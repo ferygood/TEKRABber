@@ -12,12 +12,12 @@
 #' @examples
 #' data(hmGene)
 #' data(chimpGene)
-#' fetchData <- orthologScale(
-#'   speciesRef = "hsapiens",
-#'   speciesCompare = "ptroglodytes",
-#'   geneCountRef = hmGene,
-#'   geneCountCompare = chimpGene
-#' )
+#' #fetchData <- orthologScale(
+#' #  speciesRef = "hsapiens",
+#' #  speciesCompare = "ptroglodytes",
+#' #  geneCountRef = hmGene,
+#' #  geneCountCompare = chimpGene
+#' #)
 orthologScale <- function(speciesRef, speciesCompare, geneCountRef, geneCountCompare) {
     ## Part1: Get ortholog table using biomaRt
     geneRef <- paste0(speciesRef, "_gene_ensembl")

@@ -13,21 +13,23 @@
 #' @return create inputs for DE analysis and correlations: (1) geneInputDESeq2 (2) teInputDESeq2 (3) geneCorrInputRef (4) geneCorrInputCompare (5) TECorrInputRef (6) TECorrInputCompare
 #' @export
 #' @examples
-#' fetchData <- orthologScale(
-#'   speciesRef = "hsapiens",
-#'   speciesCompare = "ptroglodytes",
-#'   geneCountRef = hmGene,
-#'   geneCountCompare = chimpGene
-#' )
+#' data(hmGene)
+#' data(chimpGene)
+#' #fetchData <- orthologScale(
+#' #  speciesRef = "hsapiens",
+#' #  speciesCompare = "ptroglodytes",
+#' #  geneCountRef = hmGene,
+#' #  geneCountCompare = chimpGene
+#' #)
 #'
-#' inputBundle <- DECorrInputs(
-#'   orthologTable=fetchData$orthologTable,
-#'   scaleFactor=fetchData$scaleFactor,
-#'   geneCountRef=hmGene,
-#'   geneCountCompare=chimpGene,
-#'   teCountRef=hmTE,
-#'   teCountCompare=chimpTE
-#' )
+#' #inputBundle <- DECorrInputs(
+#' #  orthologTable=fetchData$orthologTable,
+#' #  scaleFactor=fetchData$scaleFactor,
+#' #  geneCountRef=hmGene,
+#' #  geneCountCompare=chimpGene,
+#' #  teCountRef=hmTE,
+#' #  teCountCompare=chimpTE
+#' #)
 DECorrInputs <- function(orthologTable, scaleFactor, geneCountRef, geneCountCompare, teCountRef, teCountCompare) {
     dir.create("./results")
     norm_scale <- function(x) {

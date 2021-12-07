@@ -59,11 +59,11 @@ treatmentCorr <- corrOrthologTE(
   filename = "treatmentCorrResult.csv"
 )
 
-appTEKRABber(
-  DEresult = resultDE,
-  corrRef = controlCorr,
-  corrCompare = treatmentCorr,
-  metadata = metaExp
-)
+#appTEKRABber(
+#  DEresult = resultDE,
+#  corrRef = controlCorr,
+#  corrCompare = treatmentCorr,
+#  metadata = metaExp
+#)
 
 }

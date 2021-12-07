@@ -45,12 +45,12 @@
 #'   filename = "treatmentCorrResult.csv"
 #' )
 #' 
-#' appTEKRABber(
-#'   DEresult = resultDE,
-#'   corrRef = controlCorr,
-#'   corrCompare = treatmentCorr,
-#'   metadata = metaExp
-#' )
+#' #appTEKRABber(
+#' #  DEresult = resultDE,
+#' #  corrRef = controlCorr,
+#' #  corrCompare = treatmentCorr,
+#' #  metadata = metaExp
+#' #)
 #' 
 appTEKRABber <- function(DEresult, corrRef, corrCompare, metadata) {
     requireNamespace("shiny")

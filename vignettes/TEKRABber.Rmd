@@ -39,7 +39,13 @@ head(hmGene)
 ```
 
 ### Query ortholog information and estimate scaling factor
-In the first step, we use `orthologScale()` to get ortholog information and calculate the scaling factor between two species. The species name needs to be the abbreviation of scientific species name used in Ensembl. (Note: (1)This step queries information using biomaRt (2)It might take some time to calculate scaling factor based on your data size). 
+In the first step, we use `orthologScale()` to get ortholog information and calculate the scaling factor between two species. The species name needs to be the abbreviation of scientific species name used in Ensembl. (Note: (1)This step queries information using biomaRt and it might need some time or try different mirror due to connection to Ensembl (2)It might take some time to calculate scaling factor based on your data size). 
+```{r search species name, eval=FALSE}
+# You can use the code below to search for species name
+ensembl <- biomaRt::useEnsembl(biomart = "genes")
+biomaRt::listDatasets(ensembl)
+```
+
 ```{r qurey biomaRt and calculate scaling factor, message=FALSE, cache=TRUE, dependson="load build-in data (two species)"}
 fetchData <- orthologScale(
     geneCountRef = hmGene,
