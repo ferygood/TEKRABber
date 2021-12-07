@@ -1,6 +1,7 @@
 useDynLib(TEKRABber, .registration=TRUE)
 importFrom(Rcpp, evalCpp)
 exportPattern("^[[:alpha:]]+")
+import(apeglm)
 import(dplyr)
 import(ggplot2)
 import(ggpubr)
