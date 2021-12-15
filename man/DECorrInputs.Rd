@@ -29,19 +29,21 @@ prefer using gene name instead of Ensembl gene ID, you can convert them before r
 this function.
 }
 \examples{
-fetchData <- orthologScale(
-  speciesRef = "hsapiens",
-  speciesCompare = "ptroglodytes",
-  geneCountRef = hmGene,
-  geneCountCompare = chimpGene
-)
+data(hmGene)
+data(chimpGene)
+#fetchData <- orthologScale(
+#  speciesRef = "hsapiens",
+#  speciesCompare = "ptroglodytes",
+#  geneCountRef = hmGene,
+#  geneCountCompare = chimpGene
+#)
 
-inputBundle <- DECorrInputs(
-  orthologTable=fetchData$orthologTable,
-  scaleFactor=fetchData$scaleFactor,
-  geneCountRef=hmGene,
-  geneCountCompare=chimpGene,
-  teCountRef=hmTE,
-  teCountCompare=chimpTE
-)
+#inputBundle <- DECorrInputs(
+#  orthologTable=fetchData$orthologTable,
+#  scaleFactor=fetchData$scaleFactor,
+#  geneCountRef=hmGene,
+#  geneCountCompare=chimpGene,
+#  teCountRef=hmTE,
+#  teCountCompare=chimpTE
+#)
 }

@@ -9,6 +9,49 @@
 #' @param metadata the same metadata you use for DEgeneTE()
 #' @return an app can display differentially expressed genes/TE and the correlation results
 #' @export
+#' @examples 
+#' data(geneInputDE)
+#' data(teInputDE)
+#' metaExp <- data.frame(experiment = c(rep("control", 5), rep("treatment", 5)))
+#' rownames(metaExp) <- colnames(geneInputDE)
+#' metaExp$experiment <- factor(metaExp$experiment, levels = c("control", "treatment"))
+#' 
+#' resultDE <- DEgeneTE(
+#'   geneTable = geneInputDE,
+#'   teTable = teInputDE,
+#'   metadata = metaExp,
+#'   contrastVector = c("experiment", "control", "treatment"),
+#'   expDesign = FALSE
+#' )
+#' 
+#' data(geneConCorrInput)
+#' data(teConCorrInput)
+#' data(geneTreatCorrInput)
+#' data(teTreatCorrInput)
+#' 
+#' controlCorr <- corrOrthologTE(
+#'   geneInput = geneConCorrInput,
+#'   teInput = teConCorrInput,
+#'   corrMethod = "pearson",
+#'   padjMethod = "fdr",
+#'   filename = "controlCorrResult.csv"
+#' )
+#' 
+#' treatmentCorr <- corrOrthologTE(
+#'   geneInput = geneTreatCorrInput,
+#'   teInput = teTreatCorrInput,
+#'   corrMethod = "pearson",
+#'   padjMethod = "fdr",
+#'   filename = "treatmentCorrResult.csv"
+#' )
+#' 
+#' #appTEKRABber(
+#' #  DEresult = resultDE,
+#' #  corrRef = controlCorr,
+#' #  corrCompare = treatmentCorr,
+#' #  metadata = metaExp
+#' #)
+#' 
 appTEKRABber <- function(DEresult, corrRef, corrCompare, metadata) {
     requireNamespace("shiny")
     requireNamespace("ggplot2")

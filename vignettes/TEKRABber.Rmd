@@ -41,7 +41,13 @@ head(hmGene)
 ```
 
 ### Query ortholog information and estimate scaling factor
-In the first step, we use `orthologScale()` to get ortholog information and calculate the scaling factor between two species. The species name needs to be the abbreviation of scientific species name used in Ensembl. (Note: (1)This step queries information using biomaRt (2)It might take some time to calculate scaling factor based on your data size). 
+In the first step, we use `orthologScale()` to get ortholog information and calculate the scaling factor between two species. The species name needs to be the abbreviation of scientific species name used in Ensembl. (Note: (1)This step queries information using biomaRt and it might need some time or try different mirror due to connection to Ensembl (2)It might take some time to calculate scaling factor based on your data size). 
+```{r search species name, eval=FALSE}
+# You can use the code below to search for species name
+ensembl <- biomaRt::useEnsembl(biomart = "genes")
+biomaRt::listDatasets(ensembl)
+```
+
 ```{r qurey biomaRt and calculate scaling factor, message=FALSE, cache=TRUE, dependson="load build-in data (two species)"}
 fetchData <- orthologScale(
     geneCountRef = hmGene,
@@ -111,7 +117,7 @@ head(hmCorrResult)
 ```
 
 ### Explore your result using appTEKRABber():
-TEKRABber provides an app function for you to quickly view your result. You need to provide the differntially expressed orthologs/TEs result and correlation results. Metadata is the same one you used for DE analysis.
+TEKRABber provides an app function for you to quickly view your result. You need to provide the differentially expressed orthologs/TEs result and correlation results. Metadata is the same one you used for DE analysis.
 ```{r app visualize (two species), warning=FALSE, eval=FALSE}
 appTEKRABber(
   DEresult = hmchimpDE,
@@ -121,9 +127,9 @@ appTEKRABber(
 )
 ```
 ![](https://user-images.githubusercontent.com/40789913/143572668-4ebce12e-3380-465c-a3bb-f465b78f7af4.jpeg)
-In the **Expression tag** page, (1) you can specify your input gene and TE. The result will show in boxplots with data points in log2 expression level (2) DE analysis result will show in table including statistical information (3) Correlation result will indicate if this selected pairs are significantly correlated and the value of correlation coefficients.
+In the **Expression tab** page, (1) you can specify your input gene and TE. The result will show in box plots with data points in log2 expression level (2) DE analysis result will show in table including statistical information (3) Correlation result will indicate if this selected pairs are significantly correlated and the value of correlation coefficients.
 ![](https://user-images.githubusercontent.com/40789913/143572684-12adf891-3f1b-4b9d-b913-94e664abb196.jpeg)
-In the **Correlation tag** page, you can visualize your data in scatterplot by three ways. (1) Specify the data point and it will turn red in the distribution of your result (2) Show the distribution of all the data from your correlation results based on their correlation coefficients and adjusted _p-value_. The blue vertical dashed line indicates the boundary of adjusted _p-value_ is 0.05, and the orange one is for adjusted _p-value_ 0.01 (3) you can click the data points which you are interested in and it will list in the table. You can also drag an area to show data points in certain area. 
+In the **Correlation tab** page, you can visualize your data in scatter plots by three ways. (1) Specify the data point and it will turn red in the distribution of your result (2) Show the distribution of all the data from your correlation results based on their correlation coefficients and adjusted _p-value_. The blue vertical dashed line indicates the boundary of adjusted _p-value_ is 0.05, and the orange one is for adjusted _p-value_ 0.01 (3) you can click the data points which you are interested in and it will list in the table. You can also drag an area to show data points in certain area. 
 
 ## Comparing control and treatment samples within the same species
 If you want to compare selected genes and TEs **(1)** from different tissue in same species or **(2)** control and drug treatment in same tissue in same species, please generate all the input files following the input format. Here we show a toy data of prepared input files including expression counts from 10 control and 10 treatment samples. The format of input data: row names should be gene name or id, and column name is your sample id (please see details below).
