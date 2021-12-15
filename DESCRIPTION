@@ -16,6 +16,7 @@ Imports:
     SCBN,
     shiny,
     stats,
+    SummarizedExperiment,
     utils
 LinkingTo: Rcpp
 Depends: 

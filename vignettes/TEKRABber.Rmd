@@ -9,8 +9,10 @@ author:
 package: TEKRABber
 output:
   BiocStyle::html_document: default
-vignette: |
-  %\VignetteIndexEntry{TEKRABber} %\VignetteEngine{knitr::knitr} %\VignetteEncoding{UTF-8} %\VignetteBuilder{knitr}
+vignette: >
+  %\VignetteIndexEntry{TEKRABber} 
+  %\VignetteEngine{knitr::rmarkdown} 
+  %\VignetteEncoding{UTF-8}
 ---
 # Introduction
 TEKRABber is used to estimate the correlation between genes and transposable elements (TEs) from RNA-seq data comparing between: **(1)** Two Species **(2)** Control vs. Experiment. In the following sections, we will use built-in data to demonstrate how to implement TEKRABber on you own analysis.
