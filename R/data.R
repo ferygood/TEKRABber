@@ -1,274 +1,51 @@
-#' Gene expression dataset from human brain RNA-seq data
+#' Gene/TE expression data from human/chimpanzee brain RNA-seq
 #' 
-#' A dataset containing randomly slected 10 human brain cells bulked RNA-seq
-#' gene expression data. It is generated using in-house script by the author 
-#' using fastq data provided from (Khrameeva E et al., 2020).
+#' Datasets containing 4 expression data from human and chimpanzee RNA-seq 
+#' data. It is generated using in-house script using fastq data provided from
+#' (Khrameeva E et al., 2020).
 #' 
-#' @format A data frame with 64252 rows and 11 variables:
+#' @format A data list with 4 expression counts:
 #' \describe{
-#'   \item{Geneid}{Ensembl gene ID}
-#'   \item{SRR8750453}{sample ID}
-#'   \item{SRR8750454}{sample ID}
-#'   \item{SRR8750455}{sample ID}
-#'   \item{SRR8750456}{sample ID}
-#'   \item{SRR8750457}{sample ID}
-#'   \item{SRR8750458}{sample ID}
-#'   \item{SRR8750459}{sample ID}
-#'   \item{SRR8750460}{sample ID}
-#'   \item{SRR8750461}{sample ID}
-#'   \item{SRR8750462}{sample ID}
+#'   \item{hmGene}{human gene expression from RNA-seq}
+#'   \item{hmTE}{human TE expression from RNA-seq}
+#'   \item{chimpGene}{chimpanzee gene expression from RNA-seq}
+#'   \item{chimpTE}{chimpanzee TE expression from RNA-seq}
 #' }
-"hmGene"
+"speciesCounts"
 
-#' Transposable elements expression dataset from human brain RNA-seq data
+#' Normalized Gene/TE expression data from human/chimpanzee brain RNA-seq for 
+#' correlation analysis.
 #' 
-#' A dataset containing randomly slected 10 human brain cells bulked RNA-seq
-#' transposable elements expression data. It is generated using in-house script 
-#' by the author using fastq data provided from (Khrameeva E et al., 2020).
+#' Datasets containing 2 normalized data from human and chimpanzee RNA-seq 
+#' data. For a quick demo, here we only subset a 
 #' 
-#' @format A data frame with 992 rows and 11 variables:
+#' @format A data list with 2 expression counts:
 #' \describe{
-#'   \item{teName}{Name of transposable elements}
-#'   \item{SRR8750453}{sample ID}
-#'   \item{SRR8750454}{sample ID}
-#'   \item{SRR8750455}{sample ID}
-#'   \item{SRR8750456}{sample ID}
-#'   \item{SRR8750457}{sample ID}
-#'   \item{SRR8750458}{sample ID}
-#'   \item{SRR8750459}{sample ID}
-#'   \item{SRR8750460}{sample ID}
-#'   \item{SRR8750461}{sample ID}
-#'   \item{SRR8750462}{sample ID}
+#'   \item{geneCorr}{containing gene expression data from human and chimpanzee}
+#'   \item{teCorr}{containing TE expression data from human and chimpanzee}
 #' }
-"hmTE"
+"speciesCorr"
 
-#' Gene expression dataset from human brain RNA-seq data
+#' Input expression data of gene/TE for differentially expressed analysis within same species
 #' 
-#' A dataset containing randomly slected 10 chimpanzee brain cells bulked 
-#' RNA-seq gene expression data. It is generated using in-house script by the 
-#' author using fastq data provided from (Khrameeva E et al., 2020).
+#' Datasets containing 2 expression toy data for demonstrate how to use TEKRABber
+#' on experimetal design within the same species.
 #' 
-#' @format A data frame with 16922 rows and 11 variables:
+#' @format A data list with 2 expression counts:
 #' \describe{
-#'   \item{ensembl_gene_id}{Ensembl gene ID}
-#'   \item{SRR8750637}{sample ID}
-#'   \item{SRR8750638}{sample ID}
-#'   \item{SRR8750639}{sample ID}
-#'   \item{SRR8750640}{sample ID}
-#'   \item{SRR8750641}{sample ID}
-#'   \item{SRR8750642}{sample ID}
-#'   \item{SRR8750643}{sample ID}
-#'   \item{SRR8750644}{sample ID}
-#'   \item{SRR8750645}{sample ID}
-#'   \item{SRR8750646}{sample ID}
+#'   \item{gene}{input gene data for DE analysis comparing control and treatment}
+#'   \item{te}{input TE data for DE analysis comparing control and treatment}
 #' }
-"chimpGene"
+"ctInputDE"
 
-#' Transposable elements expression dataset from chimpanzee brain RNA-seq data
+#' Normalized Gene/TE expression toy data in control and treatment in same species for 
+#' correlation analysis.
 #' 
-#' A dataset containing randomly slected 10 chimpanzee brain cells bulked 
-#' RNA-seq transposable elements expression data. It is generated using in-house
-#' script by the author using fastq data provided from (Khrameeva E et al., 2020).
+#' Datasets containing 4 normalized toy data. For a quick demo, here we only subset a 
 #' 
-#' @format A data frame with 1260 rows and 11 variables:
+#' @format A data list with 4 expression counts:
 #' \describe{
-#'   \item{teName}{Name of transposable elements}
-#'   \item{SRR8750637}{sample ID}
-#'   \item{SRR8750638}{sample ID}
-#'   \item{SRR8750639}{sample ID}
-#'   \item{SRR8750640}{sample ID}
-#'   \item{SRR8750641}{sample ID}
-#'   \item{SRR8750642}{sample ID}
-#'   \item{SRR8750643}{sample ID}
-#'   \item{SRR8750644}{sample ID}
-#'   \item{SRR8750645}{sample ID}
-#'   \item{SRR8750646}{sample ID}
+#'   \item{geneCorr}{containing gene expression data from control and treatment}
+#'   \item{teCorr}{containing TE expression data from control and treatment}
 #' }
-"chimpTE"
-
-#' Human gene dataset for running correlation analysis
-#' 
-#' A normalized gene expression dataset containing 10 human samples to perform 
-#' a quick demonstration using TEKRABber for correlation analysis.
-#' 
-#' @format A data frame with 50 rows and 10 variables:
-#' \describe{
-#'   \item{SRR8750453}{sample ID}
-#'   \item{SRR8750454}{sample ID}
-#'   \item{SRR8750455}{sample ID}
-#'   \item{SRR8750456}{sample ID}
-#'   \item{SRR8750457}{sample ID}
-#'   \item{SRR8750458}{sample ID}
-#'   \item{SRR8750459}{sample ID}
-#'   \item{SRR8750460}{sample ID}
-#'   \item{SRR8750461}{sample ID}
-#'   \item{SRR8750462}{sample ID}  
-#' }
-#' 
-"hmGeneCorrInput"
-
-#' Human transposable elements dataset for running correlation analysis
-#' 
-#' A normalized transposable elements expression dataset containing 10 human 
-#' samples to perform a quick demonstration using TEKRABber for correlation analysis.
-#' 
-#' @format A data frame with 50 rows and 10 variables:
-#' \describe{
-#'   \item{SRR8750453}{sample ID}
-#'   \item{SRR8750454}{sample ID}
-#'   \item{SRR8750455}{sample ID}
-#'   \item{SRR8750456}{sample ID}
-#'   \item{SRR8750457}{sample ID}
-#'   \item{SRR8750458}{sample ID}
-#'   \item{SRR8750459}{sample ID}
-#'   \item{SRR8750460}{sample ID}
-#'   \item{SRR8750461}{sample ID}
-#'   \item{SRR8750462}{sample ID}  
-#' }
-#' 
-"hmTECorrInput"
-
-#' Chimpanzee gene dataset for running correlation analysis
-#' 
-#' A normalized gene expression dataset containing 10 chimpanzee samples to perform 
-#' a quick demonstration using TEKRABber for correlation analysis.
-#' 
-#' @format A data frame with 50 rows and 10 variables:
-#' \describe{
-#'   \item{SRR8750637}{sample ID}
-#'   \item{SRR8750638}{sample ID}
-#'   \item{SRR8750639}{sample ID}
-#'   \item{SRR8750640}{sample ID}
-#'   \item{SRR8750641}{sample ID}
-#'   \item{SRR8750642}{sample ID}
-#'   \item{SRR8750643}{sample ID}
-#'   \item{SRR8750644}{sample ID}
-#'   \item{SRR8750645}{sample ID}
-#'   \item{SRR8750646}{sample ID}
-#' }
-#' 
-"chimpGeneCorrInput"
-
-#' Chimpanzee transposable elements dataset for running correlation analysis
-#' 
-#' A normalized transposable elements expression dataset containing 10 chimpanzee 
-#' samples to perform a quick demonstration using TEKRABber for correlation analysis.
-#' 
-#' @format A data frame with 50 rows and 10 variables:
-#' \describe{
-#'   \item{SRR8750637}{sample ID}
-#'   \item{SRR8750638}{sample ID}
-#'   \item{SRR8750639}{sample ID}
-#'   \item{SRR8750640}{sample ID}
-#'   \item{SRR8750641}{sample ID}
-#'   \item{SRR8750642}{sample ID}
-#'   \item{SRR8750643}{sample ID}
-#'   \item{SRR8750644}{sample ID}
-#'   \item{SRR8750645}{sample ID}
-#'   \item{SRR8750646}{sample ID}  
-#' }
-#' 
-"chimpTECorrInput"
-
-#' Gene expression dataset for running differentially expressed analysis (DE)
-#' 
-#' A toy gene expression dataset containing 5 controls and 5 treatments to demonstrate
-#' the case if user want to use TEKRABber for DE analysis in the same species.
-#'
-#' @format A data frame with 33223 rows and 10 variables:
-#' \describe{
-#'   \item{control_1}{control sample ID}
-#'   \item{control_2}{control sample ID}
-#'   \item{control_3}{control sample ID}
-#'   \item{control_4}{control sample ID}
-#'   \item{control_5}{control sample ID}
-#'   \item{treatment_6}{treatment sample ID}
-#'   \item{treatment_7}{treatment sample ID}
-#'   \item{treatment_8}{treatment sample ID}
-#'   \item{treatment_9}{treatment sample ID}
-#'   \item{treatment_10}{treatment sample ID}
-#' }
-"geneInputDE"
-
-#' Transposable elements expression dataset for running differentially expressed 
-#' analysis (DE)
-#' 
-#' A toy transposable elements expression dataset containing 5 controls and 
-#' 5 treatments to demonstrate the case if user want to use TEKRABber for DE 
-#' analysis in the same species.
-#'
-#' @format A data frame with 687 rows and 10 variables:
-#' \describe{
-#'   \item{control_1}{control sample ID}
-#'   \item{control_2}{control sample ID}
-#'   \item{control_3}{control sample ID}
-#'   \item{control_4}{control sample ID}
-#'   \item{control_5}{control sample ID}
-#'   \item{treatment_6}{treatment sample ID}
-#'   \item{treatment_7}{treatment sample ID}
-#'   \item{treatment_8}{treatment sample ID}
-#'   \item{treatment_9}{treatment sample ID}
-#'   \item{treatment_10}{treatment sample ID}
-#' }
-"teInputDE"
-
-#' Gene expression data in control group for running correlation analysis
-#' 
-#' A small toy gene expression dataset containing 5 controls to perform quick 
-#' demonstration using TEKRABber for correlation analysis.
-#' 
-#' @format A data frame with 10 rows and 5 variables:
-#' \describe{
-#'   \item{control_1}{control sample ID}
-#'   \item{control_2}{control sample ID}
-#'   \item{control_3}{control sample ID}
-#'   \item{control_4}{control sample ID}
-#'   \item{control_5}{control sample ID}
-#' }
-"geneConCorrInput"
-
-#' Transposable elements expression data in control group for running correlation analysis
-#'
-#' A small toy transposable elements expression dataset containing 5 controls to
-#' perform quick demonstration using TEKRABber for correlation analysis.
-#' 
-#' @format A data frame with 10 rows and 5 variables:
-#' \describe{
-#'   \item{control_1}{control sample ID}
-#'   \item{control_2}{control sample ID}
-#'   \item{control_3}{control sample ID}
-#'   \item{control_4}{control sample ID}
-#'   \item{control_5}{control sample ID}
-#' }
-"teConCorrInput"
-
-#' Gene expression data in treatment group for running correlation analysis
-#' 
-#' A small toy gene expression dataset containing 5 treatments to perform quick 
-#' demonstration using TEKRABber for correlation analysis.
-#' 
-#' @format A data frame with 10 rows and 5 variables:
-#' \describe{
-#'   \item{treatment_6}{control sample ID}
-#'   \item{treatment_7}{control sample ID}
-#'   \item{treatment_8}{control sample ID}
-#'   \item{treatment_9}{control sample ID}
-#'   \item{treatment_10}{control sample ID}
-#' }
-"geneTreatCorrInput"
-
-#' Transposable elements expression data in treatment group for running 
-#' correlation analysis
-#' 
-#' A small toy transposable elements expression dataset containing 5 treatments 
-#' to perform quick demonstration using TEKRABber for correlation analysis.
-#' 
-#' @format A data frame with 10 rows and 5 variables:
-#' \describe{
-#'   \item{treatment_6}{control sample ID}
-#'   \item{treatment_7}{control sample ID}
-#'   \item{treatment_8}{control sample ID}
-#'   \item{treatment_9}{control sample ID}
-#'   \item{treatment_10}{control sample ID}
-#' }
-"teTreatCorrInput"
+"ctCorr"
