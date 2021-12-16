@@ -4,7 +4,7 @@
 \name{speciesCorr}
 \alias{speciesCorr}
 \title{Normalized Gene/TE expression data from human/chimpanzee brain RNA-seq for 
-correlation analysis.}
+correlation analysis}
 \format{
 A data list with 2 expression counts:
 \describe{
@@ -16,7 +16,7 @@ A data list with 2 expression counts:
 speciesCorr
 }
 \description{
-Datasets containing 2 normalized data from human and chimpanzee RNA-seq 
+Dataset contains 2 normalized data from human and chimpanzee RNA-seq 
 data. For a quick demo, here we only subset a
 }
 \keyword{datasets}

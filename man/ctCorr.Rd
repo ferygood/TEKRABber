@@ -4,7 +4,7 @@
 \name{ctCorr}
 \alias{ctCorr}
 \title{Normalized Gene/TE expression toy data in control and treatment in same species for 
-correlation analysis.}
+correlation analysis}
 \format{
 A data list with 4 expression counts:
 \describe{
@@ -16,6 +16,6 @@ A data list with 4 expression counts:
 ctCorr
 }
 \description{
-Datasets containing 4 normalized toy data. For a quick demo, here we only subset a
+Datasets contain 4 normalized toy data. For a quick demo, here we only subset a
 }
 \keyword{datasets}

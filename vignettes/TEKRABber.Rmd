@@ -51,12 +51,17 @@ biomaRt::listDatasets(ensembl)
 ```
 
 ```{r qurey biomaRt and calculate scaling factor, message=FALSE, cache=TRUE, dependson="load build-in data (two species)"}
-fetchData <- orthologScale(
-    geneCountRef = hmGene,
-    geneCountCompare = chimpGene,
-    speciesRef = "hsapiens",
-    speciesCompare = "ptroglodytes"
-)
+# In order to save time, we have save the data for this tutorial.
+data(fetchDataHmChimp)
+fetchData <- fetchDataHmChimp
+
+# If you want to query the data and calculate scaling factor, you can run the code below:
+# fetchData <- orthologScale(
+#     geneCountRef = hmGene,
+#     geneCountCompare = chimpGene,
+#     speciesRef = "hsapiens",
+#     speciesCompare = "ptroglodytes"
+# )
 ```
 
 ### Create input dataframes for differentially expressed analysis and correlation estimation

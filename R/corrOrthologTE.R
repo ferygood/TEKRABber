@@ -12,16 +12,18 @@
 #' @return a dataframe includes Pearson's correlation coefficient, pvalue, padj
 #' @export
 #' @examples
-#' data(hmGeneCorrInput)
-#' data(hmTECorrInput)
+#' library(SummarizedExperiment)
+#' data(speciesCorr)
+#' #hmGeneCorrInput <- assay(speciesCorr$geneCorr[, speciesCorr$geneCorr$Species=="human"])
+#' #hmTECorrInput <- assay(speciesCorr$teCorr[, speciesCorr$teCorr$Species=="human"])
 #'
-#' corrOrthologTE(
-#'     geneInput=hmGeneCorrInput,
-#'     teInput=hmTECorrInput,
-#'     corrMethod="pearson",
-#'     padjMethod="fdr",
-#'     filename="correlationResult.csv"
-#' )
+#' #corrOrthologTE(
+#' #    geneInput=hmGeneCorrInput,
+#' #    teInput=hmTECorrInput,
+#' #    corrMethod="pearson",
+#' #    padjMethod="fdr",
+#' #    filename="correlationResult.csv"
+#' #)
 corrOrthologTE <- function(geneInput, teInput, corrMethod = "pearson", padjMethod="fdr", filename){
     dir.create("./results")
     df.ortholog <- t(geneInput)

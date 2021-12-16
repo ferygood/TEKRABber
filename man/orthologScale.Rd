@@ -24,8 +24,9 @@ calculate scaling factor between two species using the confidence of
 orthology score and expression counts
 }
 \examples{
-data(hmGene)
-data(chimpGene)
+data(speciesCounts)
+hmGene <- speciesCounts$hmGene
+chimpGene <- speciesCounts$chimpGene
 #fetchData <- orthologScale(
 #  speciesRef = "hsapiens",
 #  speciesCompare = "ptroglodytes",

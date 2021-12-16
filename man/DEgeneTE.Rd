@@ -31,8 +31,10 @@ specify metadata, contrastVector, and expDesign. See details in example.
 # (1) you need to specify the column name to species in the metadata
 # (2) you can use the output from DECorrInputs()
 # (3) you need to set "expDesign = TRUE" (see vignettes/TEKRABber.Rmd for details)
-data(geneInputDE)
-data(teInputDE)
+data(ctInputDE)
+geneInputDE <- ctInputDE$gene
+teInputDE <- ctInputDE$te
+
 metaExp <- data.frame(experiment = c(rep("control", 5), rep("treatment", 5)))
 rownames(metaExp) <- colnames(geneInputDE)
 metaExp$experiment <- factor(metaExp$experiment, levels = c("control", "treatment"))

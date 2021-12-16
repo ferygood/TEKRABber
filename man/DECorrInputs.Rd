@@ -29,8 +29,10 @@ prefer using gene name instead of Ensembl gene ID, you can convert them before r
 this function.
 }
 \examples{
-data(hmGene)
-data(chimpGene)
+data(speciesCounts)
+hmGene <- speciesCounts$hmGene
+chimpGene <- speciesCounts$chimpGene
+
 #fetchData <- orthologScale(
 #  speciesRef = "hsapiens",
 #  speciesCompare = "ptroglodytes",

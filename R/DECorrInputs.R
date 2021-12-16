@@ -13,8 +13,10 @@
 #' @return create inputs for DE analysis and correlations: (1) geneInputDESeq2 (2) teInputDESeq2 (3) geneCorrInputRef (4) geneCorrInputCompare (5) TECorrInputRef (6) TECorrInputCompare
 #' @export
 #' @examples
-#' data(hmGene)
-#' data(chimpGene)
+#' data(speciesCounts)
+#' hmGene <- speciesCounts$hmGene
+#' chimpGene <- speciesCounts$chimpGene
+#' 
 #' #fetchData <- orthologScale(
 #' #  speciesRef = "hsapiens",
 #' #  speciesCompare = "ptroglodytes",

@@ -10,8 +10,10 @@
 #' @return an app can display differentially expressed genes/TE and the correlation results
 #' @export
 #' @examples 
-#' data(geneInputDE)
-#' data(teInputDE)
+#' data(ctInputDE)
+#' geneInputDE <- ctInputDE$gene
+#' teInputDE <- ctInputDE$te
+#' 
 #' metaExp <- data.frame(experiment = c(rep("control", 5), rep("treatment", 5)))
 #' rownames(metaExp) <- colnames(geneInputDE)
 #' metaExp$experiment <- factor(metaExp$experiment, levels = c("control", "treatment"))
@@ -24,26 +26,28 @@
 #'   expDesign = FALSE
 #' )
 #' 
-#' data(geneConCorrInput)
-#' data(teConCorrInput)
-#' data(geneTreatCorrInput)
-#' data(teTreatCorrInput)
+#' #library(SummarizedExperiment)
+#' #data(ctCorr)
+#' #geneConCorrInput <- assay(ctCorr$geneCorr[, ctCorr$geneCorr$experiment=="control"])
+#' #teConCorrInput <- assay(ctCorr$teCorr[, ctCorr$teCorr$experiment=="control"])
+#' #geneTreatCorrInput <- assay(ctCorr$geneCorr[, ctCorr$geneCorr$experiment=="treatment"])
+#' #teTreatCorrInput <- assay(ctCorr$teCorr[, ctCorr$teCorr$experiment=="treatment"])
 #' 
-#' controlCorr <- corrOrthologTE(
-#'   geneInput = geneConCorrInput,
-#'   teInput = teConCorrInput,
-#'   corrMethod = "pearson",
-#'   padjMethod = "fdr",
-#'   filename = "controlCorrResult.csv"
-#' )
+#' #controlCorr <- corrOrthologTE(
+#' #  geneInput = geneConCorrInput,
+#' #  teInput = teConCorrInput,
+#' #  corrMethod = "pearson",
+#' #  padjMethod = "fdr",
+#' #  filename = "controlCorrResult.csv"
+#' #)
 #' 
-#' treatmentCorr <- corrOrthologTE(
-#'   geneInput = geneTreatCorrInput,
-#'   teInput = teTreatCorrInput,
-#'   corrMethod = "pearson",
-#'   padjMethod = "fdr",
-#'   filename = "treatmentCorrResult.csv"
-#' )
+#' #treatmentCorr <- corrOrthologTE(
+#' #  geneInput = geneTreatCorrInput,
+#' #  teInput = teTreatCorrInput,
+#' #  corrMethod = "pearson",
+#' #  padjMethod = "fdr",
+#' #  filename = "treatmentCorrResult.csv"
+#' #)
 #' 
 #' #appTEKRABber(
 #' #  DEresult = resultDE,

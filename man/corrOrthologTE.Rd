@@ -27,14 +27,16 @@ It will also generate a output csv file in ./results directory.
 a output csv file with the correlation result.
 }
 \examples{
-data(hmGeneCorrInput)
-data(hmTECorrInput)
+library(SummarizedExperiment)
+data(speciesCorr)
+#hmGeneCorrInput <- assay(speciesCorr$geneCorr[, speciesCorr$geneCorr$Species=="human"])
+#hmTECorrInput <- assay(speciesCorr$teCorr[, speciesCorr$teCorr$Species=="human"])
 
-corrOrthologTE(
-    geneInput=hmGeneCorrInput,
-    teInput=hmTECorrInput,
-    corrMethod="pearson",
-    padjMethod="fdr",
-    filename="correlationResult.csv"
-)
+#corrOrthologTE(
+#    geneInput=hmGeneCorrInput,
+#    teInput=hmTECorrInput,
+#    corrMethod="pearson",
+#    padjMethod="fdr",
+#    filename="correlationResult.csv"
+#)
 }

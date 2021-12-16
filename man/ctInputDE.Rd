@@ -16,6 +16,6 @@ ctInputDE
 }
 \description{
 Datasets containing 2 expression toy data for demonstrate how to use TEKRABber
-on experimetal design within the same species.
+on experimental design within the same species.
 }
 \keyword{datasets}

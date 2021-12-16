@@ -10,8 +10,9 @@
 #' @return There are two outputs:(1) orthologTable: orthology information from BioMart (2) scale_factor: for normalizing expression counts
 #' @export
 #' @examples
-#' data(hmGene)
-#' data(chimpGene)
+#' data(speciesCounts)
+#' hmGene <- speciesCounts$hmGene
+#' chimpGene <- speciesCounts$chimpGene
 #' #fetchData <- orthologScale(
 #' #  speciesRef = "hsapiens",
 #' #  speciesCompare = "ptroglodytes",
