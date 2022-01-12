@@ -1,7 +1,7 @@
 #' Get orthology information from Ensembl
 #' @description Get orthology information from Ensembl using biomaRt and
 #' calculate scaling factor between two species using the confidence of
-#' orthology score and expression counts
+#' orthology score and expression counts.
 #' @usage orthologScale(speciesRef, speciesCompare, geneCountRef, geneCountCompare)
 #' @param speciesRef The scientific name for your reference species. i.e. hsapiens
 #' @param speciesCompare The scientific name for your species to compare. i.e. ptroglodytes

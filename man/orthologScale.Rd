@@ -21,7 +21,7 @@ There are two outputs:(1) orthologTable: orthology information from BioMart (2) 
 \description{
 Get orthology information from Ensembl using biomaRt and
 calculate scaling factor between two species using the confidence of
-orthology score and expression counts
+orthology score and expression counts.
 }
 \examples{
 data(speciesCounts)

@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2021-12-16" />
+<meta name="date" content="2022-01-12" />
 
 <title>TEKRABber</title>
 
@@ -717,7 +717,7 @@ function toggle_visibility(id1) {
 <p class="author-name">Yao-Chung Chen<span class="affil-mark">1</span> and Katja Nowick<span class="affil-mark">1*</span></p>
 <p class="author-affiliation"><span class="affil-mark">1</span>Human Biology, Institute of Biology, Freie Universität Berlin, Berlin, Germany</p>
 <p class="author-email"><span class="affil-mark">*</span><a href="mailto:katja.nowick@fu-berlin.de">katja.nowick@fu-berlin.de</a></p>
-<h4 class="date">16 December 2021</h4>
+<h4 class="date">12 January 2022</h4>
 <h4 class="package">Package</h4>
 <p>TEKRABber 0.99.0</p>
 
@@ -838,10 +838,10 @@ hmchimpDE &lt;- DEgeneTE(
 <p>Here we use <code>corrOrthologTE()</code> to perform correlation estimation comparing each ortholog and TE. This is the most time consuming step. For a quick demonstration, we use a relatively small size data. You can specify the correlation method and adjusted <em>p-value</em> method. Default is Pearson’s correlation with FDR. Please name your output using <strong>.csv</strong> extension and it will generate it in ./results directory. <strong>Note: </strong> For more quick and specific analysis, you can subset your data in this step to focus on only the orthologs and TEs that you are interested in.</p>
 <pre class="r"><code># load built-in data
 data(speciesCorr)
-hmGeneCorrInput &lt;- assay(speciesCorr$geneCorr[, speciesCorr$geneCorr$Species==&quot;human&quot;])
-hmTECorrInput &lt;- assay(speciesCorr$teCorr[, speciesCorr$teCorr$Species==&quot;human&quot;])
-chimpGeneCorrInput &lt;- assay(speciesCorr$geneCorr[, speciesCorr$geneCorr$Species==&quot;chimpanzee&quot;])
-chimpTECorrInput &lt;- assay(speciesCorr$teCorr[, speciesCorr$teCorr$Species==&quot;chimpanzee&quot;])
+hmGeneCorrInput &lt;- assay_tekcorrset(speciesCorr, &quot;gene&quot;, &quot;human&quot;)
+hmTECorrInput &lt;- assay_tekcorrset(speciesCorr, &quot;te&quot;, &quot;human&quot;)
+chimpGeneCorrInput &lt;- assay_tekcorrset(speciesCorr, &quot;gene&quot;, &quot;chimpanzee&quot;)
+chimpTECorrInput &lt;- assay_tekcorrset(speciesCorr, &quot;te&quot;, &quot;chimpanzee&quot;)
 
 hmCorrResult &lt;- corrOrthologTE(
     geneInput = hmGeneCorrInput,
@@ -924,10 +924,10 @@ resultDE &lt;- DEgeneTE(
 <p>For a quick demo to perform correlation of genes and TEs in control and treatment sample, we use a relatively small input table which only include 10 genes and 10 TEs.</p>
 <pre class="r"><code># load built-in data
 data(ctCorr)
-geneConCorrInput &lt;- assay(ctCorr$geneCorr[, ctCorr$geneCorr$experiment==&quot;control&quot;])
-teConCorrInput &lt;- assay(ctCorr$teCorr[, ctCorr$teCorr$experiment==&quot;control&quot;])
-geneTreatCorrInput &lt;- assay(ctCorr$geneCorr[, ctCorr$geneCorr$experiment==&quot;treatment&quot;])
-teTreatCorrInput &lt;- assay(ctCorr$teCorr[, ctCorr$teCorr$experiment==&quot;treatment&quot;])
+geneConCorrInput &lt;- assay_tekcorrset(ctCorr, &quot;gene&quot;, &quot;control&quot;)
+teConCorrInput &lt;- assay_tekcorrset(ctCorr, &quot;te&quot;, &quot;control&quot;)
+geneTreatCorrInput &lt;- assay_tekcorrset(ctCorr, &quot;gene&quot;, &quot;treatment&quot;)
+teTreatCorrInput &lt;- assay_tekcorrset(ctCorr, &quot;te&quot;, &quot;treatment&quot;)
 
 # you need to follow the input format as below
 head(geneConCorrInput)</code></pre>

@@ -1,7 +1,7 @@
 #' Gene/TE expression data from human/chimpanzee brain RNA-seq
 #' 
-#' Datasets contain 4 expression data from human and chimpanzee RNA-seq 
-#' data. It is generated using in-house script using fastq data provided from
+#' Dataset contains 4 expression data from human and chimpanzee RNA-seq . 
+#' It is generated using in-house script on fastq data provided from
 #' (Khrameeva E et al., 2020).
 #' 
 #' @format A data list with 4 expression counts:
@@ -17,7 +17,7 @@
 #' correlation analysis
 #' 
 #' Dataset contains 2 normalized data from human and chimpanzee RNA-seq 
-#' data. For a quick demo, here we only subset a 
+#' data. For a quick demo, we only use a subset of rows.
 #' 
 #' @format A data list with 2 expression counts:
 #' \describe{
@@ -28,8 +28,8 @@
 
 #' Input expression data of gene/TE for differentially expressed analysis within same species
 #' 
-#' Datasets containing 2 expression toy data for demonstrate how to use TEKRABber
-#' on experimental design within the same species.
+#' Dataset contains 2 expression toy data for demonstrating how to use TEKRABber
+#' on experimental design within the case of comparing same species.
 #' 
 #' @format A data list with 2 expression counts:
 #' \describe{
@@ -41,7 +41,7 @@
 #' Normalized Gene/TE expression toy data in control and treatment in same species for 
 #' correlation analysis
 #' 
-#' Datasets contain 4 normalized toy data. For a quick demo, here we only subset a 
+#' Dataset contains 4 normalized toy data. For a quick demo, we only use a subset of rows.
 #' 
 #' @format A data list with 4 expression counts:
 #' \describe{
@@ -53,9 +53,9 @@
 #' Orthology information of human and chimpanzee with scaling factor
 #' 
 #' A output list of data contains 2 elements after using orthologScale(). 
-#' The first one is the orthology table comparing human and chimpanzee. The second
-#' is the scaling factor. The purpose of preparing this datasets for user is to 
-#' save time on running the tutorial and give a template for demonstration.
+#' The first one is the orthology table comparing human and chimpanzee. The second one
+#' is the scaling factor. The purpose of providing this dataset is to 
+#' save time for user running the tutorial and give a template for demonstration.
 #' 
 #' @format A data list with 2 elements:
 #' \describe{

@@ -16,6 +16,6 @@ A data list with 4 expression counts:
 ctCorr
 }
 \description{
-Datasets contain 4 normalized toy data. For a quick demo, here we only subset a
+Dataset contains 4 normalized toy data. For a quick demo, we only use a subset of rows.
 }
 \keyword{datasets}

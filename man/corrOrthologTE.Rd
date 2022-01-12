@@ -29,8 +29,8 @@ a output csv file with the correlation result.
 \examples{
 library(SummarizedExperiment)
 data(speciesCorr)
-#hmGeneCorrInput <- assay(speciesCorr$geneCorr[, speciesCorr$geneCorr$Species=="human"])
-#hmTECorrInput <- assay(speciesCorr$teCorr[, speciesCorr$teCorr$Species=="human"])
+hmGeneCorrInput <- assay_tekcorrset(speciesCorr, "gene", "human")
+hmTECorrInput <- assay_tekcorrset(speciesCorr, "te", "human")
 
 #corrOrthologTE(
 #    geneInput=hmGeneCorrInput,

@@ -42,10 +42,10 @@ resultDE <- DEgeneTE(
 
 #library(SummarizedExperiment)
 #data(ctCorr)
-#geneConCorrInput <- assay(ctCorr$geneCorr[, ctCorr$geneCorr$experiment=="control"])
-#teConCorrInput <- assay(ctCorr$teCorr[, ctCorr$teCorr$experiment=="control"])
-#geneTreatCorrInput <- assay(ctCorr$geneCorr[, ctCorr$geneCorr$experiment=="treatment"])
-#teTreatCorrInput <- assay(ctCorr$teCorr[, ctCorr$teCorr$experiment=="treatment"])
+#geneConCorrInput <- assay_tekcorrset(ctCorr, "gene", "control")
+#teConCorrInput <- assay_tekcorrset(ctCorr, "te", "control")
+#geneTreatCorrInput <- assay_tekcorrset(ctCorr, "gene", "treatment")
+#teTreatCorrInput <- assay_tekcorrset(ctCorr, "te", "treatment")
 
 #controlCorr <- corrOrthologTE(
 #  geneInput = geneConCorrInput,

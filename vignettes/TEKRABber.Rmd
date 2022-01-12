@@ -99,10 +99,10 @@ Here we use `corrOrthologTE()` to perform correlation estimation comparing each 
 ```{r correlation (two species), warning=FALSE}
 # load built-in data
 data(speciesCorr)
-hmGeneCorrInput <- assay(speciesCorr$geneCorr[, speciesCorr$geneCorr$Species=="human"])
-hmTECorrInput <- assay(speciesCorr$teCorr[, speciesCorr$teCorr$Species=="human"])
-chimpGeneCorrInput <- assay(speciesCorr$geneCorr[, speciesCorr$geneCorr$Species=="chimpanzee"])
-chimpTECorrInput <- assay(speciesCorr$teCorr[, speciesCorr$teCorr$Species=="chimpanzee"])
+hmGeneCorrInput <- assay_tekcorrset(speciesCorr, "gene", "human")
+hmTECorrInput <- assay_tekcorrset(speciesCorr, "te", "human")
+chimpGeneCorrInput <- assay_tekcorrset(speciesCorr, "gene", "chimpanzee")
+chimpTECorrInput <- assay_tekcorrset(speciesCorr, "te", "chimpanzee")
 
 hmCorrResult <- corrOrthologTE(
     geneInput = hmGeneCorrInput,
@@ -168,10 +168,10 @@ For a quick demo to perform correlation of genes and TEs  in control and treatme
 ```{r load built-in data (same species correlation), warning=FALSE}
 # load built-in data
 data(ctCorr)
-geneConCorrInput <- assay(ctCorr$geneCorr[, ctCorr$geneCorr$experiment=="control"])
-teConCorrInput <- assay(ctCorr$teCorr[, ctCorr$teCorr$experiment=="control"])
-geneTreatCorrInput <- assay(ctCorr$geneCorr[, ctCorr$geneCorr$experiment=="treatment"])
-teTreatCorrInput <- assay(ctCorr$teCorr[, ctCorr$teCorr$experiment=="treatment"])
+geneConCorrInput <- assay_tekcorrset(ctCorr, "gene", "control")
+teConCorrInput <- assay_tekcorrset(ctCorr, "te", "control")
+geneTreatCorrInput <- assay_tekcorrset(ctCorr, "gene", "treatment")
+teTreatCorrInput <- assay_tekcorrset(ctCorr, "te", "treatment")
 
 # you need to follow the input format as below
 head(geneConCorrInput)

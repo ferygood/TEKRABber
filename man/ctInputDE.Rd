@@ -15,7 +15,7 @@ A data list with 2 expression counts:
 ctInputDE
 }
 \description{
-Datasets containing 2 expression toy data for demonstrate how to use TEKRABber
-on experimental design within the same species.
+Dataset contains 2 expression toy data for demonstrating how to use TEKRABber
+on experimental design within the case of comparing same species.
 }
 \keyword{datasets}

@@ -17,6 +17,6 @@ speciesCorr
 }
 \description{
 Dataset contains 2 normalized data from human and chimpanzee RNA-seq 
-data. For a quick demo, here we only subset a
+data. For a quick demo, we only use a subset of rows.
 }
 \keyword{datasets}

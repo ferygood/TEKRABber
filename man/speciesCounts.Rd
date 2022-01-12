@@ -17,8 +17,8 @@ A data list with 4 expression counts:
 speciesCounts
 }
 \description{
-Datasets contain 4 expression data from human and chimpanzee RNA-seq 
-data. It is generated using in-house script using fastq data provided from
+Dataset contains 4 expression data from human and chimpanzee RNA-seq . 
+It is generated using in-house script on fastq data provided from
 (Khrameeva E et al., 2020).
 }
 \keyword{datasets}
