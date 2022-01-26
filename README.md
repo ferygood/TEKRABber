@@ -11,7 +11,22 @@ The name of TEKRABber comes from the idea that the largest group of transcriptio
 
 
 ## User's Guide  
-The reference guide is in the vignettes folder (vignettes/TEKRABber.Rmd)
+You can download TEKRABber using `BiocManager::install()`:
+
+```r
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("TEKRABber")
+```
+
+or download directly from github repo:
+
+```r
+devtools::install_github("ferygood/TEKRABber")
+```
+
+Find detailed information in `vignettes/TEKRABber.Rmd`
 
 ## Contact
 email: yao-chung.chen@fu-berlin.de
