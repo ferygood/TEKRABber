@@ -5,20 +5,27 @@
 \alias{speciesCounts}
 \title{Gene/TE expression data from human/chimpanzee brain RNA-seq}
 \format{
-A data list with 4 expression counts:
+An object contains 4 expression counts:
 \describe{
-  \item{hmGene}{human gene expression from RNA-seq}
-  \item{hmTE}{human TE expression from RNA-seq}
-  \item{chimpGene}{chimpanzee gene expression from RNA-seq}
-  \item{chimpTE}{chimpanzee TE expression from RNA-seq}
+  \item{\strong{hmGene} human gene expression data}
+  \item{\strong{hmTE} human TE expression}
+  \item{\strong{chimpGene} chimpanzee gene expression data}
+  \item{\strong{chimpTE} chimpanzee TE expression data}
 }
 }
 \usage{
-speciesCounts
+data(speciesCounts)
+hmGene <- speciesCounts$hmGene
+hmTE <- speciesCounts$hmTE
+chimpGene <- speciesCounts$chimpGene
+chimpTE <- speciesCounts$chimpTE
 }
 \description{
-Dataset contains 4 expression data from human and chimpanzee RNA-seq . 
-It is generated using in-house script on fastq data provided from
-(Khrameeva E et al., 2020).
+Dataset contains 4 expression data from human and chimpanzee brain RNA-seq . 
+We select raw fastq data from 10 humans and 10 chimpanzees from 
+(Khrameeva E et al., 2020). Gene expression is generated using HISAT2 and 
+featureCounts (Kim D et al., 2019; Liao Y et al., 2014). Transposable 
+elements (TEs) expression is generated with multi-mapping option using STAR 
+and TEtranscripts (Dobin A et al., 2013; Jin Y et al., 2015).
 }
 \keyword{datasets}
