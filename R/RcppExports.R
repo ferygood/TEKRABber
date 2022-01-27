@@ -8,6 +8,6 @@
 #' @param Method correlation method
 #' @return a dataframe containing correlation results
 rcpp_corr <- function(df1, df2, Method) {
-    .Call(`_TEKRABber_rcpp_corr`, df1, df2, Method)
+    .Call('_TEKRABber_rcpp_corr', PACKAGE = 'TEKRABber', df1, df2, Method)
 }
 
