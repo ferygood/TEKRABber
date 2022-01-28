@@ -7,16 +7,16 @@
 #' featureCounts (Kim D et al., 2019; Liao Y et al., 2014). Transposable 
 #' elements (TEs) expression is generated with multi-mapping option using STAR 
 #' and TEtranscripts (Dobin A et al., 2013; Jin Y et al., 2015).
-#' 
+#' @usage data(speciesCounts)
 #' @format An object contains 4 expression counts:
 #' \describe{
-#'   \item{\strong{hmGene} human gene expression data}
-#'   \item{\strong{hmTE} human TE expression}
-#'   \item{\strong{chimpGene} chimpanzee gene expression data}
-#'   \item{\strong{chimpTE} chimpanzee TE expression data}
+#'   \item{hmGene}{human gene expression data}
+#'   \item{hmTE}{human TE expression}
+#'   \item{chimpGene}{chimpanzee gene expression data}
+#'   \item{chimpTE}{chimpanzee TE expression data}
 #' }
 #' 
-#' @usage
+#' @examples
 #' data(speciesCounts)
 #' hmGene <- speciesCounts$hmGene
 #' hmTE <- speciesCounts$hmTE
@@ -32,7 +32,7 @@
 #' An object of class "TekCorrSet" which contains 4 expression counts. 
 #' These data are generated from speciesCounts using TEKRABber. For a quick demo, 
 #' we only select 50 orthologs and 50 transposable elements.
-#' 
+#' @usage data(speciesCorr)
 #' @format An object of class "TekCorrSet" which contains 4 expression counts 
 #' and you can access it specifying the parameters using assay_tekcorrset():
 #' \describe{
@@ -42,7 +42,7 @@
 #'   \item{assay_tekcorrset(speciesCorr, "te", "chimpanzee")}{chimpanzee TE expression data}
 #' }
 #' 
-#' @usage 
+#' @examples 
 #' data(speciesCorr)
 #' hmGeneCorrInput <- assay_tekcorrset(speciesCorr, "gene", "human")
 #' hmTECorrInput <- assay_tekcorrset(speciesCorr, "te", "human")
@@ -59,14 +59,14 @@
 #' demonstration. This data based on syn8466812 RNA-seq (Allen M et al., 2016). 
 #' However, the expression data is modified due to confidential agreement. 
 #' Therefore, it can not represent the original data.
-#' 
+#' @usage data(ctInputDE)
 #' @format An object contains 2 expression data:
 #' \describe{
 #'   \item{\strong{gene}}{input gene data for DE analysis comparing control and treatment}
 #'   \item{\strong{te}}{input TE data for DE analysis comparing control and treatment}
 #' }
 #' 
-#' @usage 
+#' @examples 
 #' data(ctInputDE)
 #' geneInputDE <- ctInputDE$gene
 #' teInputDE <- ctInputDE$te
@@ -82,7 +82,7 @@
 #' are also modified due to confidential agreement. Therefore, it can not represent
 #' the original data. For a quick demonstration, we only use 10 genes and 10 
 #' transposable elements .
-#' 
+#' @usage data(ctCorr)
 #' @format An object of class "TekCorrSet" which contains 4 expression counts 
 #' and you can access it specifying the parameters using assay_tekcorrset():
 #' \describe{
@@ -92,7 +92,7 @@
 #'   \item{assay_tekcorrset(ctCorr, "te", "treatment")}{treatment TE expression data}
 #' }
 #' 
-#' @usage 
+#' @examples 
 #' data(ctCorr)
 #' geneConCorrInput <- assay_tekcorrset(ctCorr, "gene", "control")
 #' teConCorrInput <- assay_tekcorrset(ctCorr, "te", "control")
@@ -108,14 +108,14 @@
 #' The first one is the orthology table comparing human and chimpanzee. The second one
 #' is the scaling factor. The purpose of providing this dataset is to 
 #' save time for user running the tutorial and give a template for demonstration.
-#' 
+#' @usage data(fetchDataHmChimp)
 #' @format An object contains 2 elements:
 #' \describe{
 #'   \item{\strong{orthologTable}}{containing orthology information retrieving from Ensembl}
 #'   \item{\strong{scaleFactor}}{containing the scaling factor to normalize data}
 #' }
 #' 
-#' @usage 
+#' @examples 
 #' data(fetchDataHmChimp)
 #' fetchData <- fetchDataHmChimp
 #' fetchData$orthologTable

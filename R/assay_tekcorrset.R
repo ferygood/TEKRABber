@@ -8,6 +8,7 @@
 #'  are for running same species design.
 #' @return a dataframe contains expression genes or transposable element.
 #' @export
+#' @importFrom SummarizedExperiment colData assay
 #' @examples
 #' data(speciesCorr)
 #' hmGeneCorrInput <- assay_tekcorrset(speciesCorr, "gene", "human")

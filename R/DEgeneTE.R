@@ -10,6 +10,7 @@
 #' @param contrastVector your experiment design, i.e. c("species", "human", "chimpanzee")
 #' @param expDesign Logic value for comparing between or within species. TRUE for comparing between two species, and False for comparing between control and treatment.
 #' @return output DESeq2 res and normalized gene counts result in ./results directory
+#' @import apeglm
 #' @export
 #' @examples
 #' # if you are comparing between species:

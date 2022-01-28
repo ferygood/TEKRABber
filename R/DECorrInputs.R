@@ -12,6 +12,9 @@
 #' @param teCountCompare TE counts from the species you want to compare. First column should also be TE's name
 #' @return create inputs for DE analysis and correlations: (1) geneInputDESeq2 (2) teInputDESeq2 (3) geneCorrInputRef (4) geneCorrInputCompare (5) TECorrInputRef (6) TECorrInputCompare
 #' @export
+#' @importFrom magrittr %>%
+#' @importFrom dplyr mutate select inner_join across
+#' @importFrom utils write.table
 #' @examples
 #' data(speciesCounts)
 #' hmGene <- speciesCounts$hmGene
@@ -32,7 +35,8 @@
 #' #  teCountRef=hmTE,
 #' #  teCountCompare=chimpTE
 #' #)
-DECorrInputs <- function(orthologTable, scaleFactor, geneCountRef, geneCountCompare, teCountRef, teCountCompare) {
+DECorrInputs <- function(orthologTable, scaleFactor, geneCountRef, 
+                         geneCountCompare, teCountRef, teCountCompare) {
     dir.create("./results")
     norm_scale <- function(x) {
         return(round(x / scaleFactor))

@@ -8,6 +8,7 @@
 #' @param geneCountRef Gene count from your reference species. First column should be Ensmebl gene ID
 #' @param geneCountCompare Gene count from the species you want to compare. First column should also be Ensembl gene ID
 #' @return There are two outputs:(1) orthologTable: orthology information from BioMart (2) scale_factor: for normalizing expression counts
+#' @importFrom dplyr filter
 #' @export
 #' @examples
 #' data(speciesCounts)

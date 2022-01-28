@@ -10,7 +10,11 @@
 #' @param padjMethod method to return p-values adjusted, and default is fdr. See ?p.adjust
 #' @param filename specify a csv file name such as "correlationResult.csv"
 #' @return a dataframe includes Pearson's correlation coefficient, pvalue, padj
+#' @useDynLib TEKRABber
+#' @importFrom stats p.adjust
+#' @importFrom Rcpp sourceCpp
 #' @export
+#' 
 #' @examples
 #' library(SummarizedExperiment)
 #' data(speciesCorr)

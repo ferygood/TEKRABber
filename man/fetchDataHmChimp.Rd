@@ -13,14 +13,17 @@ An object contains 2 elements:
 }
 \usage{
 data(fetchDataHmChimp)
-fetchData <- fetchDataHmChimp
-fetchData$orthologTable
-fetchData$scaleFactor
 }
 \description{
 An output list of data contains 2 elements after using orthologScale(). 
 The first one is the orthology table comparing human and chimpanzee. The second one
 is the scaling factor. The purpose of providing this dataset is to 
 save time for user running the tutorial and give a template for demonstration.
+}
+\examples{
+data(fetchDataHmChimp)
+fetchData <- fetchDataHmChimp
+fetchData$orthologTable
+fetchData$scaleFactor
 }
 \keyword{datasets}

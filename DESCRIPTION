@@ -20,20 +20,21 @@ Imports:
     biomaRt,
     DESeq2,
     dplyr,
-    ggplot2,
-    ggpubr,
+    magrittr,
     Rcpp (>= 1.0.7),
     SCBN,
-    shiny,
-    stats,
     SummarizedExperiment,
+    stats,
+    shiny,
     utils
 LinkingTo: Rcpp
 Depends: 
-    R (>= 4.1.2)
+    R (>= 4.1)
 LazyData: false
 Suggests: 
-    rmarkdown, knitr, testthat (>= 3.0.0), BiocStyle
+    rmarkdown, 
+    knitr, 
+    testthat (>= 3.0.0), BiocStyle, ggplot2, ggpubr
 VignetteBuilder: knitr
 VignetteEngine: knitr
 RoxygenNote: 7.1.2
