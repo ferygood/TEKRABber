@@ -108,19 +108,23 @@ chimpGeneCorrInput <- assay_tekcorrset(speciesCorr, "gene", "chimpanzee")
 chimpTECorrInput <- assay_tekcorrset(speciesCorr, "te", "chimpanzee")
 
 hmCorrResult <- corrOrthologTE(
-    geneInput = hmGeneCorrInput,
-    teInput = hmTECorrInput,
-    corrMethod = "pearson",
-    padjMethod = "fdr",
-    filename = "hmCorrResult.csv"
+  geneInput = hmGeneCorrInput,
+  teInput = hmTECorrInput,
+  corrMethod = "pearson",
+  padjMethod = "fdr",
+  fileDir = ".",
+  fileName = "hmCorrResult.csv"
 )
+
 chimpCorrResult <- corrOrthologTE(
   geneInput = chimpGeneCorrInput,
   teInput = chimpTECorrInput,
   corrMethod = "pearson",
   padjMethod = "fdr",
-  filename = "chimpCorrResult.csv"
+  fileDir = ".",
+  fileName = "chimpCorrResult.csv"
 )
+
 head(hmCorrResult)
 ```
 
@@ -155,7 +159,8 @@ For DE analysis in the same species, you also use `DEgeneTE()` function, however
 ```{r DE analysis (same species), warning=FALSE, results='hide', message=FALSE}
 metaExp <- data.frame(experiment = c(rep("control", 5), rep("treatment", 5)))
 rownames(metaExp) <- colnames(geneInputDE)
-metaExp$experiment <- factor(metaExp$experiment, levels = c("control", "treatment"))
+metaExp$experiment <- factor(metaExp$experiment, 
+                             levels = c("control", "treatment"))
 
 resultDE <- DEgeneTE(
   geneTable = geneInputDE,
@@ -186,7 +191,8 @@ controlCorr <- corrOrthologTE(
     teInput = teConCorrInput,
     corrMethod = "pearson",
     padjMethod = "fdr",
-    filename = "controlCorrResult.csv"
+    fileDir = ".",
+    fileName = "controlCorrResult.csv"
 )
 
 treatmentCorr <- corrOrthologTE(
@@ -194,7 +200,8 @@ treatmentCorr <- corrOrthologTE(
     teInput = teTreatCorrInput,
     corrMethod = "pearson",
     padjMethod = "fdr",
-    filename = "treatmentCorrResult.csv"
+    fileDir = ".",
+    fileName = "treatmentCorrResult.csv"
 )
 
 head(treatmentCorr)

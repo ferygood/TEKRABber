@@ -32,9 +32,12 @@ Depends:
     R (>= 4.1)
 LazyData: false
 Suggests: 
+    BiocStyle,
+    ggplot2,
+    ggpubr,
     rmarkdown, 
     knitr, 
-    testthat (>= 3.0.0), BiocStyle, ggplot2, ggpubr
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 VignetteEngine: knitr
 RoxygenNote: 7.1.2

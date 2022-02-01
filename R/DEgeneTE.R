@@ -9,6 +9,7 @@
 #' @param metadata a one column dataframe with rownames same as the column name of gene/te count table. Column name must be \strong{species} or \strong{experiment}.
 #' @param contrastVector your experiment design, i.e. c("species", "human", "chimpanzee")
 #' @param expDesign Logic value for comparing between or within species. \strong{TRUE} for comparing between two species, and \strong{FALSE} for comparing between control and treatment.
+#' @param fileDir the name and path of directory for saving output files. Default is NULL.
 #' @return output DESeq2 res and normalized gene counts result in ./results directory
 #' @import apeglm
 #' @export
@@ -44,32 +45,26 @@
 #'   contrastVector = c("experiment", "control", "treatment"),
 #'   expDesign = FALSE
 #' )}
-DEgeneTE <- function(geneTable, teTable, metadata, contrastVector, expDesign = TRUE) {
+DEgeneTE <- function(geneTable, teTable, metadata, contrastVector, expDesign = TRUE, fileDir = NULL) {
     deseq2 <- function(cts, coldata) {
         if (all(rownames(coldata) == colnames(cts))) {
-            dds <- DESeq2::DESeqDataSetFromMatrix(countData = cts, colData = coldata, design = ~species)
+            # round counts to integers
+            cts <- round(cts) 
             
-            ## pre-filter and normalized
-            keep <- rowSums(DESeq2::counts(dds)) >= 10
-            dds <- dds[keep, ]
-            dds_dataset <- dds
-            dds <- DESeq2::DESeq(dds)
-            normalized_counts <- DESeq2::counts(dds, normalized = TRUE)
-            
-            coefName <- DESeq2::resultsNames(dds)[2]
-            res <- DESeq2::results(dds, contrast = contrastVector, alpha = 0.05)
-            res <- DESeq2::lfcShrink(dds, coef = coefName, type = "apeglm")
-            
-            result <- list("dds" = dds_dataset, "normalized_counts" = normalized_counts, "res" = res)
-            result
-        }
-    }
-    
-    deseq2_one <- function(cts, coldata) {
-        if (all(rownames(coldata) == colnames(cts))) {
-            ## round counts to integers
-            cts <- round(cts)
-            dds <- DESeq2::DESeqDataSetFromMatrix(countData = cts, colData = coldata, design = ~experiment)
+            dds <- c()
+            if (expDesign == TRUE) {
+               dds <- DESeq2::DESeqDataSetFromMatrix(
+                   countData = cts, 
+                   colData = coldata, 
+                   design = ~species
+               ) 
+            } else if (expDesign == FALSE) {
+                dds <- DESeq2::DESeqDataSetFromMatrix(
+                    countData = cts,
+                    colData = coldata,
+                    design = ~experiment
+                )
+            }
             
             ## pre-filter and normalized
             keep <- rowSums(DESeq2::counts(dds)) >= 10
@@ -88,49 +83,28 @@ DEgeneTE <- function(geneTable, teTable, metadata, contrastVector, expDesign = T
     }
     
     ## run analysis
-    if (expDesign == TRUE) {
-        geneDE <- deseq2(geneTable, metadata)
-        teDE <- deseq2(teTable, metadata)
-        
-        ## save files
-        write.table(data.frame(geneDE$normalized_counts), file = "results/geneDESeq2Log2.csv", sep = ",")
-        write.table(data.frame(geneDE$res), file = "results/geneDESeq2results.csv", sep = ",")
-        write.table(data.frame(teDE$normalized_counts), file = "results/teDESeq2Log2.csv", sep = ",")
-        write.table(data.frame(teDE$res), file = "results/teDESeq2results.csv", sep = ",")
-        
-        output <- list(
-            "gene_dds" = geneDE$dds,
-            "gene_res" = geneDE$res,
-            "normalized_gene_counts" = geneDE$normalized_counts,
-            "te_dds" = teDE$dds,
-            "te_res" = teDE$res,
-            "normalized_te_counts" = teDE$normalized_counts
-        )
-        return(output)
-    } else if (expDesign == FALSE) {
-        ## create results directory if user use this function directly
-        dir.create("./results")
-        geneDE <- deseq2_one(geneTable, metadata)
-        teDE <- deseq2_one(teTable, metadata)
-        
-        ## save files
-        write.table(data.frame(geneDE$normalized_counts), file = "results/geneDESeq2Log2.csv", sep = ",")
-        write.table(data.frame(geneDE$res), file = "results/geneDESeq2results.csv", sep = ",")
-        write.table(data.frame(teDE$normalized_counts), file = "results/teDESeq2Log2.csv", sep = ",")
-        write.table(data.frame(teDE$res), file = "results/teDESeq2results.csv", sep = ",")
-        
-        output <- list(
-            "gene_dds" = geneDE$dds,
-            "gene_res" = geneDE$res,
-            "normalized_gene_counts" = geneDE$normalized_counts,
-            "te_dds" = teDE$dds,
-            "te_res" = teDE$res,
-            "normalized_te_counts" = teDE$normalized_counts
-        )
-        return(output)
-    } else {
-        (
-            stop("expDesign should be specified TRUE for comparing speceis, or FALSE for comparing control and experiment.")
-        )
+    
+    geneDE <- deseq2(geneTable, metadata)
+    teDE <- deseq2(teTable, metadata)
+    
+    ## save files if directory is specified
+    if (!is.null(fileDir)){
+        dir.create(fileDir)
+        write.table(data.frame(geneDE$normalized_counts), file = file.path(fileDir, "geneDESeq2Log2.csv", sep = ","))
+        write.table(data.frame(geneDE$res), file = file.path(fileDir, "geneDESeq2results.csv", sep = ","))
+        write.table(data.frame(teDE$normalized_counts), file = file.path(fileDir, "teDESeq2Log2.csv", sep = ","))
+        write.table(data.frame(teDE$res), file = file.path(fileDir, "teDESeq2results.csv", sep = ","))
     }
+    
+    output <- list(
+        "gene_dds" = geneDE$dds,
+        "gene_res" = geneDE$res,
+        "normalized_gene_counts" = geneDE$normalized_counts,
+        "te_dds" = teDE$dds,
+        "te_res" = teDE$res,
+        "normalized_te_counts" = teDE$normalized_counts
+    )
+    
+    output
+    
 }

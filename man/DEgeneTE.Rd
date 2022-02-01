@@ -16,6 +16,8 @@ DEgeneTE(geneTable, teTable, metadata, contrastVector, expDesign = TRUE)
 \item{contrastVector}{your experiment design, i.e. c("species", "human", "chimpanzee")}
 
 \item{expDesign}{Logic value for comparing between or within species. \strong{TRUE} for comparing between two species, and \strong{FALSE} for comparing between control and treatment.}
+
+\item{fileDir}{the name and path of directory for saving output files. Default is NULL.}
 }
 \value{
 output DESeq2 res and normalized gene counts result in ./results directory

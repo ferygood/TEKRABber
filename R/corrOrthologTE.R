@@ -3,12 +3,13 @@
 #' You can sepcify the correlation and adjusted p-value methods (see details in parameters).
 #' It will also generate a output csv file in ./results directory.
 #' a output csv file with the correlation result.
-#' @usage corrOrthologTE(geneInput, teInput, corrMethod = "pearson", padjMethod = "fdr", filename)
+#' @usage corrOrthologTE(geneInput, teInput, corrMethod = "pearson", padjMethod = "fdr", fileName)
 #' @param geneInput gene count input for correlation from using DECorrInputs()
 #' @param teInput te count input for correlation from using DECorrInputs()
 #' @param corrMethod correlation method, inlcuding pearson, kendall, spearman. Default is pearson
 #' @param padjMethod method to return p-values adjusted, and default is fdr. See ?p.adjust
-#' @param filename specify a csv file name such as "correlationResult.csv"
+#' @param fileDir the name and path of directory for saving output files. Default is NULL.
+#' @param fileName the name for saving outputfiles. Default is "TEKRABber_geneTECorrResult.csv"
 #' @return a dataframe includes Pearson's correlation coefficient, pvalue, padj
 #' @useDynLib TEKRABber
 #' @importFrom stats p.adjust
@@ -27,10 +28,17 @@
 #'     teInput=hmTECorrInput,
 #'     corrMethod="pearson",
 #'     padjMethod="fdr",
-#'     filename="correlationResult.csv"
+#'     fileDir="."
+#'     fileName="correlationResult.csv"
 #' )}
-corrOrthologTE <- function(geneInput, teInput, corrMethod = "pearson", padjMethod="fdr", filename){
-    dir.create("./results")
+corrOrthologTE <- function(
+    geneInput, 
+    teInput, 
+    corrMethod = "pearson", 
+    padjMethod="fdr", 
+    fileDir=NULL, 
+    fileName="TEKRABber_geneTECorrResult.csv"){
+
     df.ortholog <- t(geneInput)
     df.te <- t(teInput)
     
@@ -41,7 +49,12 @@ corrOrthologTE <- function(geneInput, teInput, corrMethod = "pearson", padjMetho
         method=padjMethod
     )
     rownames(df.corr) <- c(1:nrow(df.corr))
-    write.table(df.corr, file = paste0("results/", filename), sep=",")
+    
+    # if user has specify file directory and file name
+    if (!is.null(fileDir)){
+        dir.create(fileDir)
+        write.table(df.corr, file = file.path(fileDir, fileName), sep=",")
+    }
     
     df.corr
     

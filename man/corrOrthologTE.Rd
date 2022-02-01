@@ -4,7 +4,7 @@
 \alias{corrOrthologTE}
 \title{Estimate correlation comparing orthologs and TEs}
 \usage{
-corrOrthologTE(geneInput, teInput, corrMethod = "pearson", padjMethod = "fdr", filename)
+corrOrthologTE(geneInput, teInput, corrMethod = "pearson", padjMethod = "fdr", fileName)
 }
 \arguments{
 \item{geneInput}{gene count input for correlation from using DECorrInputs()}
@@ -15,7 +15,9 @@ corrOrthologTE(geneInput, teInput, corrMethod = "pearson", padjMethod = "fdr", f
 
 \item{padjMethod}{method to return p-values adjusted, and default is fdr. See ?p.adjust}
 
-\item{filename}{specify a csv file name such as "correlationResult.csv"}
+\item{fileDir}{the name and path of directory for saving output files. Default is NULL.}
+
+\item{fileName}{the name for saving outputfiles. Default is "TEKRABber_geneTECorrResult.csv"}
 }
 \value{
 a dataframe includes Pearson's correlation coefficient, pvalue, padj
@@ -38,6 +40,7 @@ corrOrthologTE(
     teInput=hmTECorrInput,
     corrMethod="pearson",
     padjMethod="fdr",
-    filename="correlationResult.csv"
+    fileDir="."
+    fileName="correlationResult.csv"
 )}
 }

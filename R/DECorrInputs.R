@@ -40,7 +40,6 @@
 #' )}
 DECorrInputs <- function(orthologTable, scaleFactor, geneCountRef, 
                          geneCountCompare, teCountRef, teCountCompare) {
-    dir.create("./results")
     norm_scale <- function(x) {
         return(round(x / scaleFactor))
     }
@@ -82,8 +81,8 @@ DECorrInputs <- function(orthologTable, scaleFactor, geneCountRef,
     geneInputDESeq2 <- round(geneInputDESeq2)
     teInputDESeq2 <- round(teInputDESeq2)
     
-    write.table(geneInputDESeq2, file = "results/geneInputDESeq2.csv", sep = ",")
-    write.table(teInputDESeq2, file = "results/teInputDESeq2.csv", sep = ",")
+    #write.table(geneInputDESeq2, file = "results/geneInputDESeq2.csv", sep = ",")
+    #write.table(teInputDESeq2, file = "results/teInputDESeq2.csv", sep = ",")
     
     geneCorrInputRef <- geneInputDESeq2[, 1:refCount]
     geneCorrInputCompare <- geneInputDESeq2[, (refCount + 1):ncol(geneInputDESeq2)]
