@@ -30,22 +30,25 @@ this function.
 }
 \examples{
 data(speciesCounts)
+
 hmGene <- speciesCounts$hmGene
 chimpGene <- speciesCounts$chimpGene
-
-#fetchData <- orthologScale(
-#  speciesRef = "hsapiens",
-#  speciesCompare = "ptroglodytes",
-#  geneCountRef = hmGene,
-#  geneCountCompare = chimpGene
-#)
-
-#inputBundle <- DECorrInputs(
-#  orthologTable=fetchData$orthologTable,
-#  scaleFactor=fetchData$scaleFactor,
-#  geneCountRef=hmGene,
-#  geneCountCompare=chimpGene,
-#  teCountRef=hmTE,
-#  teCountCompare=chimpTE
-#)
+chimpGene <- speciesCounts$chimpGene
+chimpTE <- speciesCounts$chimpTE
+\donttest{
+fetchData <- orthologScale(
+  speciesRef = "hsapiens",
+  speciesCompare = "ptroglodytes",
+  geneCountRef = hmGene,
+  geneCountCompare = chimpGene
+)}
+\donttest{
+inputBundle <- DECorrInputs(
+  orthologTable=fetchData$orthologTable,
+  scaleFactor=fetchData$scaleFactor,
+  geneCountRef=hmGene,
+  geneCountCompare=chimpGene,
+  teCountRef=hmTE,
+  teCountCompare=chimpTE
+)}
 }

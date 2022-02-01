@@ -12,52 +12,17 @@
 #' @export
 #' 
 #' @return an app can display differentially expressed genes/TE and the correlation results
-#' @examples 
-#' data(ctInputDE)
-#' geneInputDE <- ctInputDE$gene
-#' teInputDE <- ctInputDE$te
-#' 
-#' metaExp <- data.frame(experiment = c(rep("control", 5), rep("treatment", 5)))
-#' rownames(metaExp) <- colnames(geneInputDE)
-#' metaExp$experiment <- factor(metaExp$experiment, levels = c("control", "treatment"))
-#' 
-#' resultDE <- DEgeneTE(
-#'   geneTable = geneInputDE,
-#'   teTable = teInputDE,
-#'   metadata = metaExp,
-#'   contrastVector = c("experiment", "control", "treatment"),
-#'   expDesign = FALSE
-#' )
-#' 
-#' #library(SummarizedExperiment)
-#' #data(ctCorr)
-#' #geneConCorrInput <- assay_tekcorrset(ctCorr, "gene", "control")
-#' #teConCorrInput <- assay_tekcorrset(ctCorr, "te", "control")
-#' #geneTreatCorrInput <- assay_tekcorrset(ctCorr, "gene", "treatment")
-#' #teTreatCorrInput <- assay_tekcorrset(ctCorr, "te", "treatment")
-#' 
-#' #controlCorr <- corrOrthologTE(
-#' #  geneInput = geneConCorrInput,
-#' #  teInput = teConCorrInput,
-#' #  corrMethod = "pearson",
-#' #  padjMethod = "fdr",
-#' #  filename = "controlCorrResult.csv"
-#' #)
-#' 
-#' #treatmentCorr <- corrOrthologTE(
-#' #  geneInput = geneTreatCorrInput,
-#' #  teInput = teTreatCorrInput,
-#' #  corrMethod = "pearson",
-#' #  padjMethod = "fdr",
-#' #  filename = "treatmentCorrResult.csv"
-#' #)
-#' 
-#' #appTEKRABber(
-#' #  DEresult = resultDE,
-#' #  corrRef = controlCorr,
-#' #  corrCompare = treatmentCorr,
-#' #  metadata = metaExp
-#' #)
+#' @examples
+#' ## hmchimpDE is generated from using DEgeneTE()
+#' ## hmCorrResult and chimpCorrResult are generated from using corrOrthologTE()
+#' ## meta is the same metadata you used for DE analysis
+#' \donttest{
+#' appTEKRABber(
+#'   DEresult = hmchimpDE,
+#'   corrRef = hmCorrResult,
+#'   corrCompare = chimpCorrResult,
+#'   metadata = meta
+#' )}
 #' 
 appTEKRABber <- function(DEresult, corrRef, corrCompare, metadata) {
     geneInput <- DEresult$normalized_gene_counts

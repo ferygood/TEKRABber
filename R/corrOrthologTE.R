@@ -21,13 +21,14 @@
 #' hmGeneCorrInput <- assay_tekcorrset(speciesCorr, "gene", "human")
 #' hmTECorrInput <- assay_tekcorrset(speciesCorr, "te", "human")
 #'
-#' #corrOrthologTE(
-#' #    geneInput=hmGeneCorrInput,
-#' #    teInput=hmTECorrInput,
-#' #    corrMethod="pearson",
-#' #    padjMethod="fdr",
-#' #    filename="correlationResult.csv"
-#' #)
+#' \donttest{
+#' corrOrthologTE(
+#'     geneInput=hmGeneCorrInput,
+#'     teInput=hmTECorrInput,
+#'     corrMethod="pearson",
+#'     padjMethod="fdr",
+#'     filename="correlationResult.csv"
+#' )}
 corrOrthologTE <- function(geneInput, teInput, corrMethod = "pearson", padjMethod="fdr", filename){
     dir.create("./results")
     df.ortholog <- t(geneInput)
@@ -35,8 +36,10 @@ corrOrthologTE <- function(geneInput, teInput, corrMethod = "pearson", padjMetho
     
     df.corr <- rcpp_corr(df.ortholog, df.te, corrMethod)
     colnames(df.corr)[1:2] <- c("geneName", "teName")
-    df.corr <- df.corr %>%
-        mutate(padj = p.adjust(pvalue, method=padjMethod))
+    df.corr$padj <- p.adjust(
+        df.corr$pvalue,
+        method=padjMethod
+    )
     rownames(df.corr) <- c(1:nrow(df.corr))
     write.table(df.corr, file = paste0("results/", filename), sep=",")
     

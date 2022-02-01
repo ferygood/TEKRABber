@@ -32,11 +32,12 @@ data(speciesCorr)
 hmGeneCorrInput <- assay_tekcorrset(speciesCorr, "gene", "human")
 hmTECorrInput <- assay_tekcorrset(speciesCorr, "te", "human")
 
-#corrOrthologTE(
-#    geneInput=hmGeneCorrInput,
-#    teInput=hmTECorrInput,
-#    corrMethod="pearson",
-#    padjMethod="fdr",
-#    filename="correlationResult.csv"
-#)
+\donttest{
+corrOrthologTE(
+    geneInput=hmGeneCorrInput,
+    teInput=hmTECorrInput,
+    corrMethod="pearson",
+    padjMethod="fdr",
+    filename="correlationResult.csv"
+)}
 }

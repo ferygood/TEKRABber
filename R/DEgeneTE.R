@@ -6,21 +6,33 @@
 #' @usage DEgeneTE(geneTable, teTable, metadata, contrastVector, expDesign = TRUE)
 #' @param geneTable gene input table from using DECorrInputs()
 #' @param teTable TE input table from using DECorrInputs()
-#' @param metadata a one column dataframe with rownames same as the column name of gene/te count table. Column name must be species or experiment.
+#' @param metadata a one column dataframe with rownames same as the column name of gene/te count table. Column name must be \strong{species} or \strong{experiment}.
 #' @param contrastVector your experiment design, i.e. c("species", "human", "chimpanzee")
-#' @param expDesign Logic value for comparing between or within species. TRUE for comparing between two species, and False for comparing between control and treatment.
+#' @param expDesign Logic value for comparing between or within species. \strong{TRUE} for comparing between two species, and \strong{FALSE} for comparing between control and treatment.
 #' @return output DESeq2 res and normalized gene counts result in ./results directory
 #' @import apeglm
 #' @export
 #' @examples
-#' # if you are comparing between species:
-#' # (1) you need to specify the column name to species in the metadata
-#' # (2) you can use the output from DECorrInputs()
-#' # (3) you need to set "expDesign = TRUE" (see vignettes/TEKRABber.Rmd for details)
-#' data(ctInputDE)
-#' geneInputDE <- ctInputDE$gene
-#' teInputDE <- ctInputDE$te
+#' ## comparing between species: 
+#' ## (1) set expDesign = TRUE (2) column name of metadata needs to be "species".
+#' \donttest{
+#' meta <- data.frame(species=c(rep("human", ncol(hmGene) - 1), 
+#'                              rep("chimpanzee", ncol(chimpGene) - 1))
+#' )
+#' rownames(meta) <- colnames(inputBundle$geneInputDESeq2)
+#' meta$species <- factor(meta$species, levels = c("human", "chimpanzee"))
 #' 
+#' hmchimpDE <- DEgeneTE(
+#'   geneTable = inputBundle$geneInputDESeq2,
+#'   teTable = inputBundle$teInputDESeq2,
+#'   metadata = meta,
+#'   contrastVector = c("species", "human", "chimpanzee"),
+#'   expDesign = TRUE
+#' )}
+#' 
+#' ## comparing between control and experiment within same species:
+#' ## (1) set expDesign = FALSE (2) column name of metadata needs to be "experiment".
+#' \donttest{
 #' metaExp <- data.frame(experiment = c(rep("control", 5), rep("treatment", 5)))
 #' rownames(metaExp) <- colnames(geneInputDE)
 #' metaExp$experiment <- factor(metaExp$experiment, levels = c("control", "treatment"))
@@ -31,7 +43,7 @@
 #'   metadata = metaExp,
 #'   contrastVector = c("experiment", "control", "treatment"),
 #'   expDesign = FALSE
-#' )
+#' )}
 DEgeneTE <- function(geneTable, teTable, metadata, contrastVector, expDesign = TRUE) {
     deseq2 <- function(cts, coldata) {
         if (all(rownames(coldata) == colnames(cts))) {
