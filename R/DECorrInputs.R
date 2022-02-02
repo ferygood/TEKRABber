@@ -13,7 +13,7 @@
 #' @return create inputs for DE analysis and correlations: (1) geneInputDESeq2 (2) teInputDESeq2 (3) geneCorrInputRef (4) geneCorrInputCompare (5) TECorrInputRef (6) TECorrInputCompare
 #' @export
 #' @importFrom magrittr %>%
-#' @importFrom dplyr mutate select inner_join across
+#' @importFrom dplyr mutate inner_join across
 #' @importFrom utils write.table
 #' @examples
 #' data(speciesCounts)
@@ -51,7 +51,7 @@ DECorrInputs <- function(orthologTable, scaleFactor, geneCountRef,
         mutate(across(2:ncol(teCountCompare), norm_scale))
     
     ## save two input for correlation and DE
-    orthologTable_ID <- orthologTable %>% select(c(3, 7))
+    orthologTable_ID <- orthologTable[, c(3,7)]
     
     ## create input for DESeq2
     colnames(geneCountRef)[1] <- "refEnsemblID"

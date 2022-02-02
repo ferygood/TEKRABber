@@ -43,12 +43,12 @@ corrOrthologTE <- function(
     df.te <- t(teInput)
     
     df.corr <- rcpp_corr(df.ortholog, df.te, corrMethod)
-    colnames(df.corr)[1:2] <- c("geneName", "teName")
+    colnames(df.corr)[c(1,2)] <- c("geneName", "teName")
     df.corr$padj <- p.adjust(
         df.corr$pvalue,
         method=padjMethod
     )
-    rownames(df.corr) <- c(1:nrow(df.corr))
+    rownames(df.corr) <- seq_len(nrow(df.corr))
     
     # if user has specify file directory and file name
     if (!is.null(fileDir)){
