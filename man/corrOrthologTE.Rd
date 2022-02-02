@@ -4,27 +4,27 @@
 \alias{corrOrthologTE}
 \title{Estimate correlation comparing orthologs and TEs}
 \usage{
-corrOrthologTE(geneInput, teInput, corrMethod = "pearson", padjMethod = "fdr", fileName)
+corrOrthologTE(geneInput, teInput, corrMethod = "pearson", padjMethod = "fdr", fileDir=NULL, fileName="TEKRABber_geneTECorrResult.csv")
 }
 \arguments{
 \item{geneInput}{gene count input for correlation from using DECorrInputs()}
 
 \item{teInput}{te count input for correlation from using DECorrInputs()}
 
-\item{corrMethod}{correlation method, inlcuding pearson, kendall, spearman. Default is pearson}
+\item{corrMethod}{correlation method, including pearson, kendall, spearman. Default is pearson}
 
 \item{padjMethod}{method to return p-values adjusted, and default is fdr. See ?p.adjust}
 
 \item{fileDir}{the name and path of directory for saving output files. Default is NULL.}
 
-\item{fileName}{the name for saving outputfiles. Default is "TEKRABber_geneTECorrResult.csv"}
+\item{fileName}{the name for saving output files. Default is "TEKRABber_geneTECorrResult.csv"}
 }
 \value{
 a dataframe includes Pearson's correlation coefficient, pvalue, padj
 }
 \description{
 To estimate correlation comparing each ortholog to each TE from inputs.
-You can sepcify the correlation and adjusted p-value methods (see details in parameters).
+You can specify the correlation and adjusted p-value methods (see details in parameters).
 It will also generate a output csv file in ./results directory.
 a output csv file with the correlation result.
 }
@@ -40,7 +40,7 @@ corrOrthologTE(
     teInput=hmTECorrInput,
     corrMethod="pearson",
     padjMethod="fdr",
-    fileDir="."
+    fileDir=".",
     fileName="correlationResult.csv"
 )}
 }

@@ -4,7 +4,7 @@
 \alias{DEgeneTE}
 \title{Estimate differentially expressed genes and TEs}
 \usage{
-DEgeneTE(geneTable, teTable, metadata, contrastVector, expDesign = TRUE)
+DEgeneTE(geneTable, teTable, metadata, contrastVector, expDesign=TRUE, fileDir=NULL)
 }
 \arguments{
 \item{geneTable}{gene input table from using DECorrInputs()}
@@ -58,6 +58,7 @@ resultDE <- DEgeneTE(
   teTable = teInputDE,
   metadata = metaExp,
   contrastVector = c("experiment", "control", "treatment"),
-  expDesign = FALSE
+  expDesign = FALSE,
+  fileDir = NULL
 )}
 }

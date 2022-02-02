@@ -25,7 +25,6 @@ Imports:
     SCBN,
     SummarizedExperiment,
     stats,
-    shiny,
     utils
 LinkingTo: Rcpp
 Depends: 
@@ -35,7 +34,8 @@ Suggests:
     BiocStyle,
     ggplot2,
     ggpubr,
-    rmarkdown, 
+    rmarkdown,
+    shiny,
     knitr, 
     testthat (>= 3.0.0)
 VignetteBuilder: knitr

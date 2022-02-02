@@ -3,7 +3,7 @@
 #' gene input and TE input from the result using DECorrInputs function and return results
 #' in ./results directory which is automatically generate by this function. You need to
 #' specify metadata, contrastVector, and expDesign. See details in example.
-#' @usage DEgeneTE(geneTable, teTable, metadata, contrastVector, expDesign = TRUE)
+#' @usage DEgeneTE(geneTable, teTable, metadata, contrastVector, expDesign=TRUE, fileDir=NULL)
 #' @param geneTable gene input table from using DECorrInputs()
 #' @param teTable TE input table from using DECorrInputs()
 #' @param metadata a one column dataframe with rownames same as the column name of gene/te count table. Column name must be \strong{species} or \strong{experiment}.
@@ -43,7 +43,8 @@
 #'   teTable = teInputDE,
 #'   metadata = metaExp,
 #'   contrastVector = c("experiment", "control", "treatment"),
-#'   expDesign = FALSE
+#'   expDesign = FALSE,
+#'   fileDir = NULL
 #' )}
 DEgeneTE <- function(geneTable, teTable, metadata, contrastVector, expDesign = TRUE, fileDir = NULL) {
     deseq2 <- function(cts, coldata) {

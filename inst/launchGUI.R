@@ -1,9 +1,22 @@
-library(shiny)
-library(ggplot2)
-library(ggpubr)
-
+#' A function to launch shiny app visualizing TEKRABber result
+#' @description This function is designed for the app structure and can be 
+#' source to namespace to launch a shiny app by executing appTEKRABber(). It 
+#' takes the exact same arguments as appTEKRABber and it is not export to user 
+#' directly.
+#' @param DEresult the output variable from using DEgeneTE()
+#' @param corrRef the correlation result of your reference species using corrOthologTE()
+#' @param corrCompare the correlation result of your compare species using corrOrthologTE()
+#' @param metadata the same metadata you use for DEgeneTE()
+#'
+#' @return an app can display differentially expressed genes/TE and the correlation results
+#' @example 
+#' \donttest{
+#' launchGUI(DEresult, corrRef, corrCompare, metadata)
+#' }
 launchGUI <- function(DEresult, corrRef, corrCompare, metadata) {
-    
+    require(shiny)
+    require(ggplot2)
+    require(ggpubr)
     geneInput <- DEresult$normalized_gene_counts
     geneRes <- DEresult$gene_res
     teInput <- DEresult$normalized_te_counts

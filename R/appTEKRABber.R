@@ -8,7 +8,6 @@
 #' @param corrCompare the correlation result of your compare species using corrOrthologTE()
 #' @param metadata the same metadata you use for DEgeneTE()
 #' 
-#' @importFrom shiny runApp
 #' @export
 #' 
 #' @return an app can display differentially expressed genes/TE and the correlation results
@@ -26,7 +25,7 @@
 #' 
 appTEKRABber <- function(DEresult, corrRef, corrCompare, metadata) {
 
-    source(system.file("app.R", package = "TEKRABber"))
+    source(system.file("launchGUI.R", package = "TEKRABber"))
     launchGUI(DEresult, corrRef, corrCompare, metadata)
 
 }
