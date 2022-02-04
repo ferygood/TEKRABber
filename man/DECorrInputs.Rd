@@ -24,9 +24,7 @@ create inputs for DE analysis and correlations: (1) geneInputDESeq2 (2) teInputD
 }
 \description{
 Generate inputs files for differentially expressed genes/TEs analysis,
-and for correlation analysis. The output is a list contain all input files. If you
-prefer using gene name instead of Ensembl gene ID, you can convert them before running
-this function.
+and for correlation analysis. The output is a list containing 6 dataframes.
 }
 \examples{
 data(speciesCounts)

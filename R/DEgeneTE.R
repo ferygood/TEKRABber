@@ -1,8 +1,8 @@
 #' Estimate differentially expressed genes and TEs
 #' @description To estimate differentially expressed genes and TEs, DEgeneTE() takes
-#' gene input and TE input from the result using DECorrInputs function and return results
-#' in ./results directory which is automatically generate by this function. You need to
-#' specify metadata, contrastVector, and expDesign. See details in example.
+#' gene inputs and TE inputs from the results using the DECorrInputs function. You need to
+#' specify your metadata, contrastVector, and expDesign based on your design. If you 
+#' also want to save the output, please specify the fileDir parameter.
 #' @usage DEgeneTE(geneTable, teTable, metadata, contrastVector, expDesign=TRUE, fileDir=NULL)
 #' @param geneTable gene input table from using DECorrInputs()
 #' @param teTable TE input table from using DECorrInputs()
@@ -10,7 +10,7 @@
 #' @param contrastVector your experiment design, i.e. c("species", "human", "chimpanzee")
 #' @param expDesign Logic value for comparing between or within species. \strong{TRUE} for comparing between two species, and \strong{FALSE} for comparing between control and treatment.
 #' @param fileDir the name and path of directory for saving output files. Default is NULL.
-#' @return output DESeq2 res and normalized gene counts result in ./results directory
+#' @return return DESeq2 res and normalized gene counts.
 #' @import apeglm
 #' @export
 #' @examples

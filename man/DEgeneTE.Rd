@@ -20,13 +20,13 @@ DEgeneTE(geneTable, teTable, metadata, contrastVector, expDesign=TRUE, fileDir=N
 \item{fileDir}{the name and path of directory for saving output files. Default is NULL.}
 }
 \value{
-output DESeq2 res and normalized gene counts result in ./results directory
+return DESeq2 res and normalized gene counts.
 }
 \description{
 To estimate differentially expressed genes and TEs, DEgeneTE() takes
-gene input and TE input from the result using DECorrInputs function and return results
-in ./results directory which is automatically generate by this function. You need to
-specify metadata, contrastVector, and expDesign. See details in example.
+gene inputs and TE inputs from the results using the DECorrInputs function. You need to
+specify your metadata, contrastVector, and expDesign based on your design. If you 
+also want to save the output, please specify the fileDir parameter.
 }
 \examples{
 ## comparing between species: 

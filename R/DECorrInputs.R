@@ -1,8 +1,6 @@
 #' Generate all the inputs for TEKRABber downstream analysis
 #' @description Generate inputs files for differentially expressed genes/TEs analysis,
-#' and for correlation analysis. The output is a list contain all input files. If you
-#' prefer using gene name instead of Ensembl gene ID, you can convert them before running
-#' this function.
+#' and for correlation analysis. The output is a list containing 6 dataframes. 
 #' @usage DECorrInputs(orthologTable, scaleFactor, geneCountRef, geneCountCompare, teCountRef, teCountCompare)
 #' @param orthologTable orthologTable output from using orthologScale()
 #' @param scaleFactor scaleFactor output from using orthologScale()
