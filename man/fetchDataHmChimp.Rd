@@ -5,19 +5,25 @@
 \alias{fetchDataHmChimp}
 \title{Orthology information of human and chimpanzee with scaling factor}
 \format{
-A data list with 2 elements:
+An object contains 2 elements:
 \describe{
-  \item{orthologTable}{containing orthology information retrieving from Ensembl}
-  \item{scaleFactor}{containing the scaling factor to normalize data}
+  \item{\strong{orthologTable}}{containing orthology information retrieving from Ensembl}
+  \item{\strong{scaleFactor}}{containing the scaling factor to normalize data}
 }
 }
 \usage{
-fetchDataHmChimp
+data(fetchDataHmChimp)
 }
 \description{
-A output list of data contains 2 elements after using orthologScale(). 
+An output list of data contains 2 elements after using orthologScale(). 
 The first one is the orthology table comparing human and chimpanzee. The second one
 is the scaling factor. The purpose of providing this dataset is to 
 save time for user running the tutorial and give a template for demonstration.
+}
+\examples{
+data(fetchDataHmChimp)
+fetchData <- fetchDataHmChimp
+fetchData$orthologTable
+fetchData$scaleFactor
 }
 \keyword{datasets}

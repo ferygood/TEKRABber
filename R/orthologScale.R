@@ -8,17 +8,19 @@
 #' @param geneCountRef Gene count from your reference species. First column should be Ensmebl gene ID
 #' @param geneCountCompare Gene count from the species you want to compare. First column should also be Ensembl gene ID
 #' @return There are two outputs:(1) orthologTable: orthology information from BioMart (2) scale_factor: for normalizing expression counts
+#' @importFrom dplyr inner_join
 #' @export
 #' @examples
 #' data(speciesCounts)
 #' hmGene <- speciesCounts$hmGene
 #' chimpGene <- speciesCounts$chimpGene
-#' #fetchData <- orthologScale(
-#' #  speciesRef = "hsapiens",
-#' #  speciesCompare = "ptroglodytes",
-#' #  geneCountRef = hmGene,
-#' #  geneCountCompare = chimpGene
-#' #)
+#' \donttest{
+#' fetchData <- orthologScale(
+#'   speciesRef = "hsapiens",
+#'   speciesCompare = "ptroglodytes",
+#'   geneCountRef = hmGene,
+#'   geneCountCompare = chimpGene
+#' )}
 orthologScale <- function(speciesRef, speciesCompare, geneCountRef, geneCountCompare) {
     ## Part1: Get ortholog table using biomaRt
     geneRef <- paste0(speciesRef, "_gene_ensembl")
@@ -62,17 +64,18 @@ orthologScale <- function(speciesRef, speciesCompare, geneCountRef, geneCountCom
     
     ## Part2: Estimate scaling factor based on mean expression of genes
     ## and orthologTable from Part1.
-    orthologTable <- orthologTable %>%
-        mutate(refLength = refEnd - refStart) %>%
-        mutate(compareLength = compareEnd - compareStart)
+    orthologTable$refLength <- abs(orthologTable[[5]] - orthologTable[[4]])
+    orthologTable$compareLength <- abs(orthologTable[[9]] - orthologTable[[8]])
     
     colnames(geneCountRef)[1] <- "refEnsemblID"
-    geneCountRef <- geneCountRef %>%
-        mutate(refMean = rowMeans(select(., 2:ncol(geneCountRef))))
+    idx_ref <- seq_len(ncol(geneCountRef))[-1]
+    sub_ref <- geneCountRef[, idx_ref]
+    geneCountRef$refMean <- rowMeans(sub_ref)
     
     colnames(geneCountCompare)[1] <- "compareEnsemblID"
-    geneCountCompare <- geneCountCompare %>%
-        mutate(compareMean = rowMeans(select(., 2:ncol(geneCountCompare))))
+    idx_compare <- seq_len(ncol(geneCountCompare))[-1]
+    sub_compare <- geneCountCompare[, idx_compare]
+    geneCountCompare$compareMean <- rowMeans(sub_compare)
     
     ## rearrange data based on confidence of orthology for SCBN estimation
     df <- inner_join(
@@ -87,11 +90,9 @@ orthologScale <- function(speciesRef, speciesCompare, geneCountRef, geneCountCom
         by = "compareEnsemblID"
     )
     
-    confidence_count <- df %>%
-        filter(orthologyConfidence == 1) %>%
-        nrow()
+    confidence_count <- nrow(df[df[[10]]==1, ])
     
-    df.scbn <- df %>% select(c(11, 13, 12, 14))
+    df.scbn <- df[, c(11, 13, 12, 14)]
     
     ## run scbn to obtain scaling factor
     factor <- SCBN::SCBN(orth_gene = df.scbn, hkind = 1:confidence_count, a = 0.05)

@@ -3,6 +3,7 @@ title: "TEKRABber"
 author:
 - name: Yao-Chung Chen
   affiliation: Human Biology, Institute of Biology, Freie Universität Berlin, Berlin, Germany
+  email: yao-chung.chen@fu-berlin.de
 - name: Katja Nowick
   affiliation: Human Biology, Institute of Biology, Freie Universität Berlin, Berlin, Germany
   email: katja.nowick@fu-berlin.de
@@ -15,10 +16,11 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 # Introduction
-TEKRABber is used to estimate the correlation between genes and transposable elements (TEs) from RNA-seq data comparing between: **(1)** Two Species **(2)** Control vs. Experiment. In the following sections, we will use built-in data to demonstrate how to implement TEKRABber on you own analysis.
+`r BiocStyle::Biocpkg("TEKRABber")` is used to estimate the correlation between genes and transposable elements (TEs) from RNA-seq data comparing between: **(1)** Two Species **(2)** Control vs. Experiment. In the following sections, we will use built-in data to demonstrate how to implement `r BiocStyle::Biocpkg("TEKRABber")` on you own analysis.
 
 # Installation
-To use TEKRABber into your R environment, you need to install it using BiocManager:
+To use `r BiocStyle::Biocpkg("TEKRABber")` into your R environment, you need to 
+install it using `r BiocStyle::Biocpkg("BiocManager")`:
 ```{r installation, eval=FALSE}
 install.packages("BiocManager")
 BiocManager::install("TEKRABber")
@@ -30,7 +32,7 @@ library(SummarizedExperiment) # load it if you are running this tutorial
 ```
 # Examples
 ## Comparing between two species, human and chimpanzee as an example
-Gene and TE expression data are generated from randomly picked 10 human and 10 chimpanzee brain region FASTQ files (Khrameeva E et al., Genome Research, 2020) using in-house script. The first column of gene and TEs count table must be **Ensembl gene ID** and **TE name**:
+Gene and TE expression data are generated from randomly picked 10 human and 10 chimpanzee brain region FASTQ files (Khrameeva E et al., Genome Research, 2020). The first column of gene and TE count table must be **Ensembl gene ID** and **TE name**:
 ```{r load built-in data (two species)}
 # load built-in data
 data(speciesCounts)
@@ -43,19 +45,19 @@ head(hmGene)
 ```
 
 ### Query ortholog information and estimate scaling factor
-In the first step, we use `orthologScale()` to get ortholog information and calculate the scaling factor between two species. The species name needs to be the abbreviation of scientific species name used in Ensembl. (Note: (1)This step queries information using biomaRt and it might need some time or try different mirror due to connection to Ensembl (2)It might take some time to calculate scaling factor based on your data size). 
+In the first step, we use `orthologScale()` to get ortholog information and calculate the scaling factor between two species. The species name needs to be the abbreviation of scientific species name used in Ensembl. (Note: (1)This step queries information using `r BiocStyle::Biocpkg("biomaRt")` and it might need some time or try different mirrors due to connections to Ensembl (2)It might take some time to calculate scaling factor based on your data size). 
 ```{r search species name, eval=FALSE}
 # You can use the code below to search for species name
 ensembl <- biomaRt::useEnsembl(biomart = "genes")
 biomaRt::listDatasets(ensembl)
 ```
 
-```{r qurey biomaRt and calculate scaling factor, message=FALSE, cache=TRUE, dependson="load build-in data (two species)"}
+```{r orthology and normalizeation, message=FALSE}
 # In order to save time, we have save the data for this tutorial.
 data(fetchDataHmChimp)
 fetchData <- fetchDataHmChimp
 
-# If you want to query the data and calculate scaling factor, you can run the code below:
+# Query the data and calculate scaling factor using orthologScale():
 # fetchData <- orthologScale(
 #     geneCountRef = hmGene,
 #     geneCountCompare = chimpGene,
@@ -64,7 +66,7 @@ fetchData <- fetchDataHmChimp
 # )
 ```
 
-### Create input dataframes for differentially expressed analysis and correlation estimation
+### Create inputs for differentially expressed analysis and correlation estimation
 We use `DECorrInputs()` to create input files for downstream analysis. This function will create a "./results" directory in your current path to save the input files for next steps.
 ```{r create input files, warning=FALSE}
 inputBundle <- DECorrInputs(
@@ -78,11 +80,12 @@ inputBundle <- DECorrInputs(
 ```
 
 ### Differentially expressed analysis (DE analysis)
-In this step, we need to generate a metadata contain species name (i.e. human and chimpanzee). The row names need to be same as the DE input table and the column name must be **species** (see as the example below). Then we use `DEgeneTE()` to perform DE analysis. The contrastVector parameter needs to be a three element vector. The first item is "species", the second is the reference species name from metadata which in our case is "human", and the last one is the compared species in your metadata which is "chimpanzee". When you are comparing samples between two species, the parameter **expDesign** should be **TRUE** (as default).
+In this step, we need to generate a metadata contain species name (i.e. human and chimpanzee). The row names need to be same as the DE input table and the column name must be **species** (see as the example below). Then we use `DEgeneTE()` to perform DE analysis. The contrastVector parameter needs to be a three element vector. The first item is **species**, the second is the reference species name from metadata which in our case is **human**, and the last one is the compared species in your metadata which is **chimpanzee**. When you are comparing samples between two species, the parameter **expDesign** should be **TRUE** (as default).
 ```{r DE analysis (two species), message=FALSE, results='hide', warning=FALSE}
-meta <- data.frame(
-  species = c(rep("human", ncol(hmGene) - 1), rep("chimpanzee", ncol(chimpGene) - 1))
+meta <- data.frame(species=c(rep("human", ncol(hmGene) - 1), 
+                             rep("chimpanzee", ncol(chimpGene) - 1))
 )
+
 meta$species <- factor(meta$species, levels = c("human", "chimpanzee"))
 rownames(meta) <- colnames(inputBundle$geneInputDESeq2)
 hmchimpDE <- DEgeneTE(
@@ -95,7 +98,7 @@ hmchimpDE <- DEgeneTE(
 ```
 
 ### Correlation analysis
-Here we use `corrOrthologTE()` to perform correlation estimation comparing each ortholog and TE. This is the most time consuming step. For a quick demonstration, we use a relatively small size data. You can specify the correlation method and adjusted _p-value_ method. Default is Pearson's correlation with FDR. Please name your output using **.csv** extension and it will generate it in ./results directory. **Note: ** For more quick and specific analysis, you can subset your data in this step to focus on only the orthologs and TEs that you are interested in. 
+Here we use `corrOrthologTE()` to perform correlation estimation comparing each ortholog and TE. This is the most time consuming step. For a quick demonstration, we use a relatively small size data. You can specify the correlation method and adjusted _p-value_ method. Default is Pearson's correlation with FDR. Please name your output using **.csv** extension and it will generate it in ./results directory. **Note: ** For more efficient and specific analysis, you can subset your data in this step to focus on only the orthologs and TEs that you are interested in. 
 ```{r correlation (two species), warning=FALSE}
 # load built-in data
 data(speciesCorr)
@@ -105,24 +108,28 @@ chimpGeneCorrInput <- assay_tekcorrset(speciesCorr, "gene", "chimpanzee")
 chimpTECorrInput <- assay_tekcorrset(speciesCorr, "te", "chimpanzee")
 
 hmCorrResult <- corrOrthologTE(
-    geneInput = hmGeneCorrInput,
-    teInput = hmTECorrInput,
-    corrMethod = "pearson",
-    padjMethod = "fdr",
-    filename = "hmCorrResult.csv"
+  geneInput = hmGeneCorrInput,
+  teInput = hmTECorrInput,
+  corrMethod = "pearson",
+  padjMethod = "fdr",
+  fileDir = ".",
+  fileName = "hmCorrResult.csv"
 )
+
 chimpCorrResult <- corrOrthologTE(
   geneInput = chimpGeneCorrInput,
   teInput = chimpTECorrInput,
   corrMethod = "pearson",
   padjMethod = "fdr",
-  filename = "chimpCorrResult.csv"
+  fileDir = ".",
+  fileName = "chimpCorrResult.csv"
 )
+
 head(hmCorrResult)
 ```
 
-### Explore your result using appTEKRABber():
-TEKRABber provides an app function for you to quickly view your result. You need to provide the differentially expressed orthologs/TEs result and correlation results. Metadata is the same one you used for DE analysis.
+### Explore your result using `appTEKRABber()`:
+`r BiocStyle::Biocpkg("TEKRABber")` provides an app function for you to quickly view your result. You need to provide the differentially expressed orthologs/TEs results and correlation results. Metadata is the same one you used for DE analysis.
 ```{r app visualize (two species), warning=FALSE, eval=FALSE}
 appTEKRABber(
   DEresult = hmchimpDE,
@@ -131,12 +138,12 @@ appTEKRABber(
   metadata = meta
 )
 ```
-In the **Expression tab** page, (1) you can specify your input gene and TE. The result will show in box plots with data points in log2 expression level (2) DE analysis result will show in table including statistical information (3) Correlation result will indicate if this selected pairs are significantly correlated and the value of correlation coefficients.
+In the **Expression tab** page, (1) you can specify your input gene and TE. The result will show in box plots with data points in log2 expression level (2) DE analysis result will show in table including statistical information (3) Correlation result will indicate if these selected pairs are significantly correlated and the value of correlation coefficients.
 ![](https://user-images.githubusercontent.com/40789913/143572684-12adf891-3f1b-4b9d-b913-94e664abb196.jpeg)
-In the **Correlation tab** page, you can visualize your data in scatter plots by three ways. (1) Specify the data point and it will turn red in the distribution of your result (2) Show the distribution of all the data from your correlation results based on their correlation coefficients and adjusted _p-value_. The blue vertical dashed line indicates the boundary of adjusted _p-value_ is 0.05, and the orange one is for adjusted _p-value_ 0.01 (3) you can click the data points which you are interested in and it will list in the table. You can also drag an area to show data points in certain area. 
+In the **Correlation tab** page, you can visualize your data in scatter plots in three ways. (1) Specify the data point and it will turn red in the distribution of your result (2) Show the distribution of all the data from your correlation results based on their correlation coefficients and adjusted _p-value_. The blue vertical dashed line indicates the boundary of adjusted _p-value_ is 0.05, and the orange one is for adjusted _p-value_ 0.01 (3) you can click the data points which you are interested in and it will list in the table. You can also drag an area to show data points in certain area. 
 
 ## Comparing control and treatment samples within the same species
-If you want to compare selected genes and TEs **(1)** from different tissue in same species or **(2)** control and drug treatment in same tissue in same species, please generate all the input files following the input format. Here we show a toy data of prepared input files including expression counts from 10 control and 10 treatment samples. The format of input data: row names should be gene name or id, and column name is your sample id (please see details below).
+If you want to compare selected genes and TEs **(1)** from different tissue in same species or **(2)** control and drug treatment in same tissue in same species, please generate all the input files following the input format. Here we show an example data of prepared input files including expression counts from 10 control and 10 treatment samples. The format of input data: row names should be gene name or id, and column name is your sample id (please see details below).
 ```{r load built-in data (same species)}
 # load built-in data
 data(ctInputDE)
@@ -148,11 +155,12 @@ head(geneInputDE)
 ```
 
 ### DE analysis
-For DE analysis in the same species, you also use `DEgeneTE()` function, however, you need to set the parameter **expDesign** to **FALSE**. You also need to provide a metadata which this time the column name must be **experiment**. See demo below:
+For DE analysis in the same species, you also use `DEgeneTE()` function, however, you need to set the parameter **expDesign** to **FALSE**. You also need to provide a metadata which this time the column name must be **experiment**. See demonstration below:
 ```{r DE analysis (same species), warning=FALSE, results='hide', message=FALSE}
 metaExp <- data.frame(experiment = c(rep("control", 5), rep("treatment", 5)))
 rownames(metaExp) <- colnames(geneInputDE)
-metaExp$experiment <- factor(metaExp$experiment, levels = c("control", "treatment"))
+metaExp$experiment <- factor(metaExp$experiment, 
+                             levels = c("control", "treatment"))
 
 resultDE <- DEgeneTE(
   geneTable = geneInputDE,
@@ -164,7 +172,7 @@ resultDE <- DEgeneTE(
 ```
 
 ### Correlation analysis
-For a quick demo to perform correlation of genes and TEs  in control and treatment sample, we use a relatively small input table which only include 10 genes and 10 TEs.
+For a quick demonstration to perform correlation of genes and TEs in control and treatment sample, we use relatively small input tables which only include 10 genes and 10 TEs.
 ```{r load built-in data (same species correlation), warning=FALSE}
 # load built-in data
 data(ctCorr)
@@ -183,7 +191,8 @@ controlCorr <- corrOrthologTE(
     teInput = teConCorrInput,
     corrMethod = "pearson",
     padjMethod = "fdr",
-    filename = "controlCorrResult.csv"
+    fileDir = ".",
+    fileName = "controlCorrResult.csv"
 )
 
 treatmentCorr <- corrOrthologTE(
@@ -191,13 +200,14 @@ treatmentCorr <- corrOrthologTE(
     teInput = teTreatCorrInput,
     corrMethod = "pearson",
     padjMethod = "fdr",
-    filename = "treatmentCorrResult.csv"
+    fileDir = ".",
+    fileName = "treatmentCorrResult.csv"
 )
 
 head(treatmentCorr)
 ```
 
-### Explore your result using appTEKRABber():
+### Explore your result using `appTEKRABber()`:
 ```{r app visualize (same species), warning=FALSE, eval=FALSE}
 appTEKRABber(
   DEresult = resultDE,

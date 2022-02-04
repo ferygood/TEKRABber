@@ -12,28 +12,34 @@
 #' @param teCountCompare TE counts from the species you want to compare. First column should also be TE's name
 #' @return create inputs for DE analysis and correlations: (1) geneInputDESeq2 (2) teInputDESeq2 (3) geneCorrInputRef (4) geneCorrInputCompare (5) TECorrInputRef (6) TECorrInputCompare
 #' @export
+#' @importFrom magrittr %>%
+#' @importFrom dplyr mutate inner_join across
+#' @importFrom utils write.table
 #' @examples
 #' data(speciesCounts)
+#' 
 #' hmGene <- speciesCounts$hmGene
 #' chimpGene <- speciesCounts$chimpGene
-#' 
-#' #fetchData <- orthologScale(
-#' #  speciesRef = "hsapiens",
-#' #  speciesCompare = "ptroglodytes",
-#' #  geneCountRef = hmGene,
-#' #  geneCountCompare = chimpGene
-#' #)
-#'
-#' #inputBundle <- DECorrInputs(
-#' #  orthologTable=fetchData$orthologTable,
-#' #  scaleFactor=fetchData$scaleFactor,
-#' #  geneCountRef=hmGene,
-#' #  geneCountCompare=chimpGene,
-#' #  teCountRef=hmTE,
-#' #  teCountCompare=chimpTE
-#' #)
-DECorrInputs <- function(orthologTable, scaleFactor, geneCountRef, geneCountCompare, teCountRef, teCountCompare) {
-    dir.create("./results")
+#' chimpGene <- speciesCounts$chimpGene
+#' chimpTE <- speciesCounts$chimpTE
+#' \donttest{
+#' fetchData <- orthologScale(
+#'   speciesRef = "hsapiens",
+#'   speciesCompare = "ptroglodytes",
+#'   geneCountRef = hmGene,
+#'   geneCountCompare = chimpGene
+#' )}
+#' \donttest{
+#' inputBundle <- DECorrInputs(
+#'   orthologTable=fetchData$orthologTable,
+#'   scaleFactor=fetchData$scaleFactor,
+#'   geneCountRef=hmGene,
+#'   geneCountCompare=chimpGene,
+#'   teCountRef=hmTE,
+#'   teCountCompare=chimpTE
+#' )}
+DECorrInputs <- function(orthologTable, scaleFactor, geneCountRef, 
+                         geneCountCompare, teCountRef, teCountCompare) {
     norm_scale <- function(x) {
         return(round(x / scaleFactor))
     }
@@ -45,7 +51,7 @@ DECorrInputs <- function(orthologTable, scaleFactor, geneCountRef, geneCountComp
         mutate(across(2:ncol(teCountCompare), norm_scale))
     
     ## save two input for correlation and DE
-    orthologTable_ID <- orthologTable %>% select(c(3, 7))
+    orthologTable_ID <- orthologTable[, c(3,7)]
     
     ## create input for DESeq2
     colnames(geneCountRef)[1] <- "refEnsemblID"
@@ -75,8 +81,8 @@ DECorrInputs <- function(orthologTable, scaleFactor, geneCountRef, geneCountComp
     geneInputDESeq2 <- round(geneInputDESeq2)
     teInputDESeq2 <- round(teInputDESeq2)
     
-    write.table(geneInputDESeq2, file = "results/geneInputDESeq2.csv", sep = ",")
-    write.table(teInputDESeq2, file = "results/teInputDESeq2.csv", sep = ",")
+    #write.table(geneInputDESeq2, file = "results/geneInputDESeq2.csv", sep = ",")
+    #write.table(teInputDESeq2, file = "results/teInputDESeq2.csv", sep = ",")
     
     geneCorrInputRef <- geneInputDESeq2[, 1:refCount]
     geneCorrInputCompare <- geneInputDESeq2[, (refCount + 1):ncol(geneInputDESeq2)]

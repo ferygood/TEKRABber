@@ -3,19 +3,29 @@
 \docType{data}
 \name{ctInputDE}
 \alias{ctInputDE}
-\title{Input expression data of gene/TE for differentially expressed analysis within same species}
+\title{Input expression data of gene/TE for differentially expressed analysis within 
+same species}
 \format{
-A data list with 2 expression counts:
+An object contains 2 expression data:
 \describe{
-  \item{gene}{input gene data for DE analysis comparing control and treatment}
-  \item{te}{input TE data for DE analysis comparing control and treatment}
+  \item{\strong{gene}}{input gene data for DE analysis comparing control and treatment}
+  \item{\strong{te}}{input TE data for DE analysis comparing control and treatment}
 }
 }
 \usage{
-ctInputDE
+data(ctInputDE)
 }
 \description{
-Dataset contains 2 expression toy data for demonstrating how to use TEKRABber
-on experimental design within the case of comparing same species.
+TEKRABber can also be used comparing orthologs and transposable elements within
+same species, i.e. control and treatment. Here we provide an example data for 
+demonstration. This data based on syn8466812 RNA-seq (Allen M et al., 2016). 
+However, the expression data is modified due to confidential agreement. 
+Therefore, it can not represent the original data.
+}
+\examples{
+data(ctInputDE)
+geneInputDE <- ctInputDE$gene
+teInputDE <- ctInputDE$te
+
 }
 \keyword{datasets}

@@ -8,6 +8,7 @@
 #'  are for running same species design.
 #' @return a dataframe contains expression genes or transposable element.
 #' @export
+#' @importFrom SummarizedExperiment colData assay
 #' @examples
 #' data(speciesCorr)
 #' hmGeneCorrInput <- assay_tekcorrset(speciesCorr, "gene", "human")
@@ -22,7 +23,7 @@ assay_tekcorrset <- function(tecorrset, expType, sample) {
         } else if (sample == spec[2,1]) {
             assay(tecorrset@geneSE[, tecorrset@geneSE$sample==spec[2,1]])
         } else (
-            sprintf("Wrong argument. It should be %s or %s.", sepc[1,1], spec[2,1])
+            sprintf("Wrong argument. It should be %s or %s.", spec[1,1], spec[2,1])
         )
     } else if (expType == "te") {
         if (sample == spec[1,1]){
@@ -30,7 +31,7 @@ assay_tekcorrset <- function(tecorrset, expType, sample) {
         } else if (sample == spec[2,1]) {
             assay(tecorrset@teSE[, tecorrset@teSE$sample==spec[2,1]])
         } else (
-            sprintf("Wrong argument. It should be %s or %s.", sepc[1,1], spec[2,1])
+            sprintf("Wrong argument. It should be %s or %s.", spec[1,1], spec[2,1])
         )
     } else {
         "Wrong argument. It should be gene or te."
