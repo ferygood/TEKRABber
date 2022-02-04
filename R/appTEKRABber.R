@@ -9,7 +9,6 @@
 #' @param metadata the same metadata you use for DEgeneTE()
 #' 
 #' @export
-#' 
 #' @return an app can display differentially expressed genes/TE and the correlation results
 #' @examples
 #' ## hmchimpDE is generated from using DEgeneTE()
@@ -24,8 +23,16 @@
 #' )}
 #' 
 appTEKRABber <- function(DEresult, corrRef, corrCompare, metadata) {
-
-    source(system.file("launchGUI.R", package = "TEKRABber"))
-    launchGUI(DEresult, corrRef, corrCompare, metadata)
-
+    
+    # create global variables for app-use
+    assign("appDE", DEresult, envir = .GlobalEnv)
+    assign("appRef", corrRef, envir = .GlobalEnv)
+    assign("appCompare", corrCompare, envir = .GlobalEnv)
+    assign("appMeta", metadata, envir = .GlobalEnv)
+    
+    # run shiny app
+    shiny::runApp(
+        appDir = system.file("inst/shinyGUI", package="TEKRABber"),
+        launch.browser = TRUE
+    )
 }

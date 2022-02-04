@@ -32,7 +32,6 @@ Depends:
 LazyData: false
 Suggests: 
     BiocStyle,
-    ggplot2,
     ggpubr,
     rmarkdown,
     shiny,
