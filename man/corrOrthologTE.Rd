@@ -11,22 +11,22 @@ corrOrthologTE(geneInput, teInput, corrMethod = "pearson", padjMethod = "fdr", f
 
 \item{teInput}{te count input for correlation from using DECorrInputs()}
 
-\item{corrMethod}{correlation method, including pearson, kendall, spearman. Default is pearson}
+\item{corrMethod}{correlation method, including pearson, kendall, spearman. Default is pearson.}
 
-\item{padjMethod}{method to return p-values adjusted, and default is fdr. See ?p.adjust}
+\item{padjMethod}{method to return adjusted p-value, and default is fdr. See ?p.adjust}
 
-\item{fileDir}{the name and path of directory for saving output files. Default is NULL.}
+\item{fileDir}{the name of directory for saving output files. Default is NULL.}
 
 \item{fileName}{the name for saving output files. Default is "TEKRABber_geneTECorrResult.csv"}
 }
 \value{
-a dataframe includes Pearson's correlation coefficient, pvalue, padj
+a dataframe includes correlation coefficient, pvalue, padj
 }
 \description{
-To estimate correlation comparing each ortholog to each TE from inputs.
+To estimate correlation comparing orthologs and TEs one-by-one from inputs.
 You can specify the correlation and adjusted p-value methods (see details in parameters).
-It will also generate a output csv file in ./results directory.
-a output csv file with the correlation result.
+If you want to save your outputs instead of just returning them, please specify the fileDir and 
+fileName with the extension .csv. The default fileName is TEKRABber_geneTECorrReusult.csv.
 }
 \examples{
 library(SummarizedExperiment)

@@ -32,7 +32,7 @@ DataFrame rcpp_corr(DataFrame df1, DataFrame df2, StringVector Method) {
             gene_name.push_back(name1[i]);
             te_name.push_back(name2[j]);
             
-            // calculate pearson correlation and append results
+            // calculate selected correlation method and append results
             List result;
             Function cor("cor.test");
             result = cor(value1, value2, Named("method")=Method);

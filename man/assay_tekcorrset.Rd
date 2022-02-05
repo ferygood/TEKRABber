@@ -2,7 +2,7 @@
 % Please edit documentation in R/assay_tekcorrset.R
 \name{assay_tekcorrset}
 \alias{assay_tekcorrset}
-\title{Access gene and transposable elements expression data}
+\title{Access genes and transposable elements expression data}
 \usage{
 assay_tekcorrset(tecorrset, expType, sample)
 }
@@ -16,10 +16,11 @@ assay_tekcorrset(tecorrset, expType, sample)
  are for running same species design.}
 }
 \value{
-a dataframe contains expression genes or transposable element.
+a dataframe contains expression genes or transposable elements.
 }
 \description{
-Access expression data from the TekCorrSet class for running vignette
+a function only used for accessing the expression data from a 
+TekCorrSet class object to demonstrate examples in vignettes.
 demonstration.
 }
 \examples{

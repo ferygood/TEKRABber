@@ -17,10 +17,10 @@ data(ctInputDE)
 }
 \description{
 TEKRABber can also be used comparing orthologs and transposable elements within
-same species, i.e. control and treatment. Here we provide an example data for 
-demonstration. This data based on syn8466812 RNA-seq (Allen M et al., 2016). 
-However, the expression data is modified due to confidential agreement. 
-Therefore, it can not represent the original data.
+same species, i.e., control and treatment. Here we provide an example data for 
+demonstration. This data was based on syn8466812 RNA-seq (Allen M et al., 2016). 
+However, the expression data was modified due to confidential agreement. 
+Therefore, it cannot represent the original data.
 }
 \examples{
 data(ctInputDE)

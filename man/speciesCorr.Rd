@@ -20,7 +20,7 @@ data(speciesCorr)
 }
 \description{
 An object of class "TekCorrSet" which contains 4 expression counts. 
-These data are generated from speciesCounts using TEKRABber. For a quick demo, 
+These data are generated from speciesCounts using TEKRABber pipeline. For a quick demo, 
 we only select 50 orthologs and 50 transposable elements.
 }
 \examples{

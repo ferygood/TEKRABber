@@ -2,27 +2,22 @@ library(TEKRABber)
 library(shiny)
 library(ggpubr)
 
-DEresult = hmchimpDE
-corrRef = hmCorrResult
-corrCompare = chimpCorrResult
-metadata = meta
-
-geneInput <- DEresult$normalized_gene_counts
-geneRes <- DEresult$gene_res
-teInput <- DEresult$normalized_te_counts
-teRes <- DEresult$te_res
+geneInput <- appDE$normalized_gene_counts
+geneRes <- appDE$gene_res
+teInput <- appDE$normalized_te_counts
+teRes <- appDE$te_res
 
 rownames(geneInput) <- gsub("[()]", "", rownames(geneInput))
 rownames(teInput) <- gsub("[()]", "", rownames(teInput))
 rownames(geneRes) <- gsub("[()]", "", rownames(geneRes))
 rownames(teRes) <- gsub("[()]", "", rownames(teRes))
-corrRef$geneName <- gsub("[()]", "", corrRef$geneName)
-corrRef$teName <- gsub("[()]", "", corrRef$teName)
-corrCompare$geneName <- gsub("[()]", "", corrCompare$geneName)
-corrCompare$teName <- gsub("[()]", "", corrCompare$teName)
+appRef$geneName <- gsub("[()]", "", appRef$geneName)
+appRef$teName <- gsub("[()]", "", appRef$teName)
+appCompare$geneName <- gsub("[()]", "", appRef$geneName)
+appCompare$teName <- gsub("[()]", "", appRef$teName)
 
 # for expression tab: avoid subscript out of bounds with empty expression
-geneChoices <- intersect(corrRef$geneName, rownames(geneInput))
-geneChoices <- intersect(corrCompare$geneName, geneChoices)
-teChoices <- intersect(corrRef$teName, rownames(teInput))
-teChoices <- intersect(corrCompare$teName, teChoices)
+geneChoices <- intersect(appRef$geneName, rownames(geneInput))
+geneChoices <- intersect(appRef$geneName, geneChoices)
+teChoices <- intersect(appRef$teName, rownames(teInput))
+teChoices <- intersect(appRef$teName, teChoices)

@@ -7,9 +7,9 @@
 orthologScale(speciesRef, speciesCompare, geneCountRef, geneCountCompare)
 }
 \arguments{
-\item{speciesRef}{The scientific name for your reference species. i.e. hsapiens}
+\item{speciesRef}{The scientific name for your reference species. i.e., hsapiens}
 
-\item{speciesCompare}{The scientific name for your species to compare. i.e. ptroglodytes}
+\item{speciesCompare}{The scientific name for your species to compare. i.e., ptroglodytes}
 
 \item{geneCountRef}{Gene count from your reference species. First column should be Ensmebl gene ID}
 

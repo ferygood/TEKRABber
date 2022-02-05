@@ -20,18 +20,36 @@ DEgeneTE(geneTable, teTable, metadata, contrastVector, expDesign=TRUE, fileDir=N
 \item{fileDir}{the name and path of directory for saving output files. Default is NULL.}
 }
 \value{
-output DESeq2 res and normalized gene counts result in ./results directory
+return DESeq2 res and normalized gene counts.
 }
 \description{
 To estimate differentially expressed genes and TEs, DEgeneTE() takes
-gene input and TE input from the result using DECorrInputs function and return results
-in ./results directory which is automatically generate by this function. You need to
-specify metadata, contrastVector, and expDesign. See details in example.
+gene inputs and TE inputs from the results using the DECorrInputs function. You need to
+specify your metadata, contrastVector, and expDesign based on your design. If you 
+also want to save the output, please specify the fileDir parameter.
 }
 \examples{
 ## comparing between species: 
 ## (1) set expDesign = TRUE (2) column name of metadata needs to be "species".
-\donttest{
+
+data(speciesCounts)
+hmGene <- speciesCounts$hmGene
+hmTE <- speciesCounts$hmTE
+chimpGene <- speciesCounts$chimpGene
+chimpTE <- speciesCounts$chimpTE
+
+data(fetchDataHmChimp)
+fetchData <- fetchDataHmChimp
+
+inputBundle <- DECorrInputs(
+  orthologTable = fetchData$orthologTable,
+  scaleFactor = fetchData$scaleFactor,
+  geneCountRef = hmGene,
+  geneCountCompare = chimpGene,
+  teCountRef = hmTE,
+  teCountCompare = chimpTE
+)
+
 meta <- data.frame(species=c(rep("human", ncol(hmGene) - 1), 
                              rep("chimpanzee", ncol(chimpGene) - 1))
 )
@@ -44,21 +62,5 @@ hmchimpDE <- DEgeneTE(
   metadata = meta,
   contrastVector = c("species", "human", "chimpanzee"),
   expDesign = TRUE
-)}
-
-## comparing between control and experiment within same species:
-## (1) set expDesign = FALSE (2) column name of metadata needs to be "experiment".
-\donttest{
-metaExp <- data.frame(experiment = c(rep("control", 5), rep("treatment", 5)))
-rownames(metaExp) <- colnames(geneInputDE)
-metaExp$experiment <- factor(metaExp$experiment, levels = c("control", "treatment"))
-
-resultDE <- DEgeneTE(
-  geneTable = geneInputDE,
-  teTable = teInputDE,
-  metadata = metaExp,
-  contrastVector = c("experiment", "control", "treatment"),
-  expDesign = FALSE,
-  fileDir = NULL
-)}
+)
 }

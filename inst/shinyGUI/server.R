@@ -1,4 +1,4 @@
-server <- function(input, output, session) {
+shinyServer(function(input, output, session) {
     
     ## Expression tab
     expData <- reactive({
@@ -119,4 +119,4 @@ server <- function(input, output, session) {
     output$pointBrushCompare <- renderPrint({
         brushedPoints(appCompare[, c(1, 2, 4, 5)], input$scatterCompareBrush)
     })
-}
+})

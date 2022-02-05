@@ -15,7 +15,7 @@
     data structure mentioned in the vignettes.
 }
 \details{
-  TEKRABber analysis pipeline includes 4 main functions:
+  TEKRABber analysis pipeline includes 5 main functions:
   
   1. \strong{orthologScale()}: obtain orthology information and calculate scaling factor.
   
@@ -33,7 +33,7 @@
 \author{
 Yao-Chung Chen, Katja Nowick.
 
-Maintainer: Yao-Chung Chen \email{yao-chung.chen@@fu-berlin.de}
+Maintainer: Yao-Chung Chen \email{yao-chung.chen@fu-berlin.de}
 
 \href{https://github.com/ferygood/TEKRABber}{TEKRABber GitHub Repo}
 

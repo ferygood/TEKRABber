@@ -21,9 +21,9 @@ data(ctCorr)
 \description{
 Dataset contains gene/TE expression data from control and treatment based on 
 syn8466812 RNA-seq (Allen M et al., 2016) for correlation analysis. These data
-are also modified due to confidential agreement. Therefore, it can not represent
+were also modified due to confidential agreement. Therefore, it cannot represent
 the original data. For a quick demonstration, we only use 10 genes and 10 
-transposable elements .
+transposable elements.
 }
 \examples{
 data(ctCorr)

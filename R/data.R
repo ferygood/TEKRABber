@@ -30,7 +30,7 @@
 #' 
 #' @description 
 #' An object of class "TekCorrSet" which contains 4 expression counts. 
-#' These data are generated from speciesCounts using TEKRABber. For a quick demo, 
+#' These data are generated from speciesCounts using TEKRABber pipeline. For a quick demo, 
 #' we only select 50 orthologs and 50 transposable elements.
 #' @usage data(speciesCorr)
 #' @format An object of class "TekCorrSet" which contains 4 expression counts 
@@ -55,10 +55,10 @@
 #' 
 #' @description 
 #' TEKRABber can also be used comparing orthologs and transposable elements within
-#' same species, i.e. control and treatment. Here we provide an example data for 
-#' demonstration. This data based on syn8466812 RNA-seq (Allen M et al., 2016). 
-#' However, the expression data is modified due to confidential agreement. 
-#' Therefore, it can not represent the original data.
+#' same species, i.e., control and treatment. Here we provide an example data for 
+#' demonstration. This data was based on syn8466812 RNA-seq (Allen M et al., 2016). 
+#' However, the expression data was modified due to confidential agreement. 
+#' Therefore, it cannot represent the original data.
 #' @usage data(ctInputDE)
 #' @format An object contains 2 expression data:
 #' \describe{
@@ -79,9 +79,9 @@
 #' @description 
 #' Dataset contains gene/TE expression data from control and treatment based on 
 #' syn8466812 RNA-seq (Allen M et al., 2016) for correlation analysis. These data
-#' are also modified due to confidential agreement. Therefore, it can not represent
+#' were also modified due to confidential agreement. Therefore, it cannot represent
 #' the original data. For a quick demonstration, we only use 10 genes and 10 
-#' transposable elements .
+#' transposable elements.
 #' @usage data(ctCorr)
 #' @format An object of class "TekCorrSet" which contains 4 expression counts 
 #' and you can access it specifying the parameters using assay_tekcorrset():
@@ -107,7 +107,7 @@
 #' An output list of data contains 2 elements after using orthologScale(). 
 #' The first one is the orthology table comparing human and chimpanzee. The second one
 #' is the scaling factor. The purpose of providing this dataset is to 
-#' save time for user running the tutorial and give a template for demonstration.
+#' save time for user running the vignettes and give a template for demonstration.
 #' @usage data(fetchDataHmChimp)
 #' @format An object contains 2 elements:
 #' \describe{

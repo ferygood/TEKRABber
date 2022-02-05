@@ -1,12 +1,13 @@
-#' Access gene and transposable elements expression data
-#' @description Access expression data from the TekCorrSet class for running vignette
+#' Access genes and transposable elements expression data
+#' @description a function only used for accessing the expression data from a 
+#' TekCorrSet class object to demonstrate examples in vignettes.
 #' demonstration.
 #' @param tecorrset TekCorrSet object 
 #' @param expType Indicate which data you want to access. It should be "gene" or "te".
 #' @param sample The species name or experimental design. It should be "human" and 
 #' "chimpanzee" when you are running comparing species design. "control" and "treatment"
 #'  are for running same species design.
-#' @return a dataframe contains expression genes or transposable element.
+#' @return a dataframe contains expression genes or transposable elements.
 #' @export
 #' @importFrom SummarizedExperiment colData assay
 #' @examples
