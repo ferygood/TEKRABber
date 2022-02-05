@@ -111,18 +111,14 @@ hmCorrResult <- corrOrthologTE(
   geneInput = hmGeneCorrInput,
   teInput = hmTECorrInput,
   corrMethod = "pearson",
-  padjMethod = "fdr",
-  fileDir = ".",
-  fileName = "hmCorrResult.csv"
+  padjMethod = "fdr"
 )
 
 chimpCorrResult <- corrOrthologTE(
   geneInput = chimpGeneCorrInput,
   teInput = chimpTECorrInput,
   corrMethod = "pearson",
-  padjMethod = "fdr",
-  fileDir = ".",
-  fileName = "chimpCorrResult.csv"
+  padjMethod = "fdr"
 )
 
 head(hmCorrResult)
@@ -190,18 +186,14 @@ controlCorr <- corrOrthologTE(
     geneInput = geneConCorrInput,
     teInput = teConCorrInput,
     corrMethod = "pearson",
-    padjMethod = "fdr",
-    fileDir = ".",
-    fileName = "controlCorrResult.csv"
+    padjMethod = "fdr"
 )
 
 treatmentCorr <- corrOrthologTE(
     geneInput = geneTreatCorrInput,
     teInput = teTreatCorrInput,
     corrMethod = "pearson",
-    padjMethod = "fdr",
-    fileDir = ".",
-    fileName = "treatmentCorrResult.csv"
+    padjMethod = "fdr"
 )
 
 head(treatmentCorr)

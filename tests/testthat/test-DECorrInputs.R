@@ -1,15 +1,14 @@
 context("DECorrInput")
 
 data(fetchDataHmChimp, speciesCounts)
-fetchData <- fetchDataHmChimp
 
 inputBundle <- DECorrInputs(
-  orthologTable = fetchData$orthologTable,
-  scaleFactor = fetchData$scaleFactor,
-  geneCountRef = hmGene,
-  geneCountCompare = chimpGene,
-  teCountRef = hmTE,
-  teCountCompare = chimpTE
+  orthologTable = fetchDataHmChimp$orthologTable,
+  scaleFactor = fetchDataHmChimp$scaleFactor,
+  geneCountRef = speciesCounts$hmGene,
+  geneCountCompare = speciesCounts$chimpGene,
+  teCountRef = speciesCounts$hmTE,
+  teCountCompare = speciesCounts$chimpTE
 )
 
 test_that("DECorrInputs() returns 6 tables", {
