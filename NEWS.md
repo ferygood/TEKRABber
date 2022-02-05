@@ -1,4 +1,4 @@
-Changes in version 0.99.3 (2022-02-05)
+Changes in version 0.99.3 (2022-02-06)
 
 + modified requests from Bioconductor reviews
 
