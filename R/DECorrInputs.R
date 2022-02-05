@@ -1,13 +1,13 @@
-#' Generate all the inputs for TEKRABber downstream analysis
-#' @description Generate inputs files for differentially expressed genes/TEs analysis,
+#' Generate all the input files for TEKRABber downstream analysis
+#' @description Generate all the inputs files for differentially expressed genes/TEs analysis,
 #' and for correlation analysis. The output is a list containing 6 dataframes. 
 #' @usage DECorrInputs(orthologTable, scaleFactor, geneCountRef, geneCountCompare, teCountRef, teCountCompare)
 #' @param orthologTable orthologTable output from using orthologScale()
 #' @param scaleFactor scaleFactor output from using orthologScale()
-#' @param geneCountRef Gene counts from your reference species. First column should be Ensmebl gene ID
-#' @param geneCountCompare Gene counts from the species you want to compare. First column should also be Ensembl gene ID
-#' @param teCountRef TE counts from your reference species. First column should be TE's name
-#' @param teCountCompare TE counts from the species you want to compare. First column should also be TE's name
+#' @param geneCountRef Gene counts from your reference species. First column should be Ensmebl gene ID.
+#' @param geneCountCompare Gene counts from the species you want to compare. First column should also be Ensembl gene ID.
+#' @param teCountRef TE counts from your reference species. First column should be TE's name.
+#' @param teCountCompare TE counts from the species you want to compare. First column should also be TE's name.
 #' @return create inputs for DE analysis and correlations: (1) geneInputDESeq2 (2) teInputDESeq2 (3) geneCorrInputRef (4) geneCorrInputCompare (5) TECorrInputRef (6) TECorrInputCompare
 #' @export
 #' @importFrom magrittr %>%

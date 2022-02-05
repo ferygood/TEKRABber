@@ -1,4 +1,4 @@
-ui <- fluidPage(
+fluidPage(
     titlePanel(
         "TEKRABber",
     ),

@@ -19,7 +19,7 @@ vignette: >
 `r BiocStyle::Biocpkg("TEKRABber")` is used to estimate the correlations between genes and transposable elements (TEs) from RNA-seq data comparing between: **(1)** Two Species **(2)** Control vs. Experiment. In the following sections, we will use built-in data to demonstrate how to implement `r BiocStyle::Biocpkg("TEKRABber")` on you own analysis.
 
 # Installation
-To use `r BiocStyle::Biocpkg("TEKRABber")` into your R environment, you need to 
+To use `r BiocStyle::Biocpkg("TEKRABber")` from your R environment, you need to 
 install it using `r BiocStyle::Biocpkg("BiocManager")`:
 ```{r installation, eval=FALSE}
 install.packages("BiocManager")
@@ -80,7 +80,7 @@ inputBundle <- DECorrInputs(
 ```
 
 ### Differentially expressed analysis (DE analysis)
-In this step, we need to generate a metadata contain species name (i.e. human and chimpanzee). The row names need to be same as the DE input table and the column name must be **species** (see the example below). Then we use `DEgeneTE()` to perform DE analysis. The contrastVector parameter needs to be a three elements vector. The first item is **species**, the second is the reference species name from metadata which in our case is **human**, and the last one is the compared species in your metadata which is **chimpanzee**. When you are comparing samples between two species, the parameter **expDesign** should be **TRUE** (as default).
+In this step, we need to generate a metadata contain species name (i.e., human and chimpanzee). The row names need to be same as the DE input table and the column name must be **species** (see the example below). Then we use `DEgeneTE()` to perform DE analysis. The contrastVector parameter needs to be a three elements vector. The first item is **species**, the second is the reference species name from metadata which in our case is **human**, and the last one is the compared species in your metadata which is **chimpanzee**. When you are comparing samples between two species, the parameter **expDesign** should be **TRUE** (as default).
 ```{r DE analysis (two species), message=FALSE, results='hide', warning=FALSE}
 meta <- data.frame(species=c(rep("human", ncol(hmGene) - 1), 
                              rep("chimpanzee", ncol(chimpGene) - 1))
@@ -98,7 +98,7 @@ hmchimpDE <- DEgeneTE(
 ```
 
 ### Correlation analysis
-Here we use `corrOrthologTE()` to perform correlation estimation comparing each ortholog and TE. This is the most time consuming step if you have large data. For a quick demonstration, we use a relatively small data. You can specify the correlation method and adjusted _p-value_ method. The default moethods are Pearson's correlation and FDR. **Note: ** For more efficient and specific analysis, you can subset your data in this step to focus on only the orthologs and TEs that you are interested in. 
+Here we use `corrOrthologTE()` to perform correlation estimation comparing each ortholog and TE. This is the most time-consuming step if you have large data. For a quick demonstration, we use a relatively small data. You can specify the correlation method and adjusted _p-value_ method. The default methods are Pearson's correlation and FDR. **Note: ** For more efficient and specific analysis, you can subset your data in this step to focus on only the orthologs and TEs that you are interested in. 
 ```{r correlation (two species), warning=FALSE}
 # load built-in data
 data(speciesCorr)
@@ -136,7 +136,7 @@ appTEKRABber(
 ```
 In the **Expression tab** page, **(1)** you can specify your input gene and TE. The result will show in box plots with data points in log2 expression level **(2)** DE analysis result will show in table including statistical information **(3)** Correlation result will indicate if these selected pairs are significantly correlated and the value of correlation coefficients.
 ![](https://user-images.githubusercontent.com/40789913/143572684-12adf891-3f1b-4b9d-b913-94e664abb196.jpeg)
-In the **Correlation tab** page, you can visualize your data in scatter plots in three ways. **(1)** Specify the data point and it will turn red in the distribution of your results **(2)** Show the distribution of all the data from your correlation results based on their correlation coefficients and adjusted _p-value_. The blue vertical dashed line indicates the boundary of adjusted _p-value_ is 0.05, and the orange one is for adjusted _p-value_ 0.01 **(3)** you can click the data points which you are interested in and it will be listed in the table. You can also drag a certain area to show data points in it. 
+In the **Correlation tab** page (above figure), you can select your data in scatter plots in three ways. **(1)** Specify the data point and it will turn red in the distribution of your results **(2)** Show the distribution of all the data from your correlation results based on their correlation coefficients and adjusted _p-value_. The blue vertical dashed line indicates the boundary of adjusted _p-value_ is 0.05, and the orange one is for adjusted _p-value_ 0.01 **(3)** you can click the data points which you are interested in, and it will be listed in the table. You can also drag a certain area to show data points in it. 
 
 ## Comparing control and treatment samples within the same species
 If you want to compare selected genes and TEs **(1)** from different tissue in same species or **(2)** control and drug treatment in same tissue in same species, please generate all the input files following the input format. Here we show an example data of prepared input files including expression counts from 10 control and 10 treatment samples. The format of input data: row names should be gene name or id, and column name is your sample id (please see details below).

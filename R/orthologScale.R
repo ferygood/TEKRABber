@@ -3,8 +3,8 @@
 #' calculate scaling factor between two species using the confidence of
 #' orthology score and expression counts.
 #' @usage orthologScale(speciesRef, speciesCompare, geneCountRef, geneCountCompare)
-#' @param speciesRef The scientific name for your reference species. i.e. hsapiens
-#' @param speciesCompare The scientific name for your species to compare. i.e. ptroglodytes
+#' @param speciesRef The scientific name for your reference species. i.e., hsapiens
+#' @param speciesCompare The scientific name for your species to compare. i.e., ptroglodytes
 #' @param geneCountRef Gene count from your reference species. First column should be Ensmebl gene ID
 #' @param geneCountCompare Gene count from the species you want to compare. First column should also be Ensembl gene ID
 #' @return There are two outputs:(1) orthologTable: orthology information from BioMart (2) scale_factor: for normalizing expression counts
@@ -95,7 +95,7 @@ orthologScale <- function(speciesRef, speciesCompare, geneCountRef, geneCountCom
     df.scbn <- df[, c(11, 13, 12, 14)]
     
     ## run scbn to obtain scaling factor
-    factor <- SCBN::SCBN(orth_gene = df.scbn, hkind = 1:confidence_count, a = 0.05)
+    factor <- SCBN::SCBN(orth_gene = df.scbn, hkind = seq_len(confidence_count), a = 0.05)
     scaleFactor <- factor$scbn_val
     
     result <- list(

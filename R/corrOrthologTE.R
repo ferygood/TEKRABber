@@ -1,15 +1,14 @@
 #' Estimate correlation comparing orthologs and TEs
 #' @description To estimate correlation comparing orthologs and TEs one-by-one from inputs.
 #' You can specify the correlation and adjusted p-value methods (see details in parameters).
-#' If you want to save your outputs instead just return them, please specify the fileDir and 
+#' If you want to save your outputs instead of just returning them, please specify the fileDir and 
 #' fileName with the extension .csv. The default fileName is TEKRABber_geneTECorrReusult.csv.
-#' a output csv file with the correlation result.
 #' @usage corrOrthologTE(geneInput, teInput, corrMethod = "pearson", padjMethod = "fdr", fileDir=NULL, fileName="TEKRABber_geneTECorrResult.csv")
 #' @param geneInput gene count input for correlation from using DECorrInputs()
 #' @param teInput te count input for correlation from using DECorrInputs()
-#' @param corrMethod correlation method, including pearson, kendall, spearman. Default is pearson
-#' @param padjMethod method to return p-values adjusted, and default is fdr. See ?p.adjust
-#' @param fileDir the name and path of directory for saving output files. Default is NULL.
+#' @param corrMethod correlation method, including pearson, kendall, spearman. Default is pearson.
+#' @param padjMethod method to return adjusted p-value, and default is fdr. See ?p.adjust
+#' @param fileDir the name of directory for saving output files. Default is NULL.
 #' @param fileName the name for saving output files. Default is "TEKRABber_geneTECorrResult.csv"
 #' @return a dataframe includes correlation coefficient, pvalue, padj
 #' @useDynLib TEKRABber

@@ -1,7 +1,7 @@
 #' Visualize TEKRABber results with shiny app
-#' @description To help user explore their results using TEKRABber, it visualize the results
+#' @description To help user explore their results using TEKRABber, it visualizes the results
 #' using a self-written shiny app with two tabs, including the expression and correlation of
-#' genes and TEs.
+#' genes and TEs. This function will create global app-prefix variables to run the app.
 #' @usage appTEKRABber(DEresult, corrRef, corrCompare, metadata)
 #' @param DEresult the output variable from using DEgeneTE()
 #' @param corrRef the correlation result of your reference species using corrOthologTE()
@@ -9,7 +9,7 @@
 #' @param metadata the same metadata you use for DEgeneTE()
 #' 
 #' @export
-#' @return an app can display differentially expressed genes/TE and the correlation results
+#' @return An app to display differentially expressed genes/TEs and the correlation results
 #' @examples
 #' ## hmchimpDE is generated from using DEgeneTE()
 #' ## hmCorrResult and chimpCorrResult are generated from using corrOrthologTE()
@@ -32,7 +32,8 @@ appTEKRABber <- function(DEresult, corrRef, corrCompare, metadata) {
     
     # run shiny app
     shiny::runApp(
-        appDir = system.file("inst/shinyGUI", package="TEKRABber"),
+        appDir = system.file("shinyGUI", package="TEKRABber"),
         launch.browser = TRUE
+        
     )
 }

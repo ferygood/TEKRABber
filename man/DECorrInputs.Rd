@@ -2,7 +2,7 @@
 % Please edit documentation in R/DECorrInputs.R
 \name{DECorrInputs}
 \alias{DECorrInputs}
-\title{Generate all the inputs for TEKRABber downstream analysis}
+\title{Generate all the input files for TEKRABber downstream analysis}
 \usage{
 DECorrInputs(orthologTable, scaleFactor, geneCountRef, geneCountCompare, teCountRef, teCountCompare)
 }
@@ -11,19 +11,19 @@ DECorrInputs(orthologTable, scaleFactor, geneCountRef, geneCountCompare, teCount
 
 \item{scaleFactor}{scaleFactor output from using orthologScale()}
 
-\item{geneCountRef}{Gene counts from your reference species. First column should be Ensmebl gene ID}
+\item{geneCountRef}{Gene counts from your reference species. First column should be Ensmebl gene ID.}
 
-\item{geneCountCompare}{Gene counts from the species you want to compare. First column should also be Ensembl gene ID}
+\item{geneCountCompare}{Gene counts from the species you want to compare. First column should also be Ensembl gene ID.}
 
-\item{teCountRef}{TE counts from your reference species. First column should be TE's name}
+\item{teCountRef}{TE counts from your reference species. First column should be TE's name.}
 
-\item{teCountCompare}{TE counts from the species you want to compare. First column should also be TE's name}
+\item{teCountCompare}{TE counts from the species you want to compare. First column should also be TE's name.}
 }
 \value{
 create inputs for DE analysis and correlations: (1) geneInputDESeq2 (2) teInputDESeq2 (3) geneCorrInputRef (4) geneCorrInputCompare (5) TECorrInputRef (6) TECorrInputCompare
 }
 \description{
-Generate inputs files for differentially expressed genes/TEs analysis,
+Generate all the inputs files for differentially expressed genes/TEs analysis,
 and for correlation analysis. The output is a list containing 6 dataframes.
 }
 \examples{

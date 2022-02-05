@@ -16,12 +16,12 @@ appTEKRABber(DEresult, corrRef, corrCompare, metadata)
 \item{metadata}{the same metadata you use for DEgeneTE()}
 }
 \value{
-an app can display differentially expressed genes/TE and the correlation results
+An app to display differentially expressed genes/TEs and the correlation results
 }
 \description{
-To help user explore their results using TEKRABber, it visualize the results
+To help user explore their results using TEKRABber, it visualizes the results
 using a self-written shiny app with two tabs, including the expression and correlation of
-genes and TEs.
+genes and TEs. This function will create global app-prefix variables to run the app.
 }
 \examples{
 ## hmchimpDE is generated from using DEgeneTE()
