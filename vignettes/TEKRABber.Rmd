@@ -2,13 +2,11 @@
 title: "TEKRABber"
 author:
 - name: Yao-Chung Chen
-    affiliation: Human Biology, Institute of Biology, 
-        Freie Universität Berlin, Berlin, Germany
-    email: yao-chung.chen@fu-berlin.de
+  affiliation: Human Biology, Institute of Biology, Freie Universität Berlin, Berlin, Germany
+  email: yao-chung.chen@fu-berlin.de
 - name: Katja Nowick
-    affiliation: Human Biology, Institute of Biology, 
-        Freie Universität Berlin, Berlin, Germany
-    email: katja.nowick@fu-berlin.de
+  affiliation: Human Biology, Institute of Biology, Freie Universität Berlin, Berlin, Germany
+  email: katja.nowick@fu-berlin.de
 package: TEKRABber
 output:
     BiocStyle::html_document: default
