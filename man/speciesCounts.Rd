@@ -7,22 +7,22 @@
 \format{
 An object contains 4 expression counts:
 \describe{
-  \item{hmGene}{human gene expression data}
-  \item{hmTE}{human TE expression}
-  \item{chimpGene}{chimpanzee gene expression data}
-  \item{chimpTE}{chimpanzee TE expression data}
+    \item{hmGene}{human gene expression data}
+    \item{hmTE}{human TE expression}
+    \item{chimpGene}{chimpanzee gene expression data}
+    \item{chimpTE}{chimpanzee TE expression data}
 }
 }
 \usage{
 data(speciesCounts)
 }
 \description{
-Dataset contains 4 expression data from human and chimpanzee brain RNA-seq . 
+Dataset contains 4 expression data from human and chimpanzee brain RNA-seq. 
 We select raw fastq data from 10 humans and 10 chimpanzees from 
 (Khrameeva E et al., 2020). Gene expression is generated using HISAT2 and 
 featureCounts (Kim D et al., 2019; Liao Y et al., 2014). Transposable 
-elements (TEs) expression is generated with multi-mapping option using STAR 
-and TEtranscripts (Dobin A et al., 2013; Jin Y et al., 2015).
+elements (TEs) expression is generated with multi-mapping option using 
+STAR and TEtranscripts (Dobin A et al., 2013; Jin Y et al., 2015).
 }
 \examples{
 data(speciesCounts)

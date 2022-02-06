@@ -4,33 +4,43 @@
 \alias{DEgeneTE}
 \title{Estimate differentially expressed genes and TEs}
 \usage{
-DEgeneTE(geneTable, teTable, metadata, contrastVector, expDesign=TRUE, fileDir=NULL)
+DEgeneTE(geneTable, teTable, metadata, contrastVector, 
+expDesign=TRUE, fileDir=NULL)
 }
 \arguments{
 \item{geneTable}{gene input table from using DECorrInputs()}
 
 \item{teTable}{TE input table from using DECorrInputs()}
 
-\item{metadata}{a one column dataframe with rownames same as the column name of gene/te count table. Column name must be \strong{species} or \strong{experiment}.}
+\item{metadata}{a one column dataframe with rownames same as the column 
+name of gene/te count table. Column name must be \strong{species} 
+or \strong{experiment}.}
 
-\item{contrastVector}{your experiment design, i.e. c("species", "human", "chimpanzee")}
+\item{contrastVector}{your experiment design, i.e. c("species", "human", 
+"chimpanzee")}
 
-\item{expDesign}{Logic value for comparing between or within species. \strong{TRUE} for comparing between two species, and \strong{FALSE} for comparing between control and treatment.}
+\item{expDesign}{Logic value for comparing between or within species. 
+\strong{TRUE} for comparing between two species, and \strong{FALSE} 
+for comparing between control and treatment.}
 
-\item{fileDir}{the name and path of directory for saving output files. Default is NULL.}
+\item{fileDir}{the name and path of directory for saving output files. 
+Default is NULL.}
 }
 \value{
 return DESeq2 res and normalized gene counts.
 }
 \description{
-To estimate differentially expressed genes and TEs, DEgeneTE() takes
-gene inputs and TE inputs from the results using the DECorrInputs function. You need to
-specify your metadata, contrastVector, and expDesign based on your design. If you 
-also want to save the output, please specify the fileDir parameter.
+To estimate differentially expressed genes and TEs, 
+DEgeneTE() takes
+gene inputs and TE inputs from the results using the DECorrInputs function. 
+You need to specify your metadata, contrastVector, and expDesign based on 
+your design. If you also want to save the output, please specify the 
+fileDir parameter.
 }
 \examples{
 ## comparing between species: 
-## (1) set expDesign = TRUE (2) column name of metadata needs to be "species".
+## (1) set expDesign = TRUE 
+## (2) column name of metadata needs to be "species".
 
 data(speciesCounts)
 hmGene <- speciesCounts$hmGene
@@ -42,25 +52,25 @@ data(fetchDataHmChimp)
 fetchData <- fetchDataHmChimp
 
 inputBundle <- DECorrInputs(
-  orthologTable = fetchData$orthologTable,
-  scaleFactor = fetchData$scaleFactor,
-  geneCountRef = hmGene,
-  geneCountCompare = chimpGene,
-  teCountRef = hmTE,
-  teCountCompare = chimpTE
+    orthologTable = fetchData$orthologTable,
+    scaleFactor = fetchData$scaleFactor,
+    geneCountRef = hmGene,
+    geneCountCompare = chimpGene,
+    teCountRef = hmTE,
+    teCountCompare = chimpTE
 )
 
 meta <- data.frame(species=c(rep("human", ncol(hmGene) - 1), 
-                             rep("chimpanzee", ncol(chimpGene) - 1))
+    rep("chimpanzee", ncol(chimpGene) - 1))
 )
 rownames(meta) <- colnames(inputBundle$geneInputDESeq2)
 meta$species <- factor(meta$species, levels = c("human", "chimpanzee"))
 
 hmchimpDE <- DEgeneTE(
-  geneTable = inputBundle$geneInputDESeq2,
-  teTable = inputBundle$teInputDESeq2,
-  metadata = meta,
-  contrastVector = c("species", "human", "chimpanzee"),
-  expDesign = TRUE
+    geneTable = inputBundle$geneInputDESeq2,
+    teTable = inputBundle$teInputDESeq2,
+    metadata = meta,
+    contrastVector = c("species", "human", "chimpanzee"),
+    expDesign = TRUE
 )
 }

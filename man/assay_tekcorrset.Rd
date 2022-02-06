@@ -9,11 +9,12 @@ assay_tekcorrset(tecorrset, expType, sample)
 \arguments{
 \item{tecorrset}{TekCorrSet object}
 
-\item{expType}{Indicate which data you want to access. It should be "gene" or "te".}
+\item{expType}{Indicate which data you want to access. It should be "gene" 
+or "te".}
 
-\item{sample}{The species name or experimental design. It should be "human" and 
-"chimpanzee" when you are running comparing species design. "control" and "treatment"
- are for running same species design.}
+\item{sample}{The species name or experimental design. It should be "human" 
+and "chimpanzee" when you are running comparing species design. "control" 
+and "treatment" are for running same species design.}
 }
 \value{
 a dataframe contains expression genes or transposable elements.

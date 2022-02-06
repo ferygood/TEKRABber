@@ -4,19 +4,25 @@
 \alias{orthologScale}
 \title{Get orthology information from Ensembl}
 \usage{
-orthologScale(speciesRef, speciesCompare, geneCountRef, geneCountCompare)
+orthologScale(speciesRef, speciesCompare, geneCountRef, 
+geneCountCompare)
 }
 \arguments{
-\item{speciesRef}{The scientific name for your reference species. i.e., hsapiens}
+\item{speciesRef}{The scientific name for your reference species. 
+i.e., hsapiens}
 
-\item{speciesCompare}{The scientific name for your species to compare. i.e., ptroglodytes}
+\item{speciesCompare}{The scientific name for your species to compare. 
+i.e., ptroglodytes}
 
-\item{geneCountRef}{Gene count from your reference species. First column should be Ensmebl gene ID}
+\item{geneCountRef}{Gene count from your reference species. First column 
+should be Ensmebl gene ID}
 
-\item{geneCountCompare}{Gene count from the species you want to compare. First column should also be Ensembl gene ID}
+\item{geneCountCompare}{Gene count from the species you want to compare. 
+First column should also be Ensembl gene ID}
 }
 \value{
-There are two outputs:(1) orthologTable: orthology information from BioMart (2) scale_factor: for normalizing expression counts
+There are two outputs:(1) orthologTable: orthology information 
+from BioMart (2) scale_factor: for normalizing expression counts
 }
 \description{
 Get orthology information from Ensembl using biomaRt and
@@ -29,9 +35,9 @@ hmGene <- speciesCounts$hmGene
 chimpGene <- speciesCounts$chimpGene
 \donttest{
 fetchData <- orthologScale(
-  speciesRef = "hsapiens",
-  speciesCompare = "ptroglodytes",
-  geneCountRef = hmGene,
-  geneCountCompare = chimpGene
+    speciesRef = "hsapiens",
+    speciesCompare = "ptroglodytes",
+    geneCountRef = hmGene,
+    geneCountCompare = chimpGene
 )}
 }

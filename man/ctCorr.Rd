@@ -3,27 +3,31 @@
 \docType{data}
 \name{ctCorr}
 \alias{ctCorr}
-\title{Normalized Gene/TE expression toy data in control and treatment in same species 
-for correlation analysis}
+\title{Normalized Gene/TE expression toy data in control and treatment in 
+same species for correlation analysis}
 \format{
 An object of class "TekCorrSet" which contains 4 expression counts 
 and you can access it specifying the parameters using assay_tekcorrset():
 \describe{
-  \item{assay_tekcorrset(ctCorr, "gene", "control")}{control gene expression data}
-  \item{assay_tekcorrset(ctCorr, "te", "control")}{control TE expression data}
-  \item{assay_tekcorrset(ctCorr, "gene", "treatment")}{treatment gene expression data}
-  \item{assay_tekcorrset(ctCorr, "te", "treatment")}{treatment TE expression data}
+    \item{assay_tekcorrset(ctCorr, "gene", "control")}{
+    control gene expression data}
+    \item{assay_tekcorrset(ctCorr, "te", "control")}{
+    control TE expression data}
+    \item{assay_tekcorrset(ctCorr, "gene", "treatment")}{
+    treatment gene expression data}
+    \item{assay_tekcorrset(ctCorr, "te", "treatment")}{
+    treatment TE expression data}
 }
 }
 \usage{
 data(ctCorr)
 }
 \description{
-Dataset contains gene/TE expression data from control and treatment based on 
-syn8466812 RNA-seq (Allen M et al., 2016) for correlation analysis. These data
-were also modified due to confidential agreement. Therefore, it cannot represent
-the original data. For a quick demonstration, we only use 10 genes and 10 
-transposable elements.
+Dataset contains gene/TE expression data from control and treatment 
+based on syn8466812 RNA-seq (Allen M et al., 2016) for correlation 
+analysis. These data were also modified due to confidential agreement. 
+Therefore, it cannot represent the original data. For a quick demonstration, 
+we only use 10 genes and 10 transposable elements.
 }
 \examples{
 data(ctCorr)

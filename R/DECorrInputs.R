@@ -1,14 +1,22 @@
 #' Generate all the input files for TEKRABber downstream analysis
-#' @description Generate all the inputs files for differentially expressed genes/TEs analysis,
-#' and for correlation analysis. The output is a list containing 6 dataframes. 
-#' @usage DECorrInputs(orthologTable, scaleFactor, geneCountRef, geneCountCompare, teCountRef, teCountCompare)
+#' @description Generate all the inputs files for differentially expressed 
+#' genes/TEs analysis, and for correlation analysis. The output 
+#' is a list containing 6 dataframes. 
+#' @usage DECorrInputs(orthologTable, scaleFactor, geneCountRef, 
+#' geneCountCompare, teCountRef, teCountCompare)
 #' @param orthologTable orthologTable output from using orthologScale()
 #' @param scaleFactor scaleFactor output from using orthologScale()
-#' @param geneCountRef Gene counts from your reference species. First column should be Ensmebl gene ID.
-#' @param geneCountCompare Gene counts from the species you want to compare. First column should also be Ensembl gene ID.
-#' @param teCountRef TE counts from your reference species. First column should be TE's name.
-#' @param teCountCompare TE counts from the species you want to compare. First column should also be TE's name.
-#' @return create inputs for DE analysis and correlations: (1) geneInputDESeq2 (2) teInputDESeq2 (3) geneCorrInputRef (4) geneCorrInputCompare (5) TECorrInputRef (6) TECorrInputCompare
+#' @param geneCountRef Gene counts from your reference species. First 
+#' column should be Ensmebl gene ID.
+#' @param geneCountCompare Gene counts from the species you want to compare. 
+#' First column should also be Ensembl gene ID.
+#' @param teCountRef TE counts from your reference species. First column 
+#' should be TE's name.
+#' @param teCountCompare TE counts from the species you want to compare. 
+#' First column should also be TE's name.
+#' @return create inputs for DE analysis and correlations: 
+#' (1) geneInputDESeq2 (2) teInputDESeq2 (3) geneCorrInputRef 
+#' (4) geneCorrInputCompare (5) TECorrInputRef (6) TECorrInputCompare
 #' @export
 #' @importFrom magrittr %>%
 #' @importFrom dplyr mutate inner_join across
@@ -22,22 +30,25 @@
 #' chimpTE <- speciesCounts$chimpTE
 #' \donttest{
 #' fetchData <- orthologScale(
-#'   speciesRef = "hsapiens",
-#'   speciesCompare = "ptroglodytes",
-#'   geneCountRef = hmGene,
-#'   geneCountCompare = chimpGene
+#'     speciesRef = "hsapiens",
+#'     speciesCompare = "ptroglodytes",
+#'     geneCountRef = hmGene,
+#'     geneCountCompare = chimpGene
 #' )}
 #' \donttest{
 #' inputBundle <- DECorrInputs(
-#'   orthologTable=fetchData$orthologTable,
-#'   scaleFactor=fetchData$scaleFactor,
-#'   geneCountRef=hmGene,
-#'   geneCountCompare=chimpGene,
-#'   teCountRef=hmTE,
-#'   teCountCompare=chimpTE
+#'     orthologTable=fetchData$orthologTable,
+#'     scaleFactor=fetchData$scaleFactor,
+#'     geneCountRef=hmGene,
+#'     geneCountCompare=chimpGene,
+#'     teCountRef=hmTE,
+#'     teCountCompare=chimpTE
 #' )}
-DECorrInputs <- function(orthologTable, scaleFactor, geneCountRef, 
-                         geneCountCompare, teCountRef, teCountCompare) {
+DECorrInputs <- function(
+    orthologTable, scaleFactor, 
+    geneCountRef, geneCountCompare, 
+    teCountRef, teCountCompare) {
+    
     norm_scale <- function(x) {
         return(round(x / scaleFactor))
     }
@@ -57,8 +68,13 @@ DECorrInputs <- function(orthologTable, scaleFactor, geneCountRef,
     colnames(teCountRef)[1] <- "teName"
     colnames(teCountCompare)[1] <- "teName"
     
-    geneInputDESeq2 <- inner_join(orthologTable_ID, geneCountRef, by = "refEnsemblID")
-    geneInputDESeq2 <- inner_join(geneInputDESeq2, geneCountCompare, by = "compareEnsemblID")
+    geneInputDESeq2 <- inner_join(
+        orthologTable_ID, geneCountRef, 
+        by = "refEnsemblID")
+    
+    geneInputDESeq2 <- inner_join(
+        geneInputDESeq2, geneCountCompare, 
+        by = "compareEnsemblID")
     
     teInputDESeq2 <- inner_join(teCountRef, teCountCompare, by = "teName")
     
@@ -79,13 +95,13 @@ DECorrInputs <- function(orthologTable, scaleFactor, geneCountRef,
     geneInputDESeq2 <- round(geneInputDESeq2)
     teInputDESeq2 <- round(teInputDESeq2)
     
-    #write.table(geneInputDESeq2, file = "results/geneInputDESeq2.csv", sep = ",")
-    #write.table(teInputDESeq2, file = "results/teInputDESeq2.csv", sep = ",")
+    geneCorrInputRef <- geneInputDESeq2[, seq_len(refCount)]
+    geneCorrInputCompare <- 
+        geneInputDESeq2[, (refCount + 1):ncol(geneInputDESeq2)]
     
-    geneCorrInputRef <- geneInputDESeq2[, 1:refCount]
-    geneCorrInputCompare <- geneInputDESeq2[, (refCount + 1):ncol(geneInputDESeq2)]
-    teCorrInputRef <- teInputDESeq2[, 1:refCount]
-    teCorrInputCompare <- teInputDESeq2[, (refCount + 1):ncol(teInputDESeq2)]
+    teCorrInputRef <- teInputDESeq2[, seq_len(refCount)]
+    teCorrInputCompare <- 
+        teInputDESeq2[, (refCount + 1):ncol(teInputDESeq2)]
     
     output <- list(
         "geneInputDESeq2" = geneInputDESeq2,

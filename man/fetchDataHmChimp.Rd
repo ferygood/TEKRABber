@@ -7,8 +7,8 @@
 \format{
 An object contains 2 elements:
 \describe{
-  \item{\strong{orthologTable}}{containing orthology information retrieving from Ensembl}
-  \item{\strong{scaleFactor}}{containing the scaling factor to normalize data}
+    \item{\strong{orthologTable}}{orthology information from Ensembl}
+    \item{\strong{scaleFactor}}{scaling factor to normalize data}
 }
 }
 \usage{
@@ -16,9 +16,10 @@ data(fetchDataHmChimp)
 }
 \description{
 An output list of data contains 2 elements after using orthologScale(). 
-The first one is the orthology table comparing human and chimpanzee. The second one
-is the scaling factor. The purpose of providing this dataset is to 
-save time for user running the vignettes and give a template for demonstration.
+The first one is the orthology table comparing human and chimpanzee. 
+The second one is the scaling factor. The purpose of providing this 
+dataset is to save time for user running the vignettes and give a 
+template for demonstration.
 }
 \examples{
 data(fetchDataHmChimp)

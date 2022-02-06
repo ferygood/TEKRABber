@@ -9,30 +9,34 @@ appTEKRABber(DEresult, corrRef, corrCompare, metadata)
 \arguments{
 \item{DEresult}{the output variable from using DEgeneTE()}
 
-\item{corrRef}{the correlation result of your reference species using corrOthologTE()}
+\item{corrRef}{the correlation result of your reference species using 
+corrOthologTE()}
 
-\item{corrCompare}{the correlation result of your compare species using corrOrthologTE()}
+\item{corrCompare}{the correlation result of your compare species using 
+corrOrthologTE()}
 
 \item{metadata}{the same metadata you use for DEgeneTE()}
 }
 \value{
-An app to display differentially expressed genes/TEs and the correlation results
+An app to display differentially expressed genes/TEs and the 
+correlation results
 }
 \description{
-To help user explore their results using TEKRABber, it visualizes the results
-using a self-written shiny app with two tabs, including the expression and correlation of
-genes and TEs. This function will create global app-prefix variables to run the app.
+To help user explore their results using TEKRABber, it 
+visualizes the results using a self-written shiny app with two tabs, 
+including the expression and correlation of genes and TEs. This function 
+will create global app-prefix variables to run the app.
 }
 \examples{
-## hmchimpDE is generated from using DEgeneTE()
-## hmCorrResult and chimpCorrResult are generated from using corrOrthologTE()
+## hmchimpDE is generated using DEgeneTE()
+## hmCorrResult and chimpCorrResult are generated using corrOrthologTE()
 ## meta is the same metadata you used for DE analysis
 \donttest{
 appTEKRABber(
-  DEresult = hmchimpDE,
-  corrRef = hmCorrResult,
-  corrCompare = chimpCorrResult,
-  metadata = meta
+    DEresult = hmchimpDE,
+    corrRef = hmCorrResult,
+    corrCompare = chimpCorrResult,
+    metadata = meta
 )}
 
 }

@@ -1,25 +1,29 @@
 #' Visualize TEKRABber results with shiny app
-#' @description To help user explore their results using TEKRABber, it visualizes the results
-#' using a self-written shiny app with two tabs, including the expression and correlation of
-#' genes and TEs. This function will create global app-prefix variables to run the app.
+#' @description To help user explore their results using TEKRABber, it 
+#' visualizes the results using a self-written shiny app with two tabs, 
+#' including the expression and correlation of genes and TEs. This function 
+#' will create global app-prefix variables to run the app.
 #' @usage appTEKRABber(DEresult, corrRef, corrCompare, metadata)
 #' @param DEresult the output variable from using DEgeneTE()
-#' @param corrRef the correlation result of your reference species using corrOthologTE()
-#' @param corrCompare the correlation result of your compare species using corrOrthologTE()
+#' @param corrRef the correlation result of your reference species using 
+#' corrOthologTE()
+#' @param corrCompare the correlation result of your compare species using 
+#' corrOrthologTE()
 #' @param metadata the same metadata you use for DEgeneTE()
 #' 
 #' @export
-#' @return An app to display differentially expressed genes/TEs and the correlation results
+#' @return An app to display differentially expressed genes/TEs and the 
+#' correlation results
 #' @examples
-#' ## hmchimpDE is generated from using DEgeneTE()
-#' ## hmCorrResult and chimpCorrResult are generated from using corrOrthologTE()
+#' ## hmchimpDE is generated using DEgeneTE()
+#' ## hmCorrResult and chimpCorrResult are generated using corrOrthologTE()
 #' ## meta is the same metadata you used for DE analysis
 #' \donttest{
 #' appTEKRABber(
-#'   DEresult = hmchimpDE,
-#'   corrRef = hmCorrResult,
-#'   corrCompare = chimpCorrResult,
-#'   metadata = meta
+#'     DEresult = hmchimpDE,
+#'     corrRef = hmCorrResult,
+#'     corrCompare = chimpCorrResult,
+#'     metadata = meta
 #' )}
 #' 
 appTEKRABber <- function(DEresult, corrRef, corrCompare, metadata) {

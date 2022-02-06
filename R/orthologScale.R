@@ -2,12 +2,18 @@
 #' @description Get orthology information from Ensembl using biomaRt and
 #' calculate scaling factor between two species using the confidence of
 #' orthology score and expression counts.
-#' @usage orthologScale(speciesRef, speciesCompare, geneCountRef, geneCountCompare)
-#' @param speciesRef The scientific name for your reference species. i.e., hsapiens
-#' @param speciesCompare The scientific name for your species to compare. i.e., ptroglodytes
-#' @param geneCountRef Gene count from your reference species. First column should be Ensmebl gene ID
-#' @param geneCountCompare Gene count from the species you want to compare. First column should also be Ensembl gene ID
-#' @return There are two outputs:(1) orthologTable: orthology information from BioMart (2) scale_factor: for normalizing expression counts
+#' @usage orthologScale(speciesRef, speciesCompare, geneCountRef, 
+#' geneCountCompare)
+#' @param speciesRef The scientific name for your reference species. 
+#' i.e., hsapiens
+#' @param speciesCompare The scientific name for your species to compare. 
+#' i.e., ptroglodytes
+#' @param geneCountRef Gene count from your reference species. First column 
+#' should be Ensmebl gene ID
+#' @param geneCountCompare Gene count from the species you want to compare. 
+#' First column should also be Ensembl gene ID
+#' @return There are two outputs:(1) orthologTable: orthology information 
+#' from BioMart (2) scale_factor: for normalizing expression counts
 #' @importFrom dplyr inner_join
 #' @export
 #' @examples
@@ -16,12 +22,14 @@
 #' chimpGene <- speciesCounts$chimpGene
 #' \donttest{
 #' fetchData <- orthologScale(
-#'   speciesRef = "hsapiens",
-#'   speciesCompare = "ptroglodytes",
-#'   geneCountRef = hmGene,
-#'   geneCountCompare = chimpGene
+#'     speciesRef = "hsapiens",
+#'     speciesCompare = "ptroglodytes",
+#'     geneCountRef = hmGene,
+#'     geneCountCompare = chimpGene
 #' )}
-orthologScale <- function(speciesRef, speciesCompare, geneCountRef, geneCountCompare) {
+orthologScale <- function(
+    speciesRef, speciesCompare, 
+    geneCountRef, geneCountCompare) {
     ## Part1: Get ortholog table using biomaRt
     geneRef <- paste0(speciesRef, "_gene_ensembl")
     geneCompare <- paste0(speciesCompare, "_gene_ensembl")
@@ -64,8 +72,11 @@ orthologScale <- function(speciesRef, speciesCompare, geneCountRef, geneCountCom
     
     ## Part2: Estimate scaling factor based on mean expression of genes
     ## and orthologTable from Part1.
-    orthologTable$refLength <- abs(orthologTable[[5]] - orthologTable[[4]])
-    orthologTable$compareLength <- abs(orthologTable[[9]] - orthologTable[[8]])
+    orthologTable$refLength <- abs(
+        orthologTable[[5]] - orthologTable[[4]])
+    
+    orthologTable$compareLength <- abs(
+        orthologTable[[9]] - orthologTable[[8]])
     
     colnames(geneCountRef)[1] <- "refEnsemblID"
     idx_ref <- seq_len(ncol(geneCountRef))[-1]
@@ -95,7 +106,11 @@ orthologScale <- function(speciesRef, speciesCompare, geneCountRef, geneCountCom
     df.scbn <- df[, c(11, 13, 12, 14)]
     
     ## run scbn to obtain scaling factor
-    factor <- SCBN::SCBN(orth_gene = df.scbn, hkind = seq_len(confidence_count), a = 0.05)
+    factor <- SCBN::SCBN(
+        orth_gene = df.scbn, 
+        hkind = seq_len(confidence_count), 
+        a = 0.05)
+    
     scaleFactor <- factor$scbn_val
     
     result <- list(
