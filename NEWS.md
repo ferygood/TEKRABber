@@ -1,6 +1,6 @@
 Changes in version 0.99.4 (2022-02-06)
 
-+ modified coding styles (length, indentation)
++ modified coding styles (length, indentation) and remove NOTEs
 
 Changes in version 0.99.3 (2022-02-06)
 
