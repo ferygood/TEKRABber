@@ -1,3 +1,7 @@
+Changes in version 0.99.4 (2022-02-06)
+
++ modified coding styles (length, indentation)
+
 Changes in version 0.99.3 (2022-02-06)
 
 + modified requests from Bioconductor reviews
