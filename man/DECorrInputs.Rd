@@ -36,19 +36,23 @@ is a list containing 6 dataframes.
 }
 \examples{
 data(speciesCounts)
-
 hmGene <- speciesCounts$hmGene
 chimpGene <- speciesCounts$chimpGene
-chimpGene <- speciesCounts$chimpGene
+hmTE <- speciesCounts$hmTE
 chimpTE <- speciesCounts$chimpTE
-\donttest{
+
+## For demonstration, here we only select 1000 rows to save time
+set.seed(1234)
+hmGeneSample <- hmGene[sample(nrow(hmGene), 1000), ]
+chimpGeneSample <- chimpGene[sample(nrow(chimpGene), 1000), ]
+
 fetchData <- orthologScale(
     speciesRef = "hsapiens",
     speciesCompare = "ptroglodytes",
-    geneCountRef = hmGene,
-    geneCountCompare = chimpGene
-)}
-\donttest{
+    geneCountRef = hmGeneSample,
+    geneCountCompare = chimpGeneSample
+)
+
 inputBundle <- DECorrInputs(
     orthologTable=fetchData$orthologTable,
     scaleFactor=fetchData$scaleFactor,
@@ -56,5 +60,5 @@ inputBundle <- DECorrInputs(
     geneCountCompare=chimpGene,
     teCountRef=hmTE,
     teCountCompare=chimpTE
-)}
+)
 }

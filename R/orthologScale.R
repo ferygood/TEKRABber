@@ -20,13 +20,18 @@
 #' data(speciesCounts)
 #' hmGene <- speciesCounts$hmGene
 #' chimpGene <- speciesCounts$chimpGene
-#' \donttest{
+#' 
+#' ## For demonstration, here we only select 1000 rows to save time
+#' set.seed(1234)
+#' hmGeneSample <- hmGene[sample(nrow(hmGene), 1000), ]
+#' chimpGeneSample <- chimpGene[sample(nrow(chimpGene), 1000), ]
+#' 
 #' fetchData <- orthologScale(
 #'     speciesRef = "hsapiens",
 #'     speciesCompare = "ptroglodytes",
-#'     geneCountRef = hmGene,
-#'     geneCountCompare = chimpGene
-#' )}
+#'     geneCountRef = hmGeneSample,
+#'     geneCountCompare = chimpGeneSample
+#' )
 orthologScale <- function(
     speciesRef, speciesCompare, 
     geneCountRef, geneCountCompare) {
@@ -35,8 +40,8 @@ orthologScale <- function(
     geneCompare <- paste0(speciesCompare, "_gene_ensembl")
     orthologyRef <- paste0(speciesRef, "_homolog_orthology_confidence")
     
-    ensemblRef <- biomaRt::useEnsembl("ensembl", dataset = geneRef)
-    ensemblCompare <- biomaRt::useEnsembl("ensembl", dataset = geneCompare)
+    ensemblRef <- biomaRt::useEnsembl("ensembl", dataset = geneRef, mirror = "www")
+    ensemblCompare <- biomaRt::useEnsembl("ensembl", dataset = geneCompare, mirror = "www")
     
     orthologTable <- biomaRt::getLDS(
         attributes = c(

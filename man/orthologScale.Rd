@@ -33,11 +33,16 @@ orthology score and expression counts.
 data(speciesCounts)
 hmGene <- speciesCounts$hmGene
 chimpGene <- speciesCounts$chimpGene
-\donttest{
+
+## For demonstration, here we only select 1000 rows to save time
+set.seed(1234)
+hmGeneSample <- hmGene[sample(nrow(hmGene), 1000), ]
+chimpGeneSample <- chimpGene[sample(nrow(chimpGene), 1000), ]
+
 fetchData <- orthologScale(
     speciesRef = "hsapiens",
     speciesCompare = "ptroglodytes",
-    geneCountRef = hmGene,
-    geneCountCompare = chimpGene
-)}
+    geneCountRef = hmGeneSample,
+    geneCountCompare = chimpGeneSample
+)
 }

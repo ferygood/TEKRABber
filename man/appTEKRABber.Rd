@@ -28,15 +28,63 @@ including the expression and correlation of genes and TEs. This function
 will create global app-prefix variables to run the app.
 }
 \examples{
-## hmchimpDE is generated using DEgeneTE()
-## hmCorrResult and chimpCorrResult are generated using corrOrthologTE()
-## meta is the same metadata you used for DE analysis
-\donttest{
-appTEKRABber(
-    DEresult = hmchimpDE,
-    corrRef = hmCorrResult,
-    corrCompare = chimpCorrResult,
-    metadata = meta
-)}
+data(speciesCounts)
+hmGene <- speciesCounts$hmGene
+hmTE <- speciesCounts$hmTE
+chimpGene <- speciesCounts$chimpGene
+chimpTE <- speciesCounts$chimpTE
+
+data(fetchDataHmChimp)
+fetchData <- fetchDataHmChimp
+
+inputBundle <- DECorrInputs(
+    orthologTable = fetchData$orthologTable,
+    scaleFactor = fetchData$scaleFactor,
+    geneCountRef = hmGene,
+    geneCountCompare = chimpGene,
+    teCountRef = hmTE,
+    teCountCompare = chimpTE
+)
+
+meta <- data.frame(species=c(rep("human", ncol(hmGene) - 1), 
+    rep("chimpanzee", ncol(chimpGene) - 1))
+)
+rownames(meta) <- colnames(inputBundle$geneInputDESeq2)
+meta$species <- factor(meta$species, levels = c("human", "chimpanzee"))
+
+hmchimpDE <- DEgeneTE(
+    geneTable = inputBundle$geneInputDESeq2,
+    teTable = inputBundle$teInputDESeq2,
+    metadata = meta,
+    contrastVector = c("species", "human", "chimpanzee"),
+    expDesign = TRUE
+)
+
+data(speciesCorr)
+hmGeneCorrInput <- assay_tekcorrset(speciesCorr, "gene", "human")
+hmTECorrInput <- assay_tekcorrset(speciesCorr, "te", "human")
+chimpGeneCorrInput <- assay_tekcorrset(speciesCorr, "gene", "chimpanzee")
+chimpTECorrInput <- assay_tekcorrset(speciesCorr, "te", "chimpanzee")
+hmCorrResult <- corrOrthologTE(
+    geneInput = hmGeneCorrInput,
+    teInput = hmTECorrInput,
+    corrMethod = "pearson",
+    padjMethod = "fdr"
+)
+chimpCorrResult <- corrOrthologTE(
+    geneInput = chimpGeneCorrInput,
+    teInput = chimpTECorrInput,
+    corrMethod = "pearson",
+    padjMethod = "fdr"
+)
+
+if (interactive()){
+    appTEKRABber(
+        DEresult = hmchimpDE,
+        corrRef = hmCorrResult,
+        corrCompare = chimpCorrResult,
+        metadata = meta
+    )
+}
 
 }
