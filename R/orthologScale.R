@@ -14,7 +14,6 @@
 #' First column should also be Ensembl gene ID
 #' @return There are two outputs:(1) orthologTable: orthology information 
 #' from BioMart (2) scale_factor: for normalizing expression counts
-#' @importFrom dplyr inner_join
 #' @export
 #' @examples
 #' data(speciesCounts)
@@ -40,8 +39,8 @@ orthologScale <- function(
     geneCompare <- paste0(speciesCompare, "_gene_ensembl")
     orthologyRef <- paste0(speciesRef, "_homolog_orthology_confidence")
     
-    ensemblRef <- biomaRt::useEnsembl("ensembl", dataset = geneRef, mirror = "www")
-    ensemblCompare <- biomaRt::useEnsembl("ensembl", dataset = geneCompare, mirror = "www")
+    ensemblRef <- biomaRt::useEnsembl("ensembl", dataset = geneRef)
+    ensemblCompare <- biomaRt::useEnsembl("ensembl", dataset = geneCompare)
     
     orthologTable <- biomaRt::getLDS(
         attributes = c(
@@ -78,10 +77,10 @@ orthologScale <- function(
     ## Part2: Estimate scaling factor based on mean expression of genes
     ## and orthologTable from Part1.
     orthologTable$refLength <- abs(
-        orthologTable[[5]] - orthologTable[[4]])
+        orthologTable[["refEnd"]] - orthologTable[["refStart"]])
     
     orthologTable$compareLength <- abs(
-        orthologTable[[9]] - orthologTable[[8]])
+        orthologTable[["compareEnd"]] - orthologTable[["compareStart"]])
     
     colnames(geneCountRef)[1] <- "refEnsemblID"
     idx_ref <- seq_len(ncol(geneCountRef))[-1]
@@ -94,21 +93,21 @@ orthologScale <- function(
     geneCountCompare$compareMean <- rowMeans(sub_compare)
     
     ## rearrange data based on confidence of orthology for SCBN estimation
-    df <- inner_join(
+    df <- merge(
         orthologTable,
         geneCountRef[, c(1, ncol(geneCountRef))],
-        by = "refEnsemblID"
+        by = c("refEnsemblID", "refEnsemblID")
     )
     
-    df <- inner_join(
+    df <- merge(
         df,
         geneCountCompare[, c(1, ncol(geneCountCompare))],
-        by = "compareEnsemblID"
+        by = c("compareEnsemblID", "compareEnsemblID")
     )
     
-    confidence_count <- nrow(df[df[[10]]==1, ])
+    confidence_count <- nrow(df[df[["orthologyConfidence"]]==1, ])
     
-    df.scbn <- df[, c(11, 13, 12, 14)]
+    df.scbn <- df[, c("refLength", "refMean", "compareLength", "compareMean")]
     
     ## run scbn to obtain scaling factor
     factor <- SCBN::SCBN(

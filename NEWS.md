@@ -1,3 +1,7 @@
+Changes in version 0.99.5 (2022-02-12)
+
++ remove dplyr dependencies and add orthologScale() test
+
 Changes in version 0.99.4 (2022-02-06)
 
 + modified coding styles (length, indentation) and remove NOTEs

@@ -18,8 +18,6 @@
 #' (1) geneInputDESeq2 (2) teInputDESeq2 (3) geneCorrInputRef 
 #' (4) geneCorrInputCompare (5) TECorrInputRef (6) TECorrInputCompare
 #' @export
-#' @importFrom magrittr %>%
-#' @importFrom dplyr mutate inner_join across
 #' @importFrom utils write.table
 #' @examples
 #' data(speciesCounts)
@@ -57,14 +55,18 @@ DECorrInputs <- function(
         return(round(x / scaleFactor))
     }
     
-    geneCountCompare <- geneCountCompare %>%
-        mutate(across(2:ncol(geneCountCompare), norm_scale))
+    ## normalize data
+    for (i in seq_len(ncol(geneCountCompare))[-1]){
+        geneCountCompare[, i] <- norm_scale(geneCountCompare[, i])
+    }
     
-    teCountCompare <- teCountCompare %>%
-        mutate(across(2:ncol(teCountCompare), norm_scale))
+    for (i in seq_len(ncol(teCountCompare))[-1]){
+        teCountCompare[, i] <- norm_scale(teCountCompare[, i])
+    }
     
     ## save two input for correlation and DE
-    orthologTable_ID <- orthologTable[, c(3,7)]
+    i <- c("refEnsemblID", "compareEnsemblID")
+    orthologTable_ID <- orthologTable[, i]
     
     ## create input for DESeq2
     colnames(geneCountRef)[1] <- "refEnsemblID"
@@ -72,27 +74,34 @@ DECorrInputs <- function(
     colnames(teCountRef)[1] <- "teName"
     colnames(teCountCompare)[1] <- "teName"
     
-    geneInputDESeq2 <- inner_join(
+    geneInputDESeq2 <- merge(
         orthologTable_ID, geneCountRef, 
-        by = "refEnsemblID")
+        by = c("refEnsemblID", "refEnsemblID")
+    )
     
-    geneInputDESeq2 <- inner_join(
+    geneInputDESeq2 <- merge(
         geneInputDESeq2, geneCountCompare, 
-        by = "compareEnsemblID")
+        by = c("compareEnsemblID", "compareEnsemblID")
+    )
     
-    teInputDESeq2 <- inner_join(teCountRef, teCountCompare, by = "teName")
+    teInputDESeq2 <- merge(
+        teCountRef, teCountCompare, 
+        by = c("teName", "teName")
+    )
     
-    ## remove duplicated rows in case
-    refCount <- ncol(geneCountRef[, 2:ncol(geneCountRef)])
-    compareCount <- ncol(geneCountCompare[, 2:ncol(geneCountCompare)])
+    ## remove ensembl ID column
+    refCount <- ncol(geneCountRef) - 1
+    compareCount <- ncol(geneCountCompare) - 1
     
+    ## remove duplicated
     ## rename row names and format DESeq2 input
-    geneInputDESeq2 <- geneInputDESeq2[!duplicated(geneInputDESeq2[, 1]), ]
-    rownames(geneInputDESeq2) <- geneInputDESeq2[, 1]
+    geneInputDESeq2 <- 
+        geneInputDESeq2[!duplicated(geneInputDESeq2[, "refEnsemblID"]), ]
+    rownames(geneInputDESeq2) <- geneInputDESeq2[, "refEnsemblID"]
     geneInputDESeq2 <- geneInputDESeq2[, 3:ncol(geneInputDESeq2)]
     
-    teInputDESeq2 <- teInputDESeq2[!duplicated(teInputDESeq2[, 1]), ]
-    rownames(teInputDESeq2) <- teInputDESeq2[, 1]
+    teInputDESeq2 <- teInputDESeq2[!duplicated(teInputDESeq2[, "teName"]), ]
+    rownames(teInputDESeq2) <- teInputDESeq2[, "teName"]
     teInputDESeq2 <- teInputDESeq2[, 2:ncol(teInputDESeq2)]
     
     ## in case the number is not integers
