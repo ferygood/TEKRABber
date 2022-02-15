@@ -155,16 +155,18 @@ head(hmCorrResult)
 
 ### Explore your result using `appTEKRABber()`:
 `r BiocStyle::Biocpkg("TEKRABber")` provides an app function for you to 
-quickly view your result. You need to provide the differentially expressed 
-orthologs/TEs results and correlation results. Metadata is the same one you 
-used for DE analysis.
+quickly view your result. First, you will need to assign the differentially 
+expressed orthologs/TEs results, correlation results and metadata as global
+variables: `appDE`, `appRef`, `appCompare` and `appMeta`. See the following
+example. 
 ```{r app visualize (two species), warning=FALSE, eval=FALSE}
-appTEKRABber(
-    DEresult = hmchimpDE,
-    corrRef = hmCorrResult,
-    corrCompare = chimpCorrResult,
-    metadata = meta
-)
+#create global variables for app-use
+appDE <- hmchimpDE
+appRef <- hmCorrResult
+appCompare <- chimpCorrResult
+appMeta <- meta # this is the same one in DE analysis
+
+appTEKRABber()
 ```
 In the **Expression tab** page, **(1)** you can specify your input gene and
 TE. The result will show in box plots with data points in log2 expression 
@@ -259,12 +261,12 @@ head(treatmentCorr)
 
 ### Explore your result using `appTEKRABber()`:
 ```{r app visualize (same species), warning=FALSE, eval=FALSE}
-appTEKRABber(
-    DEresult = resultDE,
-    corrRef = controlCorr,
-    corrCompare = treatmentCorr,
-    metadata = metaExp
-)
+appDE <- resultDE
+appRef <- controlCorr
+appCompare <- treatmentCorr
+appMeta <- metaExp
+
+appTEKRABber()
 ```
 
 ```{r}

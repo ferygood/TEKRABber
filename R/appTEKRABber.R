@@ -1,16 +1,11 @@
 #' Visualize TEKRABber results with shiny app
-#' @description To help user explore their results using TEKRABber, it 
-#' visualizes the results using a self-written shiny app with two tabs, 
-#' including the expression and correlation of genes and TEs. This function 
-#' will create global app-prefix variables to run the app.
-#' @usage appTEKRABber(DEresult, corrRef, corrCompare, metadata)
-#' @param DEresult the output variable from using DEgeneTE()
-#' @param corrRef the correlation result of your reference species using 
-#' corrOthologTE()
-#' @param corrCompare the correlation result of your compare species using 
-#' corrOrthologTE()
-#' @param metadata the same metadata you use for DEgeneTE()
-#' 
+#' @description To help user explore their results using TEKRABber, this 
+#' function visualizes the results using a self-written shiny app with two 
+#' tabs, including the expression and correlation of genes and TEs. To run 
+#' it, you need to create four variables and assign them with your DE result, 
+#' correlation results and metadata to appDE, appRef, appCompare and 
+#' appMeta. Please see the example below for more details.
+#' @usage appTEKRABber()
 #' @export
 #' @return An app to display differentially expressed genes/TEs and the 
 #' correlation results
@@ -33,12 +28,14 @@
 #'     teCountCompare = chimpTE
 #' )
 #' 
+#' # create metadata for DE analysis
 #' meta <- data.frame(species=c(rep("human", ncol(hmGene) - 1), 
 #'     rep("chimpanzee", ncol(chimpGene) - 1))
 #' )
 #' rownames(meta) <- colnames(inputBundle$geneInputDESeq2)
 #' meta$species <- factor(meta$species, levels = c("human", "chimpanzee"))
 #' 
+#' # DE analysis
 #' hmchimpDE <- DEgeneTE(
 #'     geneTable = inputBundle$geneInputDESeq2,
 #'     teTable = inputBundle$teInputDESeq2,
@@ -52,7 +49,8 @@
 #' hmTECorrInput <- assay_tekcorrset(speciesCorr, "te", "human")
 #' chimpGeneCorrInput <- assay_tekcorrset(speciesCorr, "gene", "chimpanzee")
 #' chimpTECorrInput <- assay_tekcorrset(speciesCorr, "te", "chimpanzee")
-
+#' 
+#' # Correlation analysis
 #' hmCorrResult <- corrOrthologTE(
 #'     geneInput = hmGeneCorrInput,
 #'     teInput = hmTECorrInput,
@@ -67,24 +65,20 @@
 #'     padjMethod = "fdr"
 #' )
 #' 
+#' # assign results and metadata to appDE, appRef, appCompare, and appMeta
+#' appDE <- hmchimpDE
+#' appRef <- hmCorrResult
+#' appCompare <- chimpCorrResult
+#' appMeta <- meta
+#' 
 #' if (interactive()){
-#'     appTEKRABber(
-#'         DEresult = hmchimpDE,
-#'         corrRef = hmCorrResult,
-#'         corrCompare = chimpCorrResult,
-#'         metadata = meta
-#'     )
+#'     
+#'     appTEKRABber()
+#' 
 #' }
 #' 
-appTEKRABber <- function(DEresult, corrRef, corrCompare, metadata) {
+appTEKRABber <- function() {
     
-    # create global variables for app-use
-    assign("appDE", DEresult, envir = .GlobalEnv)
-    assign("appRef", corrRef, envir = .GlobalEnv)
-    assign("appCompare", corrCompare, envir = .GlobalEnv)
-    assign("appMeta", metadata, envir = .GlobalEnv)
-    
-    # run shiny app
     shiny::runApp(
         appDir = system.file("shinyGUI", package="TEKRABber"),
         launch.browser = TRUE

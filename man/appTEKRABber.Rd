@@ -4,28 +4,19 @@
 \alias{appTEKRABber}
 \title{Visualize TEKRABber results with shiny app}
 \usage{
-appTEKRABber(DEresult, corrRef, corrCompare, metadata)
-}
-\arguments{
-\item{DEresult}{the output variable from using DEgeneTE()}
-
-\item{corrRef}{the correlation result of your reference species using 
-corrOthologTE()}
-
-\item{corrCompare}{the correlation result of your compare species using 
-corrOrthologTE()}
-
-\item{metadata}{the same metadata you use for DEgeneTE()}
+appTEKRABber()
 }
 \value{
 An app to display differentially expressed genes/TEs and the 
 correlation results
 }
 \description{
-To help user explore their results using TEKRABber, it 
-visualizes the results using a self-written shiny app with two tabs, 
-including the expression and correlation of genes and TEs. This function 
-will create global app-prefix variables to run the app.
+To help user explore their results using TEKRABber, this 
+function visualizes the results using a self-written shiny app with two 
+tabs, including the expression and correlation of genes and TEs. To run 
+it, you need to create four variables and assign them with your DE result, 
+correlation results and metadata to appDE, appRef, appCompare and 
+appMeta. Please see the example below for more details.
 }
 \examples{
 data(speciesCounts)
@@ -46,12 +37,14 @@ inputBundle <- DECorrInputs(
     teCountCompare = chimpTE
 )
 
+# create metadata for DE analysis
 meta <- data.frame(species=c(rep("human", ncol(hmGene) - 1), 
     rep("chimpanzee", ncol(chimpGene) - 1))
 )
 rownames(meta) <- colnames(inputBundle$geneInputDESeq2)
 meta$species <- factor(meta$species, levels = c("human", "chimpanzee"))
 
+# DE analysis
 hmchimpDE <- DEgeneTE(
     geneTable = inputBundle$geneInputDESeq2,
     teTable = inputBundle$teInputDESeq2,
@@ -65,6 +58,8 @@ hmGeneCorrInput <- assay_tekcorrset(speciesCorr, "gene", "human")
 hmTECorrInput <- assay_tekcorrset(speciesCorr, "te", "human")
 chimpGeneCorrInput <- assay_tekcorrset(speciesCorr, "gene", "chimpanzee")
 chimpTECorrInput <- assay_tekcorrset(speciesCorr, "te", "chimpanzee")
+
+# Correlation analysis
 hmCorrResult <- corrOrthologTE(
     geneInput = hmGeneCorrInput,
     teInput = hmTECorrInput,
@@ -78,13 +73,16 @@ chimpCorrResult <- corrOrthologTE(
     padjMethod = "fdr"
 )
 
+# assign results and metadata to appDE, appRef, appCompare, and appMeta
+appDE <- hmchimpDE
+appRef <- hmCorrResult
+appCompare <- chimpCorrResult
+appMeta <- meta
+
 if (interactive()){
-    appTEKRABber(
-        DEresult = hmchimpDE,
-        corrRef = hmCorrResult,
-        corrCompare = chimpCorrResult,
-        metadata = meta
-    )
+    
+    appTEKRABber()
+
 }
 
 }

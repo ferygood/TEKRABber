@@ -45,7 +45,6 @@ corrOrthologTE(
     teInput=hmTECorrInput,
     corrMethod="pearson",
     padjMethod="fdr",
-    fileDir=NULL,
-    fileName="correlationResult.csv"
+    fileDir=NULL
 )
 }

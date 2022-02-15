@@ -1,3 +1,8 @@
+Changes in version 0.99.6 (2022-02-15)
+
++ fix corrOrthologTE() example, add instructions assign app-prefix variable
+for using appTEKRABber()
+
 Changes in version 0.99.5 (2022-02-12)
 
 + remove dplyr dependencies and add orthologScale() test
