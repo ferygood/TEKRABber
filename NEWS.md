@@ -1,3 +1,7 @@
+Changes in version 0.99.7 (2022-02-18)
+
++ add jpg file for building vignettes and depend on R(>=4.2)
+
 Changes in version 0.99.6 (2022-02-15)
 
 + fix corrOrthologTE() example, add instructions assign app-prefix variable

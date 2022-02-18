@@ -173,7 +173,7 @@ TE. The result will show in box plots with data points in log2 expression
 level **(2)** DE analysis result will show in table including statistical 
 information **(3)** Correlation result will indicate if these selected pairs 
 are significantly correlated and the value of correlation coefficients.
-![](https://reurl.cc/WkAEL7)
+![](app.jpg)
 In the **Correlation tab** page (above figure), you can select your data in 
 scatter plots in three ways. **(1)** Specify the data point and it will turn 
 red in the distribution of your results **(2)** Show the distribution of all 
