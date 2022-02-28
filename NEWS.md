@@ -1,3 +1,7 @@
+Changes in version 0.99.8 (2022-02-28)
+
++ add ORCID of authors
+
 Changes in version 0.99.7 (2022-02-18)
 
 + add jpg file for building vignettes and depend on R(>=4.2)

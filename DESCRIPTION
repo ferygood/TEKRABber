@@ -1,7 +1,7 @@
 Package: TEKRABber
 Type: Package
 Title: An R package estimates the correlations of orthologs and transposable elements between two species 
-Version: 0.99.7
+Version: 0.99.8
 Description: TEKRABber is made to provide a user-friendly pipeline for comparing 
     orthologs and transposable elements (TEs) between two species. It considers the 
     orthology confidence between two species from BioMart to normalize expression 
@@ -10,7 +10,10 @@ Description: TEKRABber is made to provide a user-friendly pipeline for comparing
     function to have a first insight on the result. Users can prepare orthologs/TEs 
     RNA-seq expression data by their own preference to run TEKRABber following the 
     data structure mentioned in the vignettes.   
-Authors@R: person("Yao-Chung", "Chen", email="yao-chung.chen@fu-berlin.de", role = c("aut", "cre"))
+Authors@R: c(person("Yao-Chung", "Chen", email = "yao-chung.chen@fu-berlin.de", 
+    role = c("aut", "cre"), comment = c(ORCID = "0000-0002-9927-9130")),
+    person("Katja", "Nowick", email = "katja.nowick@fu-berlin.de", 
+    role = c("aut"), comment = c(ORCID = "0000-0003-3993-4479")))
 URL: https://github.com/ferygood/TEKRABber
 BugReports: https://github.com/ferygood/TEKRABber/issues
 Encoding: UTF-8
