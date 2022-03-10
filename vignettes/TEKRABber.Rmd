@@ -97,12 +97,8 @@ inputBundle <- DECorrInputs(
 In this step, we need to generate a metadata contain species name 
 (i.e., human and chimpanzee). The row names need to be same as the DE input 
 table and the column name must be **species** (see the example below). Then we 
-use `DEgeneTE()` to perform DE analysis. The contrastVector parameter needs to 
-be a three elements vector. The first item is **species**, the second is the 
-reference species name from metadata which in our case is **human**, and the 
-last one is the compared species in your metadata which is **chimpanzee**. 
-When you are comparing samples between two species, the parameter 
-**expDesign** should be **TRUE** (as default).
+use `DEgeneTE()` to perform DE analysis. When you are comparing samples between 
+two species, the parameter **expDesign** should be **TRUE** (as default).
 ```{r DE analysis (two species), message=FALSE, results='hide', warning=FALSE}
 meta <- data.frame(
     species = c(rep("human", ncol(hmGene) - 1), 
@@ -115,7 +111,6 @@ hmchimpDE <- DEgeneTE(
     geneTable = inputBundle$geneInputDESeq2,
     teTable = inputBundle$teInputDESeq2,
     metadata = meta,
-    contrastVector = c("species", "human", "chimpanzee"),
     expDesign = TRUE
 )
 ```
@@ -169,10 +164,11 @@ appMeta <- meta # this is the same one in DE analysis
 appTEKRABber()
 ```
 In the **Expression tab** page, **(1)** you can specify your input gene and
-TE. The result will show in box plots with data points in log2 expression 
-level **(2)** DE analysis result will show in table including statistical 
-information **(3)** Correlation result will indicate if these selected pairs 
-are significantly correlated and the value of correlation coefficients.
+TE. The result will show in box plots with data points in normalized log2 
+expression level **(2)** DE analysis result will show in table including 
+statistical information **(3)** Correlation result will indicate if these 
+selected pairs are significantly correlated and the value of correlation 
+coefficients.
 ![](app.jpg)
 In the **Correlation tab** page (above figure), you can select your data in 
 scatter plots in three ways. **(1)** Specify the data point and it will turn 
@@ -220,7 +216,6 @@ resultDE <- DEgeneTE(
     geneTable = geneInputDE,
     teTable = teInputDE,
     metadata = metaExp,
-    contrastVector = c("experiment", "control", "treatment"),
     expDesign = FALSE
 )
 ```

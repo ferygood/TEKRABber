@@ -2,18 +2,14 @@
 #' @description To estimate differentially expressed genes and TEs, 
 #' DEgeneTE() takes
 #' gene inputs and TE inputs from the results using the DECorrInputs function. 
-#' You need to specify your metadata, contrastVector, and expDesign based on 
-#' your design. If you also want to save the output, please specify the 
-#' fileDir parameter.
-#' @usage DEgeneTE(geneTable, teTable, metadata, contrastVector, 
-#' expDesign=TRUE, fileDir=NULL)
+#' You need to specify your metadata and expDesign based on your design. If 
+#' you also want to save the output, please specify the fileDir parameter.
+#' @usage DEgeneTE(geneTable, teTable, metadata, expDesign=TRUE, fileDir=NULL)
 #' @param geneTable gene input table from using DECorrInputs()
 #' @param teTable TE input table from using DECorrInputs()
-#' @param metadata a one column dataframe with rownames same as the column 
+#' @param metadata an one column dataframe with rownames same as the column 
 #' name of gene/te count table. Column name must be \strong{species} 
 #' or \strong{experiment}.
-#' @param contrastVector your experiment design, i.e. c("species", "human", 
-#' "chimpanzee")
 #' @param expDesign Logic value for comparing between or within species. 
 #' \strong{TRUE} for comparing between two species, and \strong{FALSE} 
 #' for comparing between control and treatment.
@@ -55,12 +51,10 @@
 #'     geneTable = inputBundle$geneInputDESeq2,
 #'     teTable = inputBundle$teInputDESeq2,
 #'     metadata = meta,
-#'     contrastVector = c("species", "human", "chimpanzee"),
 #'     expDesign = TRUE
 #' )
 DEgeneTE <- function(
-    geneTable, teTable, metadata, contrastVector, 
-    expDesign = TRUE, fileDir = NULL) {
+    geneTable, teTable, metadata, expDesign = TRUE, fileDir = NULL) {
     
     deseq2 <- function(cts, coldata) {
         if (all(rownames(coldata) == colnames(cts))) {
@@ -90,9 +84,11 @@ DEgeneTE <- function(
             normalized_counts <- DESeq2::counts(dds, normalized = TRUE)
             
             coefName <- DESeq2::resultsNames(dds)[2]
-            res <- DESeq2::results(
-                dds, contrast = contrastVector, alpha = 0.05)
-            res <- DESeq2::lfcShrink(dds, coef = coefName, type = "apeglm")
+            
+            res <- DESeq2::lfcShrink(
+                dds, 
+                coef = coefName,
+                type = "apeglm")
             
             result <- list(
                 "dds" = dds_dataset, 
@@ -113,13 +109,13 @@ DEgeneTE <- function(
         dir.create(fileDir)
         write.table(
             data.frame(geneDE$normalized_counts), 
-            file = file.path(fileDir, "geneDESeq2Log2.csv", sep = ","))
+            file = file.path(fileDir, "geneDESeq2norm.csv", sep = ","))
         write.table(
             data.frame(geneDE$res), 
             file = file.path(fileDir, "geneDESeq2results.csv", sep = ","))
         write.table(
             data.frame(teDE$normalized_counts), 
-            file = file.path(fileDir, "teDESeq2Log2.csv", sep = ","))
+            file = file.path(fileDir, "teDESeq2norm.csv", sep = ","))
         write.table(
             data.frame(teDE$res), 
             file = file.path(fileDir, "teDESeq2results.csv", sep = ","))

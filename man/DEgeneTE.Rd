@@ -4,20 +4,16 @@
 \alias{DEgeneTE}
 \title{Estimate differentially expressed genes and TEs}
 \usage{
-DEgeneTE(geneTable, teTable, metadata, contrastVector, 
-expDesign=TRUE, fileDir=NULL)
+DEgeneTE(geneTable, teTable, metadata, expDesign=TRUE, fileDir=NULL)
 }
 \arguments{
 \item{geneTable}{gene input table from using DECorrInputs()}
 
 \item{teTable}{TE input table from using DECorrInputs()}
 
-\item{metadata}{a one column dataframe with rownames same as the column 
+\item{metadata}{an one column dataframe with rownames same as the column 
 name of gene/te count table. Column name must be \strong{species} 
 or \strong{experiment}.}
-
-\item{contrastVector}{your experiment design, i.e. c("species", "human", 
-"chimpanzee")}
 
 \item{expDesign}{Logic value for comparing between or within species. 
 \strong{TRUE} for comparing between two species, and \strong{FALSE} 
@@ -33,9 +29,8 @@ return DESeq2 res and normalized gene counts.
 To estimate differentially expressed genes and TEs, 
 DEgeneTE() takes
 gene inputs and TE inputs from the results using the DECorrInputs function. 
-You need to specify your metadata, contrastVector, and expDesign based on 
-your design. If you also want to save the output, please specify the 
-fileDir parameter.
+You need to specify your metadata and expDesign based on your design. If 
+you also want to save the output, please specify the fileDir parameter.
 }
 \examples{
 ## comparing between species: 
@@ -70,7 +65,6 @@ hmchimpDE <- DEgeneTE(
     geneTable = inputBundle$geneInputDESeq2,
     teTable = inputBundle$teInputDESeq2,
     metadata = meta,
-    contrastVector = c("species", "human", "chimpanzee"),
     expDesign = TRUE
 )
 }

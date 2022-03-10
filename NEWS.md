@@ -1,3 +1,7 @@
+Changes in version 0.99.9 (2022-03-10)
+
++ remove redundant contrastVector parameters in DEgeneTE()
+
 Changes in version 0.99.8 (2022-02-28)
 
 + add ORCID of authors
