@@ -49,7 +49,6 @@ hmchimpDE <- DEgeneTE(
     geneTable = inputBundle$geneInputDESeq2,
     teTable = inputBundle$teInputDESeq2,
     metadata = meta,
-    contrastVector = c("species", "human", "chimpanzee"),
     expDesign = TRUE
 )
 

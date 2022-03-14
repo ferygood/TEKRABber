@@ -13,7 +13,6 @@ resultDE <- DEgeneTE(
     geneTable = geneInputDE,
     teTable = teInputDE,
     metadata = metaExp,
-    contrastVector = c("experiment", "control", "treatment"),
     expDesign = FALSE
 )
 

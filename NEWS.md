@@ -1,3 +1,7 @@
+Changes in version 1.0.0 (2022-03-14)
+
++ fix check errors, remove contrastVector from examples and unit-tests
+
 Changes in version 0.99.9 (2022-03-10)
 
 + remove redundant contrastVector parameters in DEgeneTE()
