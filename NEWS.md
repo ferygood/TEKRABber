@@ -1,7 +1,6 @@
-Changes in version 1.1.0 (2022-03-14)
+Changes in version 0.99.91 (2022-03-14)
 
 + fix check errors, remove contrastVector from examples and unit-tests
-+ 1.0.0 was skip to avoid version bump failure on Bioconductor
 
 Changes in version 0.99.9 (2022-03-10)
 
