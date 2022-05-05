@@ -39,8 +39,8 @@ orthologScale <- function(
     geneCompare <- paste0(speciesCompare, "_gene_ensembl")
     orthologyRef <- paste0(speciesRef, "_homolog_orthology_confidence")
     
-    ensemblRef <- biomaRt::useEnsembl("ensembl", dataset = geneRef)
-    ensemblCompare <- biomaRt::useEnsembl("ensembl", dataset = geneCompare)
+    ensemblRef <- biomaRt::useEnsembl("ensembl", dataset = geneRef, version = "105")
+    ensemblCompare <- biomaRt::useEnsembl("ensembl", dataset = geneCompare, version = "105")
     
     orthologTable <- biomaRt::getLDS(
         attributes = c(

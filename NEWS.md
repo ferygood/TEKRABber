@@ -1,3 +1,7 @@
+Changes in version 1.1.1 (2022-05-05)
+
++ set useEnsembl version to 105 becasue BiomaRt 106 issue.
+
 Changes in version 0.99.91 (2022-03-14)
 
 + fix check errors, remove contrastVector from examples and unit-tests
