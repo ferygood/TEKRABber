@@ -29,7 +29,7 @@ Imports:
     utils
 LinkingTo: Rcpp
 Depends: 
-    R (>= 4.2)
+    R (>= 4.1)
 LazyData: false
 Suggests: 
     BiocStyle,
