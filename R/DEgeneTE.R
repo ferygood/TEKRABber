@@ -109,16 +109,16 @@ DEgeneTE <- function(
         dir.create(fileDir)
         write.table(
             data.frame(geneDE$normalized_counts), 
-            file = file.path(fileDir, "geneDESeq2norm.csv", sep = ","))
+            file = file.path(fileDir, "geneDESeq2norm.csv"), sep = ",")
         write.table(
             data.frame(geneDE$res), 
-            file = file.path(fileDir, "geneDESeq2results.csv", sep = ","))
+            file = file.path(fileDir, "geneDESeq2results.csv"), sep = ",")
         write.table(
             data.frame(teDE$normalized_counts), 
-            file = file.path(fileDir, "teDESeq2norm.csv", sep = ","))
+            file = file.path(fileDir, "teDESeq2norm.csv"), sep = ",")
         write.table(
             data.frame(teDE$res), 
-            file = file.path(fileDir, "teDESeq2results.csv", sep = ","))
+            file = file.path(fileDir, "teDESeq2results.csv"), sep = ",")
     }
     
     output <- list(
