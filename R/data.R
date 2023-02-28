@@ -133,3 +133,16 @@
 #' fetchData$orthologTable
 #' fetchData$scaleFactor
 "fetchDataHmChimp"
+
+#' Repeatmasker track annotations with human and chimpanzee
+#' 
+#' @description 
+#' This Repeatmasker track annotations table was first downloaded from UCSC 
+#' Genome Table Browser and it included the name, class, and average gene 
+#' length in repeats(transposable elements). This data is used for demonstrate 
+#' an example for user how to provide a annotation table to normalize their 
+#' data which in this case comparing human(hg38) to chimpanzee(panTro6).
+#' @usage data(hg38_panTro6_rmsk)
+#' @examples 
+#' data(hg38_panTro6_rmsk)
+"hg38_panTro6_rmsk"
