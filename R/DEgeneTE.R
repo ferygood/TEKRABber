@@ -23,26 +23,13 @@
 #' ## (1) set expDesign = TRUE 
 #' ## (2) column name of metadata needs to be "species".
 #' 
-#' data(speciesCounts)
-#' hmGene <- speciesCounts$hmGene
-#' hmTE <- speciesCounts$hmTE
-#' chimpGene <- speciesCounts$chimpGene
-#' chimpTE <- speciesCounts$chimpTE
-#' 
 #' data(fetchDataHmChimp)
 #' fetchData <- fetchDataHmChimp
 #' 
-#' inputBundle <- DECorrInputs(
-#'     orthologTable = fetchData$orthologTable,
-#'     scaleFactor = fetchData$scaleFactor,
-#'     geneCountRef = hmGene,
-#'     geneCountCompare = chimpGene,
-#'     teCountRef = hmTE,
-#'     teCountCompare = chimpTE
-#' )
+#' inputBundle <- DECorrInputs(fetchData)
 #' 
-#' meta <- data.frame(species=c(rep("human", ncol(hmGene) - 1), 
-#'     rep("chimpanzee", ncol(chimpGene) - 1))
+#' meta <- data.frame(species=c(rep("human", ncol(fetchData$geneRef) - 1), 
+#'     rep("chimpanzee", ncol(fetchData$geneCompare) - 1))
 #' )
 #' rownames(meta) <- colnames(inputBundle$geneInputDESeq2)
 #' meta$species <- factor(meta$species, levels = c("human", "chimpanzee"))

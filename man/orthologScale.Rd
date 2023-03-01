@@ -2,10 +2,10 @@
 % Please edit documentation in R/orthologScale.R
 \name{orthologScale}
 \alias{orthologScale}
-\title{Get orthology information from Ensembl}
+\title{Normalized orthologous genes and TEs between two species}
 \usage{
 orthologScale(speciesRef, speciesCompare, geneCountRef, 
-geneCountCompare)
+geneCountCompare, teCountRef, teCountCompare, rmsk)
 }
 \arguments{
 \item{speciesRef}{The scientific name for your reference species. 
@@ -15,24 +15,41 @@ i.e., hsapiens}
 i.e., ptroglodytes}
 
 \item{geneCountRef}{Gene count from your reference species. First column 
-should be Ensmebl gene ID}
+should be Ensmebl gene ID.}
 
 \item{geneCountCompare}{Gene count from the species you want to compare. 
-First column should also be Ensembl gene ID}
+First column should be Ensembl gene ID.}
+
+\item{teCountRef}{TE count from your reference species. First column should 
+be teName.}
+
+\item{teCountCompare}{TE count from the species you want to compare. First 
+column should be teName.}
+
+\item{rmsk}{a repeatmasker table including 4 columns: (1) the name of TE (2)
+the class of TE (3) The average length of that TE from your reference 
+species (4) The average length of that TE from the species you want to 
+compare.}
 }
 \value{
-There are two outputs:(1) orthologTable: orthology information 
-from BioMart (2) scale_factor: for normalizing expression counts
+a list of outputs: (1) orthologTable, orthology information (2) 
+c_ortholog, scaling factor for orthologous genes (3) geneRef, gene count 
+table for reference species (4) geneCompare, normalized gene count table for
+ species compared (5) c_te, scaling factor for TEs (6) teRef, TE count table 
+ for reference species (7) teCompare, normalized TE count table for species 
+ compared.
 }
 \description{
-Get orthology information from Ensembl using biomaRt and
-calculate scaling factor between two species using the confidence of
-orthology score and expression counts.
+Normalize orthologous genes and TEs between two species with a 
+scaling factor using their expression level and gene lengths.
 }
 \examples{
 data(speciesCounts)
+data(hg38_panTro6_rmsk)
 hmGene <- speciesCounts$hmGene
 chimpGene <- speciesCounts$chimpGene
+hmTE <- speciesCounts$hmTE
+chimpTE <- speciesCounts$chimpTE
 
 ## For demonstration, here we only select 1000 rows to save time
 set.seed(1234)
@@ -43,6 +60,9 @@ fetchData <- orthologScale(
     speciesRef = "hsapiens",
     speciesCompare = "ptroglodytes",
     geneCountRef = hmGeneSample,
-    geneCountCompare = chimpGeneSample
+    geneCountCompare = chimpGeneSample,
+    teCountRef = hmTE,
+    teCountCompare = chimpTE,
+    rmsk = hg38_panTro6_rmsk
 )
 }

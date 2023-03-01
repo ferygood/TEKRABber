@@ -1,19 +1,9 @@
 #' Generate all the input files for TEKRABber downstream analysis
 #' @description Generate all the inputs files for differentially expressed 
-#' genes/TEs analysis, and for correlation analysis. The output 
+#' orthologous genes/TEs analysis, and for correlation analysis. The output 
 #' is a list containing 6 dataframes. 
-#' @usage DECorrInputs(orthologTable, scaleFactor, geneCountRef, 
-#' geneCountCompare, teCountRef, teCountCompare)
-#' @param orthologTable orthologTable output from using orthologScale()
-#' @param scaleFactor scaleFactor output from using orthologScale()
-#' @param geneCountRef Gene counts from your reference species. First 
-#' column should be Ensmebl gene ID.
-#' @param geneCountCompare Gene counts from the species you want to compare. 
-#' First column should also be Ensembl gene ID.
-#' @param teCountRef TE counts from your reference species. First column 
-#' should be TE's name.
-#' @param teCountCompare TE counts from the species you want to compare. 
-#' First column should also be TE's name.
+#' @usage DECorrInputs(fetchData)
+#' @param fetchData output list from TEKRABber::orthologScale()
 #' @return create inputs for DE analysis and correlations: 
 #' (1) geneInputDESeq2 (2) teInputDESeq2 (3) geneCorrInputRef 
 #' (4) geneCorrInputCompare (5) TECorrInputRef (6) TECorrInputCompare
@@ -21,6 +11,7 @@
 #' @importFrom utils write.table
 #' @examples
 #' data(speciesCounts)
+#' data(hg38_panTro6_rmsk)
 #' hmGene <- speciesCounts$hmGene
 #' chimpGene <- speciesCounts$chimpGene
 #' hmTE <- speciesCounts$hmTE
@@ -35,63 +26,36 @@
 #'     speciesRef = "hsapiens",
 #'     speciesCompare = "ptroglodytes",
 #'     geneCountRef = hmGeneSample,
-#'     geneCountCompare = chimpGeneSample
+#'     geneCountCompare = chimpGeneSample,
+#'     teCountRef = hmTE,
+#'     teCountCompare = chimpTE,
+#'     rmsk = hg38_panTro6_rmsk
 #' )
 #' 
-#' inputBundle <- DECorrInputs(
-#'     orthologTable=fetchData$orthologTable,
-#'     scaleFactor=fetchData$scaleFactor,
-#'     geneCountRef=hmGene,
-#'     geneCountCompare=chimpGene,
-#'     teCountRef=hmTE,
-#'     teCountCompare=chimpTE
-#' )
-DECorrInputs <- function(
-    orthologTable, scaleFactor, 
-    geneCountRef, geneCountCompare, 
-    teCountRef, teCountCompare) {
-    
-    norm_scale <- function(x) {
-        return(round(x / scaleFactor))
-    }
-    
-    ## normalize data
-    for (i in seq_len(ncol(geneCountCompare))[-1]){
-        geneCountCompare[, i] <- norm_scale(geneCountCompare[, i])
-    }
-    
-    for (i in seq_len(ncol(teCountCompare))[-1]){
-        teCountCompare[, i] <- norm_scale(teCountCompare[, i])
-    }
+#' inputBundle <- DECorrInputs(fetchData)
+DECorrInputs <- function(fetchData) {
     
     ## save two input for correlation and DE
     i <- c("refEnsemblID", "compareEnsemblID")
-    orthologTable_ID <- orthologTable[, i]
+    orthologTable_ID <- fetchData$orthologTable[, i]
     
     ## create input for DESeq2
-    colnames(geneCountRef)[1] <- "refEnsemblID"
-    colnames(geneCountCompare)[1] <- "compareEnsemblID"
-    colnames(teCountRef)[1] <- "teName"
-    colnames(teCountCompare)[1] <- "teName"
-    
     geneInputDESeq2 <- merge(
-        orthologTable_ID, geneCountRef, 
+        orthologTable_ID, fetchData$geneRef, 
         by = c("refEnsemblID", "refEnsemblID")
     )
     
     geneInputDESeq2 <- merge(
-        geneInputDESeq2, geneCountCompare, 
+        geneInputDESeq2, fetchData$geneCompare, 
         by = c("compareEnsemblID", "compareEnsemblID")
     )
     
-    teInputDESeq2 <- merge(
-        teCountRef, teCountCompare, 
-        by = c("teName", "teName")
-    )
+    teInputDESeq2 <- merge(fetchData$teRef, fetchData$teCompare, 
+                           by = c("teName", "teName"))
     
     ## remove ensembl ID column
-    refCount <- ncol(geneCountRef) - 1
-    compareCount <- ncol(geneCountCompare) - 1
+    refCount <- ncol(fetchData$geneRef) - 1
+    compareCount <- ncol(fetchData$geneCompare) - 1
     
     ## remove duplicated
     ## rename row names and format DESeq2 input
@@ -103,10 +67,6 @@ DECorrInputs <- function(
     teInputDESeq2 <- teInputDESeq2[!duplicated(teInputDESeq2[, "teName"]), ]
     rownames(teInputDESeq2) <- teInputDESeq2[, "teName"]
     teInputDESeq2 <- teInputDESeq2[, 2:ncol(teInputDESeq2)]
-    
-    ## in case the number is not integers
-    geneInputDESeq2 <- round(geneInputDESeq2)
-    teInputDESeq2 <- round(teInputDESeq2)
     
     geneCorrInputRef <- geneInputDESeq2[, seq_len(refCount)]
     geneCorrInputCompare <- 

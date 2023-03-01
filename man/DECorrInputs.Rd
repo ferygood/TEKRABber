@@ -4,25 +4,10 @@
 \alias{DECorrInputs}
 \title{Generate all the input files for TEKRABber downstream analysis}
 \usage{
-DECorrInputs(orthologTable, scaleFactor, geneCountRef, 
-geneCountCompare, teCountRef, teCountCompare)
+DECorrInputs(fetchData)
 }
 \arguments{
-\item{orthologTable}{orthologTable output from using orthologScale()}
-
-\item{scaleFactor}{scaleFactor output from using orthologScale()}
-
-\item{geneCountRef}{Gene counts from your reference species. First 
-column should be Ensmebl gene ID.}
-
-\item{geneCountCompare}{Gene counts from the species you want to compare. 
-First column should also be Ensembl gene ID.}
-
-\item{teCountRef}{TE counts from your reference species. First column 
-should be TE's name.}
-
-\item{teCountCompare}{TE counts from the species you want to compare. 
-First column should also be TE's name.}
+\item{fetchData}{output list from TEKRABber::orthologScale()}
 }
 \value{
 create inputs for DE analysis and correlations: 
@@ -31,11 +16,12 @@ create inputs for DE analysis and correlations:
 }
 \description{
 Generate all the inputs files for differentially expressed 
-genes/TEs analysis, and for correlation analysis. The output 
+orthologous genes/TEs analysis, and for correlation analysis. The output 
 is a list containing 6 dataframes.
 }
 \examples{
 data(speciesCounts)
+data(hg38_panTro6_rmsk)
 hmGene <- speciesCounts$hmGene
 chimpGene <- speciesCounts$chimpGene
 hmTE <- speciesCounts$hmTE
@@ -50,15 +36,11 @@ fetchData <- orthologScale(
     speciesRef = "hsapiens",
     speciesCompare = "ptroglodytes",
     geneCountRef = hmGeneSample,
-    geneCountCompare = chimpGeneSample
+    geneCountCompare = chimpGeneSample,
+    teCountRef = hmTE,
+    teCountCompare = chimpTE,
+    rmsk = hg38_panTro6_rmsk
 )
 
-inputBundle <- DECorrInputs(
-    orthologTable=fetchData$orthologTable,
-    scaleFactor=fetchData$scaleFactor,
-    geneCountRef=hmGene,
-    geneCountCompare=chimpGene,
-    teCountRef=hmTE,
-    teCountCompare=chimpTE
-)
+inputBundle <- DECorrInputs(fetchData)
 }
