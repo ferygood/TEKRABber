@@ -3,7 +3,7 @@
 \docType{data}
 \name{fetchDataHmChimp}
 \alias{fetchDataHmChimp}
-\title{Orthology information of human and chimpanzee with scaling factor}
+\title{Example output comparing human and chimpanzee data using orhtologScale()}
 \format{
 An object contains 2 elements:
 \describe{
@@ -15,10 +15,13 @@ An object contains 2 elements:
 data(fetchDataHmChimp)
 }
 \description{
-An output list of data contains 2 elements after using orthologScale(). 
-The first one is the orthology table comparing human and chimpanzee. 
-The second one is the scaling factor. The purpose of providing this 
-dataset is to save time for user running the vignettes and give a 
+An output list of data contains 7 elements after using orthologScale(), 
+including (1) orthology table comparing human and chimpanzee. (2) scaling 
+factor for orthologous genes (3) gene count table from reference species (4)
+ gnee count table from species you want to compare (5) scaling factor for TEs
+(6) TE count table from reference species (7) TE count table from the 
+species you want to compare. The aim to provide this dataset is to save 
+time for user running the vignettes and give a 
 template for demonstration.
 }
 \examples{

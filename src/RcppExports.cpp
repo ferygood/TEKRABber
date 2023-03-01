@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // rcpp_corr
 DataFrame rcpp_corr(DataFrame df1, DataFrame df2, StringVector Method);
 RcppExport SEXP _TEKRABber_rcpp_corr(SEXP df1SEXP, SEXP df2SEXP, SEXP MethodSEXP) {

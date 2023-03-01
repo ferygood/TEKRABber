@@ -1,3 +1,8 @@
+Changes in version 1.4.0 (2023-03-01)
+
++ include hg38_panTro6_rmsk annotation and normalization of TE in orthologScale 
+function.
+
 Changes in version 1.1.1 (2022-05-05)
 
 + set useEnsembl version to 105 becasue BiomaRt 106 issue.
