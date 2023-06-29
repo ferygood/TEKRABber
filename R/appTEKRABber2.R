@@ -1,20 +1,23 @@
-library(shiny)
-library(plotly)
-library(gridlayout)
-library(bslib)
-library(ggplot2)
-library(ggpubr)
-
 #' appTEKRABber2
 #'
-#' @param corrRef 
-#' @param corrCompare 
-#' @param DEobject 
+#' @param corrRef correlation results for reference using corrOrtholgScale()
+#' @param corrCompare correlation results for comparison using 
+#' corrOrthologScale()
+#' @param DEobject DE object using DEgeneTE() 
 #'
-#' @return
+#' @return provide an interactive shinyapp
+#' @importFrom plotly renderPlotly plot_ly
+#' @importFrom ggpubr ggviolin
+#' @importFrom gridlayout grid_page grid_card grid_card_text
+#' @import blisb
+#' @import shiny
+#' @import ggplot2
 #' @export
 #'
 #' @examples
+#' 
+#' 
+#' 
 appTEKRABber2 <- function(corrRef, corrCompare=NULL, DEobject) {
     
     # metadata subset reference and comparison
@@ -221,10 +224,3 @@ appTEKRABber2 <- function(corrRef, corrCompare=NULL, DEobject) {
     
     shinyApp(ui, server)
 }
-
-# Example usage:
-testDEobject <- testDE
-
-
-
-runMyApp(hmCorrResult, chimpCorrResult, DEobject=testDEobject)
