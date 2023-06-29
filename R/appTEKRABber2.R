@@ -9,7 +9,7 @@
 #' @importFrom plotly renderPlotly plot_ly
 #' @importFrom ggpubr ggviolin
 #' @importFrom gridlayout grid_page grid_card grid_card_text
-#' @import blisb
+#' @import bslib
 #' @import shiny
 #' @import ggplot2
 #' @export
