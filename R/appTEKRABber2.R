@@ -64,13 +64,13 @@ appTEKRABber2 <- function(corrRef, corrCompare=NULL, DEobject) {
         grid_card(
             area = "area1",
             card_header("parameters"),
-            card_body_fill(
-                selectInput(
+            card_body(
+                selectizeInput(
                     inputId = "geneIdInput",
                     label = "Gene Name",
                     choices = corrRef$geneName
                 ),
-                selectInput(
+                selectizeInput(
                     inputId = "teInput",
                     label = "Transposable Elements",
                     choices = corrRef$teName
@@ -81,32 +81,32 @@ appTEKRABber2 <- function(corrRef, corrCompare=NULL, DEobject) {
         grid_card(
             card_header("Distribution of Gene:TE in reference"),
             area = "area2",
-            card_body_fill(plotlyOutput(outputId = "scatterPlotRef"))
+            card_body(plotlyOutput(outputId = "scatterPlotRef"))
         ),
         grid_card(
             card_header("Distribution of Gene:TE in comparison"),
             area = "area3",
-            card_body_fill(plotlyOutput(outputId = "scatterPlotCompare"))
+            card_body(plotlyOutput(outputId = "scatterPlotCompare"))
         ),
         grid_card(
             card_header("Reference Correlation"),
             area = "area4",
-            card_body_fill(plotOutput(outputId = "coefPlotRef"))
+            card_body(plotOutput(outputId = "coefPlotRef"))
         ),
         grid_card(
             card_header("Comparison Correlation"),
             area = "area5",
-            card_body_fill(plotOutput(outputId = "coefPlotCompare"))
+            card_body(plotOutput(outputId = "coefPlotCompare"))
         ),
         grid_card(
             card_header("Gene expression (Log normalized)"),
             area = "area6",
-            card_body_fill(plotOutput(outputId = "deGenePlot"))
+            card_body(plotOutput(outputId = "deGenePlot"))
         ),
         grid_card(
             card_header("TE expression (Log normalized)"),
             area = "area7",
-            card_body_fill(plotOutput(outputId = "deTEPlot"))
+            card_body(plotOutput(outputId = "deTEPlot"))
         )
         
         
@@ -114,15 +114,19 @@ appTEKRABber2 <- function(corrRef, corrCompare=NULL, DEobject) {
     
     server <- function(input, output) {
         
+        
         output$scatterPlotRef <- renderPlotly({
             corrRef_sig <- corrRef[corrRef$pvalue < 0.05, ]
             corrRef_sig$pair <- paste0(corrRef_sig$geneName, " : ", corrRef_sig$teName)
             
             plot_ly(data = corrRef_sig, x = ~pvalue, y = ~coef, 
                     text = ~pair, 
-                    marker = list(size=10, color="#45A9EC", line=list(color="black", width=1)))
+                    marker = list(size=10, color="#45A9EC", line=list(color="black", width=1)),
+                    type = "scatter",
+                    mode = "markers")
             
         })
+        
         
         output$scatterPlotCompare <- renderPlotly({
             corrCompare_sig <- corrCompare[corrCompare$pvalue < 0.05, ]
@@ -130,7 +134,9 @@ appTEKRABber2 <- function(corrRef, corrCompare=NULL, DEobject) {
             
             plot_ly(data = corrCompare_sig, x = ~pvalue, y = ~coef, 
                     text = ~pair, 
-                    marker = list(size=10, color="#8BE748", line=list(color="black", width=1)))
+                    marker = list(size=10, color="#8BE748", line=list(color="black", width=1)),
+                    type = "scatter", 
+                    mode = "markers")
             
         })
         
@@ -160,7 +166,7 @@ appTEKRABber2 <- function(corrRef, corrCompare=NULL, DEobject) {
                 coef <- corrRef[corrRef$geneName==ensemblID & corrRef$teName==teName, "coef"]
                 coef <- round(coef, 4)
                 pvalue <- corrRef[corrRef$geneName==ensemblID & corrRef$teName==teName, "pvalue"]
-                pvalue <- round(pvalue, 4)
+                pvalue <- sprintf("%.2e", pvalue)
                 
                 ggplot(df_ref, aes(x=gene, y=TE)) +
                     geom_point(colour="black", shape=21, size=3, fill="#45A9EC") +
@@ -176,7 +182,7 @@ appTEKRABber2 <- function(corrRef, corrCompare=NULL, DEobject) {
                 coef <- corrCompare[corrCompare$geneName==ensemblID & corrCompare$teName==teName, "coef"]
                 coef <- round(coef, 4)
                 pvalue <- corrCompare[corrCompare$geneName==ensemblID & corrCompare$teName==teName, "pvalue"]
-                pvalue <- round(pvalue, 4)
+                pvalue <- sprintf("%.2e", pvalue)
                 
                 ggplot(df_compare, aes(x=gene, y=TE)) +
                     geom_point(colour="black", shape=21, size=3, fill="#8BE748") +
@@ -190,7 +196,7 @@ appTEKRABber2 <- function(corrRef, corrCompare=NULL, DEobject) {
             output$deGenePlot <- renderPlot({
                 
                 lfc2 <- round(geneLFC[ensemblID, "log2FoldChange"], 4)
-                pvalue <- round(geneLFC[ensemblID, "pvalue"], 4)
+                pvalue <- sprintf("%.2e", geneLFC[ensemblID, "pvalue"])
                 
                 ggviolin(df_all, x="group", y="gene", fill="group",
                          palette=c("#45A9EC", "#8BE748"), add="boxplot", 
@@ -206,7 +212,7 @@ appTEKRABber2 <- function(corrRef, corrCompare=NULL, DEobject) {
             output$deTEPlot <- renderPlot({
                 
                 lfc2 <- round(teLFC[teName, "log2FoldChange"], 4)
-                pvalue <- round(teLFC[teName, "pvalue"], 4)
+                pvalue <- sprintf("%.2e", teLFC[teName, "pvalue"])
                 
                 ggviolin(df_all, x="group", y="TE", fill="group",
                          palette=c("#45A9EC", "#8BE748"), add="boxplot", 
