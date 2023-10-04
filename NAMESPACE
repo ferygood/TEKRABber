@@ -3,7 +3,6 @@
 export(DECorrInputs)
 export(DEgeneTE)
 export(appTEKRABber)
-export(appTEKRABber2)
 export(assay_tekcorrset)
 export(corrOrthologTE)
 export(orthologScale)
