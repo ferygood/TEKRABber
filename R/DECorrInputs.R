@@ -68,21 +68,9 @@ DECorrInputs <- function(fetchData) {
     rownames(teInputDESeq2) <- teInputDESeq2[, "teName"]
     teInputDESeq2 <- teInputDESeq2[, 2:ncol(teInputDESeq2)]
     
-    geneCorrInputRef <- geneInputDESeq2[, seq_len(refCount)]
-    geneCorrInputCompare <- 
-        geneInputDESeq2[, (refCount + 1):ncol(geneInputDESeq2)]
-    
-    teCorrInputRef <- teInputDESeq2[, seq_len(refCount)]
-    teCorrInputCompare <- 
-        teInputDESeq2[, (refCount + 1):ncol(teInputDESeq2)]
-    
     output <- list(
         "geneInputDESeq2" = geneInputDESeq2,
-        "teInputDESeq2" = teInputDESeq2,
-        "geneCorrInputRef" = geneCorrInputRef,
-        "geneCorrInputCompare" = geneCorrInputCompare,
-        "TECorrInputRef" = teCorrInputRef,
-        "TECorrInputCompare" = teCorrInputCompare
+        "teInputDESeq2" = teInputDESeq2
     )
     
     output

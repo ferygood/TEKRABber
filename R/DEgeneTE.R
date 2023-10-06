@@ -67,11 +67,12 @@ DEgeneTE <- function(
             keep <- rowSums(DESeq2::counts(dds)) >= 10
             dds <- dds[keep, ]
             dds_dataset <- dds
+            
             dds <- DESeq2::DESeq(dds)
             normalized_counts <- DESeq2::counts(dds, normalized = TRUE)
-            
+        
             coefName <- DESeq2::resultsNames(dds)[2]
-            
+        
             res <- DESeq2::lfcShrink(
                 dds, 
                 coef = coefName,
@@ -87,9 +88,22 @@ DEgeneTE <- function(
     }
     
     ## run analysis
+    suppressWarnings(suppressMessages({
+        geneDE <- deseq2(geneTable, metadata)
+        teDE <- deseq2(teTable, metadata)
+    }))
     
-    geneDE <- deseq2(geneTable, metadata)
-    teDE <- deseq2(teTable, metadata)
+    
+    ## create input for correlation analysis
+    unique_value <- unique(metadata[,1])
+    ref_indices <- which(metadata[,1] == unique_value[1])
+    compare_indices <- which(metadata[,1] == unique_value[2])
+    
+    geneCorrInputRef <- data.frame(geneDE$normalized_counts)[, ref_indices]
+    teCorrInputRef <- data.frame(teDE$normalized_counts)[, ref_indices]
+    
+    geneCorrInputCompare <- data.frame(geneDE$normalized_counts)[, compare_indices]
+    teCorrInputCompare <- data.frame(teDE$normalized_counts)[, compare_indices]
     
     ## save files if directory is specified
     if (!is.null(fileDir)){
@@ -114,7 +128,11 @@ DEgeneTE <- function(
         "normalized_gene_counts" = geneDE$normalized_counts,
         "te_dds" = teDE$dds,
         "te_res" = teDE$res,
-        "normalized_te_counts" = teDE$normalized_counts
+        "normalized_te_counts" = teDE$normalized_counts,
+        "geneCorrInputRef" = geneCorrInputRef,
+        "teCorrInputRef" = teCorrInputRef,
+        "geneCorrInputCompare" = geneCorrInputCompare ,
+        "teCorrInputCompare" = teCorrInputCompare
     )
     
     output

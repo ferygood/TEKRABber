@@ -1,7 +1,7 @@
 Package: TEKRABber
 Type: Package
 Title: An R package estimates the correlations of orthologs and transposable elements between two species 
-Version: 1.3.1
+Version: 1.6.0
 Description: TEKRABber is made to provide a user-friendly pipeline for comparing 
     orthologs and transposable elements (TEs) between two species. It considers the 
     orthology confidence between two species from BioMart to normalize expression 
@@ -17,7 +17,7 @@ Authors@R: c(person("Yao-Chung", "Chen", email = "yao-chung.chen@fu-berlin.de",
 URL: https://github.com/ferygood/TEKRABber
 BugReports: https://github.com/ferygood/TEKRABber/issues
 Encoding: UTF-8
-License: GPL (>= 2)
+License: LGPL (>=3)
 Imports: 
     apeglm,
     biomaRt,
@@ -26,21 +26,24 @@ Imports:
     magrittr,
     Rcpp (>= 1.0.7),
     SCBN,
-    SummarizedExperiment,
     stats,
     utils
 LinkingTo: Rcpp
 Depends: 
-    R (>= 4.1)
+    R (>= 4.3)
 LazyData: false
 Suggests: 
     BiocStyle,
+    bslib,
+    ggplot2,
     ggpubr,
+    gridlayout,
+    plotly,
     rmarkdown,
     shiny,
     knitr, 
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 VignetteEngine: knitr
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 biocViews: DifferentialExpression, Normalization, Transcription, GeneExpression
