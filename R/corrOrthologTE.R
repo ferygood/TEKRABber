@@ -23,18 +23,31 @@
 #' @export
 #' 
 #' @examples
-#' library(SummarizedExperiment)
-#' data(speciesCorr)
-#' hmGeneCorrInput <- assay_tekcorrset(speciesCorr, "gene", "human")
-#' hmTECorrInput <- assay_tekcorrset(speciesCorr, "te", "human")
-#'
-#' corrOrthologTE(
-#'     geneInput=hmGeneCorrInput,
-#'     teInput=hmTECorrInput,
-#'     corrMethod="pearson",
-#'     padjMethod="fdr",
-#'     fileDir=NULL
+#' data(ctInputDE)
+#' geneInputDE <- ctInputDE$gene
+#' teInputDE <- ctInputDE$te
+#' 
+#' metaExp <- data.frame(experiment = c(rep("control", 5), rep("treatment", 5)))
+#' rownames(metaExp) <- colnames(geneInputDE)
+#' metaExp$experiment <- factor(
+#'     metaExp$experiment, 
+#'     levels = c("control", "treatment")
 #' )
+#' 
+#' resultDE <- DEgeneTE(
+#'     geneTable = geneInputDE,
+#'     teTable = teInputDE,
+#'     metadata = metaExp,
+#'     expDesign = FALSE
+#' )
+#' 
+#' controlCorr <- corrOrthologTE(
+#'     geneInput = resultDE$geneCorrInputRef[c(1:10),],
+#'     teInput = resultDE$teCorrInputRef[c(1:10),],
+#'     corrMethod = "pearson",
+#'     padjMethod = "fdr"
+#' )
+#' 
 corrOrthologTE <- function(
     geneInput, 
     teInput, 

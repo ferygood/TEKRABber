@@ -1,3 +1,8 @@
+Changes in version 1.6.0 (2023-10-16)
+
++ modifed appTEKRABber function for excluding global variable setting and 
+update UI.
+
 Changes in version 1.4.0 (2023-03-01)
 
 + include hg38_panTro6_rmsk annotation and normalization of TE in orthologScale 

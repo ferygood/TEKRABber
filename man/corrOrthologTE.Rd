@@ -35,16 +35,29 @@ just returning them, please specify the fileDir and fileName with the
 extension .csv. The default fileName is TEKRABber_geneTECorrReusult.csv.
 }
 \examples{
-library(SummarizedExperiment)
-data(speciesCorr)
-hmGeneCorrInput <- assay_tekcorrset(speciesCorr, "gene", "human")
-hmTECorrInput <- assay_tekcorrset(speciesCorr, "te", "human")
+data(ctInputDE)
+geneInputDE <- ctInputDE$gene
+teInputDE <- ctInputDE$te
 
-corrOrthologTE(
-    geneInput=hmGeneCorrInput,
-    teInput=hmTECorrInput,
-    corrMethod="pearson",
-    padjMethod="fdr",
-    fileDir=NULL
+metaExp <- data.frame(experiment = c(rep("control", 5), rep("treatment", 5)))
+rownames(metaExp) <- colnames(geneInputDE)
+metaExp$experiment <- factor(
+    metaExp$experiment, 
+    levels = c("control", "treatment")
 )
+
+resultDE <- DEgeneTE(
+    geneTable = geneInputDE,
+    teTable = teInputDE,
+    metadata = metaExp,
+    expDesign = FALSE
+)
+
+controlCorr <- corrOrthologTE(
+    geneInput = resultDE$geneCorrInputRef[c(1:10),],
+    teInput = resultDE$teCorrInputRef[c(1:10),],
+    corrMethod = "pearson",
+    padjMethod = "fdr"
+)
+
 }

@@ -39,7 +39,6 @@ BiocManager::install("TEKRABber")
 
 ```{r load package, message=FALSE}
 library(TEKRABber)
-library(SummarizedExperiment) # load it if you are running this tutorial
 ```
 
 # Examples
@@ -87,7 +86,8 @@ biomaRt::listDatasets(ensembl)
 ```
 
 ```{r orthology and normalizeation, message=FALSE}
-# In order to save time, we have save the data for this tutorial.
+# In order to save time, we provide the data for this tutorial.
+# you can also uncomment the code below and run it for yourself.
 data(fetchDataHmChimp)
 fetchData <- fetchDataHmChimp
 
@@ -159,64 +159,44 @@ small data. You can specify the correlation method and adjusted
 data in this step to focus on only the orthologs and TEs that you are
 interested in.
 
-```{r correlation (two species), warning=FALSE}
-# load built-in data
-data(speciesCorr)
-hmGeneCorrInput <- assay_tekcorrset(speciesCorr, "gene", "human")
-hmTECorrInput <- assay_tekcorrset(speciesCorr, "te", "human")
-chimpGeneCorrInput <- assay_tekcorrset(speciesCorr, "gene", "chimpanzee")
-chimpTECorrInput <- assay_tekcorrset(speciesCorr, "te", "chimpanzee")
-
+```{r correlation (two species), warning=FALSE, eval=FALSE}
+# we select the 200 rows of genes for demo
 hmCorrResult <- corrOrthologTE(
-    geneInput = hmGeneCorrInput,
-    teInput = hmTECorrInput,
+    geneInput = hmchimpDE$geneCorrInputRef[c(1:200),],
+    teInput = hmchimpDE$teCorrInputRef,
     corrMethod = "pearson",
     padjMethod = "fdr"
 )
 
 chimpCorrResult <- corrOrthologTE(
-    geneInput = chimpGeneCorrInput,
-    teInput = chimpTECorrInput,
+    geneInput = hmchimpDE$geneCorrInputCompare[c(1:200), ],
+    teInput = hmchimpDE$teCorrInputCompare,
     corrMethod = "pearson",
     padjMethod = "fdr"
 )
-
-head(hmCorrResult)
 ```
 
 ### Explore your result using `appTEKRABber()`:
 
-`r BiocStyle::Biocpkg("TEKRABber")` provides an app function for you to
-quickly view your result. First, you will need to assign the
-differentially expressed orthologs/TEs results, correlation results and
-metadata as global variables: `appDE`, `appRef`, `appCompare` and
-`appMeta`. See the following example.
+`r BiocStyle::Biocpkg("TEKRABber")` provides an app function called `appTEKRABber()` for you to
+quickly view your result and select data that you are interested in. 
+**Note:** you might need to installed additional packages to run this function.
 
 ```{r app visualize (two species), warning=FALSE, eval=FALSE}
-#create global variables for app-use
-appDE <- hmchimpDE
-appRef <- hmCorrResult
-appCompare <- chimpCorrResult
-appMeta <- meta # this is the same one in DE analysis
-
-appTEKRABber()
+library(plotly)
+appTEKRABber(
+    corrRef = hmCorrResult,
+    corrCompare = chimpCorrResult,
+    DEobject = hmchimpDE
+)
 ```
 
-In the **Expression tab** page, **(1)** you can specify your input gene
-and TE. The result will show in box plots with data points in normalized
-log2 expression level **(2)** DE analysis result will show in table
-including statistical information **(3)** Correlation result will
-indicate if these selected pairs are significantly correlated and the
-value of correlation coefficients. ![](app.jpg) In the **Correlation
-tab** page (above figure), you can select your data in scatter plots in
-three ways. **(1)** Specify the data point and it will turn red in the
-distribution of your results **(2)** Show the distribution of all the
-data from your correlation results based on their correlation
-coefficients and adjusted *p-value*. The blue vertical dashed line
-indicates the boundary of adjusted *p-value* is 0.05, and the orange one
-is for adjusted *p-value* 0.01 **(3)** you can click the data points
-which you are interested in, and it will be listed in the table. You can
-also drag a certain area to show data points in it.
+![app.jpg] The first time you opeining the app, you will see the distribution of 
+Gene and TE alongside pvalue axis and coefficient axis in your reference group 
+and comparision group. You can next select the Gene Name and Transposable 
+Elements which will plot a scatterplot indicating their correlations, and also a 
+expression plot showing the differentially expression analysis. This help you to 
+have a first glance at the pair of Gene:TE which you are interested in.
 
 ## Comparing control and treatment samples within the same species
 
@@ -263,33 +243,20 @@ resultDE <- DEgeneTE(
 
 ### Correlation analysis
 
-For a quick demonstration to perform correlation of genes and TEs in
-control and treatment sample, we use relatively small input tables which
-only include 10 genes and 10 TEs.
+Here we demonstrate using the first 200 rows of genes and all the TEs to 
+calculate their correlations.
 
-```{r load built-in data (same species correlation), warning=FALSE}
-# load built-in data
-data(ctCorr)
-geneConCorrInput <- assay_tekcorrset(ctCorr, "gene", "control")
-teConCorrInput <- assay_tekcorrset(ctCorr, "te", "control")
-geneTreatCorrInput <- assay_tekcorrset(ctCorr, "gene", "treatment")
-teTreatCorrInput <- assay_tekcorrset(ctCorr, "te", "treatment")
-
-# you need to follow the input format as below
-head(geneConCorrInput)
-```
-
-```{r correlation (same species), warning=FALSE}
+```{r correlation (same species), warning=FALSE, eval=FALSE}
 controlCorr <- corrOrthologTE(
-    geneInput = geneConCorrInput,
-    teInput = teConCorrInput,
+    geneInput = resultDE$geneCorrInputRef[c(1:200),],
+    teInput = resultDE$teCorrInputRef,
     corrMethod = "pearson",
     padjMethod = "fdr"
 )
 
 treatmentCorr <- corrOrthologTE(
-    geneInput = geneTreatCorrInput,
-    teInput = teTreatCorrInput,
+    geneInput = resultDE$geneCorrInputCompare[c(1:200),],
+    teInput = resultDE$teCorrInputCompare,
     corrMethod = "pearson",
     padjMethod = "fdr"
 )
@@ -300,12 +267,11 @@ head(treatmentCorr)
 ### Explore your result using `appTEKRABber()`:
 
 ```{r app visualize (same species), warning=FALSE, eval=FALSE}
-appDE <- resultDE
-appRef <- controlCorr
-appCompare <- treatmentCorr
-appMeta <- metaExp
-
-appTEKRABber()
+appTEKRABber(
+    corrRef = controlCorr,
+    corrCompare = treatmentCorr,
+    DEobject = resultDE
+)
 ```
 
 ```{r}

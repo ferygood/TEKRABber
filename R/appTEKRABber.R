@@ -6,18 +6,51 @@
 #' @param DEobject DE object using DEgeneTE() 
 #'
 #' @return provide an interactive shinyapp
-#' @importFrom plotly renderPlotly plot_ly
-#' @importFrom ggpubr ggviolin
-#' @importFrom gridlayout grid_page grid_card grid_card_text
-#' @import bslib
-#' @import shiny
-#' @import ggplot2
 #' @export
 #'
 #' @examples
+#' data(speciesCounts)
+#' hmGene <- speciesCounts$hmGene
+#' hmTE <- speciesCounts$hmTE
+#' chimpGene <- speciesCounts$chimpGene
+#' chimpTE <- speciesCounts$chimpTE
+#' 
+#' data(fetchDataHmChimp)
+#' fetchData <- fetchDataHmChimp
+#' inputBundle <- DECorrInputs(fetchData)
+#' 
+#' meta <- data.frame(
+#' species = c(rep("human", ncol(hmGene) - 1), 
+#'             rep("chimpanzee", ncol(chimpGene) - 1)))
+#'             
+#' meta$species <- factor(meta$species, levels = c("human", "chimpanzee"))
+#' rownames(meta) <- colnames(inputBundle$geneInputDESeq2)
+#' hmchimpDE <- DEgeneTE(
+#'     geneTable = inputBundle$geneInputDESeq2,
+#'     teTable = inputBundle$teInputDESeq2,
+#'     metadata = meta,
+#'     expDesign = TRUE)
+#' 
+#' # use only 10 rows of Genes and TEs
+#' hmCorrResult <- corrOrthologTE(
+#'     geneInput = hmchimpDE$geneCorrInputRef[c(1:10),],
+#'     teInput = hmchimpDE$teCorrInputRef[c(1:10),],
+#'     corrMethod = "pearson",
+#'     padjMethod = "fdr")
+#'     
+#' chimpCorrResult <- corrOrthologTE(
+#'     geneInput = hmchimpDE$geneCorrInputCompare[c(1:10), ],
+#'     teInput = hmchimpDE$teCorrInputCompare[c(1:10), ],
+#'     corrMethod = "pearson",
+#'     padjMethod = "fdr")
 #' 
 #' 
-#' 
+#' #library(plotly)
+#' #appTEKRABber(
+#'     #corrRef = hmCorrResult,
+#'     #corrCompare = chimpCorrResult,
+#'     #DEobject = hmchimpDE)
+#'     
 appTEKRABber <- function(corrRef, corrCompare, DEobject) {
     
     # metadata subset reference and comparison
@@ -116,7 +149,7 @@ appTEKRABber <- function(corrRef, corrCompare, DEobject) {
         
         
         output$scatterPlotRef <- renderPlotly({
-            corrRef_sig <- corrRef[corrRef$pvalue < 0.05, ]
+            corrRef_sig <- corrRef[corrRef$pvalue < 0.05 & corrRef$pvalue > 0, ]
             corrRef_sig$pair <- paste0(corrRef_sig$geneName, " : ", corrRef_sig$teName)
             
             plot_ly(data = corrRef_sig, x = ~pvalue, y = ~coef, 
@@ -129,7 +162,7 @@ appTEKRABber <- function(corrRef, corrCompare, DEobject) {
         
         
         output$scatterPlotCompare <- renderPlotly({
-            corrCompare_sig <- corrCompare[corrCompare$pvalue < 0.05, ]
+            corrCompare_sig <- corrCompare[corrCompare$pvalue < 0.05 & corrCompare$pvalue > 0, ]
             corrCompare_sig$pair <- paste0(corrCompare_sig$geneName, " : ", corrCompare_sig$teName)
             
             plot_ly(data = corrCompare_sig, x = ~pvalue, y = ~coef, 

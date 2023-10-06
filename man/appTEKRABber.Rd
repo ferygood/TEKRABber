@@ -20,3 +20,47 @@ provide an interactive shinyapp
 \description{
 appTEKRABber
 }
+\examples{
+data(speciesCounts)
+hmGene <- speciesCounts$hmGene
+hmTE <- speciesCounts$hmTE
+chimpGene <- speciesCounts$chimpGene
+chimpTE <- speciesCounts$chimpTE
+
+data(fetchDataHmChimp)
+fetchData <- fetchDataHmChimp
+inputBundle <- DECorrInputs(fetchData)
+
+meta <- data.frame(
+species = c(rep("human", ncol(hmGene) - 1), 
+            rep("chimpanzee", ncol(chimpGene) - 1)))
+            
+meta$species <- factor(meta$species, levels = c("human", "chimpanzee"))
+rownames(meta) <- colnames(inputBundle$geneInputDESeq2)
+hmchimpDE <- DEgeneTE(
+    geneTable = inputBundle$geneInputDESeq2,
+    teTable = inputBundle$teInputDESeq2,
+    metadata = meta,
+    expDesign = TRUE)
+
+# use only 10 rows of Genes and TEs
+hmCorrResult <- corrOrthologTE(
+    geneInput = hmchimpDE$geneCorrInputRef[c(1:10),],
+    teInput = hmchimpDE$teCorrInputRef[c(1:10),],
+    corrMethod = "pearson",
+    padjMethod = "fdr")
+    
+chimpCorrResult <- corrOrthologTE(
+    geneInput = hmchimpDE$geneCorrInputCompare[c(1:10), ],
+    teInput = hmchimpDE$teCorrInputCompare[c(1:10), ],
+    corrMethod = "pearson",
+    padjMethod = "fdr")
+
+
+#library(plotly)
+#appTEKRABber(
+    #corrRef = hmCorrResult,
+    #corrCompare = chimpCorrResult,
+    #DEobject = hmchimpDE)
+    
+}

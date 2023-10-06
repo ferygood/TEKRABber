@@ -1,7 +1,0 @@
-library(TEKRABber)
-library(shiny)
-library(plotly)
-library(gridlayout)
-library(bslib)
-library(ggplot2)
-library(ggpubr)
