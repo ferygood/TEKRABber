@@ -37,14 +37,11 @@ Suggests:
     bslib,
     ggplot2,
     ggpubr,
-    gridlayout,
     plotly,
     rmarkdown,
     shiny,
     knitr, 
     testthat (>= 3.0.0)
-Remotes:
-    rstudio/gridlayout
 VignetteBuilder: knitr
 VignetteEngine: knitr
 RoxygenNote: 7.2.3

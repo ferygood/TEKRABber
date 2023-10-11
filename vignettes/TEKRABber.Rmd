@@ -180,9 +180,11 @@ chimpCorrResult <- corrOrthologTE(
 
 `r BiocStyle::Biocpkg("TEKRABber")` provides an app function called `appTEKRABber()` for you to
 quickly view your result and select data that you are interested in. 
+You will need to install [gridlayout](https://github.com/rstudio/gridlayout) to run `appTEKRABber()` function.
 **Note:** you might need to installed additional packages to run this function.
 
 ```{r app visualize (two species), warning=FALSE, eval=FALSE}
+remotes::install_github('rstudio/gridlayout')
 library(plotly)
 appTEKRABber(
     corrRef = hmCorrResult,
@@ -267,6 +269,7 @@ head(treatmentCorr)
 ### Explore your result using `appTEKRABber()`:
 
 ```{r app visualize (same species), warning=FALSE, eval=FALSE}
+remotes::install_github('rstudio/gridlayout')
 appTEKRABber(
     corrRef = controlCorr,
     corrCompare = treatmentCorr,
