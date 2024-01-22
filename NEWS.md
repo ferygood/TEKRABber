@@ -1,3 +1,7 @@
+Changes in version 1.7.0 (2024-01-22)
+
++ add bioRxiv citation and fix figure rendering issue.
+
 Changes in version 1.6.0 (2023-10-16)
 
 + modifed appTEKRABber function for excluding global variable setting and 
