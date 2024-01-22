@@ -37,7 +37,6 @@ Suggests:
     bslib,
     ggplot2,
     ggpubr,
-    gridlayout,
     plotly,
     rmarkdown,
     shiny,
