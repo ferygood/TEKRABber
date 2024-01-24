@@ -1,17 +1,13 @@
-bibentry(
-  bibtype  = "Article",
-  title    = "Regulatory networks of KRAB zinc finger genes and transposable elements changed during human brain evolution and disease",
-  author   = personList( as.person("Yao-Chung Chen"),
-                         as.person("Arnaud Maupas"),
-                         as.person("Katja Nowick")),
-  journal  = "bioRxiv",
-  year     = 2023,
-  volume   = ,
-  number   = ,
-  pages    = ,
-  doi      = "10.1101/2023.12.18.569574",
-  textVersion =
+citEntry(
+  entry = "article",
+  title = "Regulatory networks of KRAB zinc finger genes and transposable elements changed during human brain evolution and disease",
+  author = personList( as.person("Yao-Chung Chen"),
+                       as.person("Arnaud Maupas"),
+                       as.person("Katja Nowick")),
+  journal = "bioRxiv",
+  year = 2023,
+  doi = "10.1101/2023.12.18.569574",
+  textVersion = 
   paste("Chen, Y.C., Maupas, A., Nowick, K.",
         "Regulatory networks of KRAB zinc finger genes and transposable elements changed during human brain evolution and disease", 
-        "bioRxiv (2023)")
-)
+        "bioRxiv (2023)"))

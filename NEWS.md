@@ -1,10 +1,14 @@
+Changes in version 1.7.1 (2024-01-24)
+
++ fix argument issue in citation.
+
 Changes in version 1.7.0 (2024-01-22)
 
 + add bioRxiv citation and fix figure rendering issue.
 
 Changes in version 1.6.0 (2023-10-16)
 
-+ modifed appTEKRABber function for excluding global variable setting and 
++ modified appTEKRABber function for excluding global variable setting and 
 update UI.
 
 Changes in version 1.4.0 (2023-03-01)
