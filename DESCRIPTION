@@ -23,8 +23,10 @@ Imports:
     biomaRt,
     dplyr,
     DESeq2,
+    GenomeInfoDb,
     magrittr,
     Rcpp (>= 1.0.7),
+    rtracklayer,
     SCBN,
     stats,
     utils
@@ -44,5 +46,5 @@ Suggests:
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 VignetteEngine: knitr
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 biocViews: DifferentialExpression, Normalization, Transcription, GeneExpression
