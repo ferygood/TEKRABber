@@ -70,14 +70,19 @@ scientific species name used in Ensembl. (Note: (1)This step queries
 information using `r BiocStyle::Biocpkg("biomaRt")` and it might need
 some time or try different mirrors due to the connections to Ensembl
 (2)It might take some time to calculate scaling factor based on your
-data size). For normalizing TEs, you need to provide a repeatmasker
-annotation table including four columns, (1) the name of TE (2) the
-class of TE (3) the average gene length of TE from your reference
+data size). For normalizing TEs, you need to provide a RepeatMasker
+track annotation table including four columns, (1) the name of TE (2)
+the class of TE (3) the average gene length of TE from your reference
 species (4) the average gene length from the species you want to
-compare. A way to download repeatmasker annotations is to query from
+compare. A way to download RepeatMasker annotations is to query from
 [UCSC Genome Table
 Browser](http://genome.ucsc.edu/cgi-bin/hgTables?hgsid=1582443383_JGQc9hw61oGahqe20hrSWdfkjDWx&clade=mammal&org=Human&db=hg38&hgta_group=rep&hgta_track=hg38&hgta_table=0&hgta_regionType=genome&position=chr2%3A25%2C160%2C915-25%2C168%2C903&hgta_outputType=primaryTable&hgta_outFileName=hg38rmsk.csv)
-and select the RepeatMasker track.
+and select the RepeatMasker track. In new version v1.8.0 and above,
+TEKRABber provides `prepareRMSK()` to obtain RepeatMasker track from
+UCSC and merge the table for you. However, there still remain a chance
+that the species you are interested in cannot be obtain from this
+method. You can use `GenomeInfoDb::registered_UCSC_genomes()` for
+checking the track exists for your species.
 
 ```{r search species name, eval=FALSE}
 # You can use the code below to search for species name
@@ -93,7 +98,7 @@ fetchData <- fetchDataHmChimp
 
 # Query the data and calculate scaling factor using orthologScale():
 #' data(speciesCounts)
-#' data(hg38_panTro6_rmsk)
+#' data(hg38_panTro6_rmsk) 
 #' hmGene <- speciesCounts$hmGene
 #' chimpGene <- speciesCounts$chimpGene
 #' hmTE <- speciesCounts$hmTE
@@ -104,6 +109,7 @@ fetchData <- fetchDataHmChimp
 #' hmGeneSample <- hmGene[sample(nrow(hmGene), 1000), ]
 #' chimpGeneSample <- chimpGene[sample(nrow(chimpGene), 1000), ]
 #' 
+#' ## hg38_panTro6_rmsk = prepareRMSK("hg38", "panTro6")
 #' fetchData <- orthologScale(
 #'     speciesRef = "hsapiens",
 #'     speciesCompare = "ptroglodytes",
@@ -187,7 +193,12 @@ additional packages to run this function.
 
 ```{r app visualize (two species), warning=FALSE, eval=FALSE}
 remotes::install_github('rstudio/gridlayout')
+
 library(plotly)
+library(bslib)
+library(shiny)
+library(gridlayout)
+
 appTEKRABber(
     corrRef = hmCorrResult,
     corrCompare = chimpCorrResult,

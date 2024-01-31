@@ -1,5 +1,8 @@
 #' appTEKRABber
-#'
+#' @description
+#' Provide a shiny UI for presenting the results from DE analysis and 
+#' correlation analysis.
+#' 
 #' @param corrRef correlation results for reference using corrOrtholgScale()
 #' @param corrCompare correlation results for comparison using 
 #' corrOrthologScale()
@@ -7,7 +10,7 @@
 #'
 #' @return provide an interactive shinyapp
 #' @export
-#'
+#' @
 #' @examples
 #' data(speciesCounts)
 #' hmGene <- speciesCounts$hmGene
