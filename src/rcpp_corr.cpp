@@ -20,7 +20,7 @@ DataFrame rcpp_corr(DataFrame df1, DataFrame df2, StringVector Method) {
     NumericVector p_value;
     NumericVector coef;
     
-    
+    #pragma omp parallel for
     for (int i = 0; i < df1.size(); ++i) {
         
         for (int j = 0; j < df2.size(); ++j) {

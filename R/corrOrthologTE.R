@@ -12,6 +12,8 @@
 #' Default is pearson.
 #' @param padjMethod method to return adjusted p-value, and default is fdr. 
 #' See ?p.adjust
+#' @param numCore number of cores to run parallel. Default is 1. You can use 
+#' detectCores() to get how many cores you can use.
 #' @param fileDir the name of directory for saving output files. 
 #' Default is NULL.
 #' @param fileName the name for saving output files. 
@@ -48,18 +50,31 @@
 #'     padjMethod = "fdr"
 #' )
 #' 
+#require(doParallel)
+#require(foreach)
+
 corrOrthologTE <- function(
     geneInput, 
     teInput, 
     corrMethod = "pearson", 
-    padjMethod="fdr", 
+    padjMethod="fdr",
+    numCore=1,
     fileDir=NULL, 
     fileName="TEKRABber_geneTECorrResult.csv"){
 
     df.ortholog <- t(geneInput)
     df.te <- t(teInput)
     
+    # Initialize the parallel backend
+    #n_cores <- numCore
+    #cl <- makeCluster(n_cores)
+    #registerDoParallel(cl)
+    
     df.corr <- rcpp_corr(df.ortholog, df.te, corrMethod)
+    
+    # stop the parallel backend
+    #stopCluster(cl)
+    
     colnames(df.corr)[c(1,2)] <- c("geneName", "teName")
     df.corr$padj <- p.adjust(
         df.corr$pvalue,
