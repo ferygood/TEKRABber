@@ -30,6 +30,8 @@ column should be teName.}
 the class of TE (3) The average length of that TE from your reference 
 species (4) The average length of that TE from the species you want to 
 compare.}
+
+\item{version}{for specify Ensembl version. Default is NULL.}
 }
 \value{
 a list of outputs: (1) orthologTable, orthology information (2) 

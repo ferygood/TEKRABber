@@ -20,6 +20,7 @@
 #'  the class of TE (3) The average length of that TE from your reference 
 #'  species (4) The average length of that TE from the species you want to 
 #'  compare.
+#' @param version for specify Ensembl version. Default is NULL.
 #' @return a list of outputs: (1) orthologTable, orthology information (2) 
 #' c_ortholog, scaling factor for orthologous genes (3) geneRef, gene count 
 #' table for reference species (4) geneCompare, normalized gene count table for
@@ -55,7 +56,7 @@ orthologScale <- function(
         speciesRef, speciesCompare, 
         geneCountRef, geneCountCompare,
         teCountRef, teCountCompare, 
-        rmsk) {
+        rmsk, version = NULL) {
     
     # Part1: normalize orthologous genes between species
     ## 1-1: Get ortholog table using biomaRt
@@ -63,8 +64,8 @@ orthologScale <- function(
     geneCompare <- paste0(speciesCompare, "_gene_ensembl")
     orthologyRef <- paste0(speciesRef, "_homolog_orthology_confidence")
     
-    ensemblRef <- biomaRt::useEnsembl("ensembl", dataset = geneRef, version = "105")
-    ensemblCompare <- biomaRt::useEnsembl("ensembl", dataset = geneCompare, version = "105")
+    ensemblRef <- biomaRt::useEnsembl("ensembl", dataset = geneRef, version = version)
+    ensemblCompare <- biomaRt::useEnsembl("ensembl", dataset = geneCompare, version = version)
     
     orthologTable <- biomaRt::getLDS(
         attributes = c(

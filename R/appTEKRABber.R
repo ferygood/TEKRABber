@@ -10,7 +10,7 @@
 #'
 #' @return provide an interactive shinyapp
 #' @export
-#' @
+#' 
 #' @examples
 #' data(speciesCounts)
 #' hmGene <- speciesCounts$hmGene
