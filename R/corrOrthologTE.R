@@ -66,7 +66,7 @@ corrOrthologTE <- function(
     
     # create empty dataframe
     df.corr <- data.frame(matrix(ncol=4, nrow=0))
-    colnames(result_df) <- c("geneName", "teName", "coef", "pvalue")
+    colnames(df.corr) <- c("geneName", "teName", "coef", "pvalue")
     
     # calculate correlation with parallel
     df.corr <- foreach(i=1:nrow(geneInput), .combine=rbind) %dopar% {
