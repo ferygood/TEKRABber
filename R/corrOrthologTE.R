@@ -22,6 +22,8 @@
 #' @useDynLib TEKRABber
 #' @importFrom stats p.adjust
 #' @importFrom Rcpp sourceCpp
+#' @importFrom doParallel registerDoParallel stopImplicitCluster
+#' @import foreach
 #' @export
 #' 
 #' @examples
@@ -50,9 +52,6 @@
 #'     padjMethod = "fdr"
 #' )
 #' 
-#require(doParallel)
-#require(foreach)
-
 corrOrthologTE <- function(
     geneInput, 
     teInput, 
@@ -62,20 +61,32 @@ corrOrthologTE <- function(
     fileDir=NULL, 
     fileName="TEKRABber_geneTECorrResult.csv"){
 
-    df.ortholog <- t(geneInput)
-    df.te <- t(teInput)
+    # register backend
+    registerDoParallel(numCore)
     
-    # Initialize the parallel backend
-    #n_cores <- numCore
-    #cl <- makeCluster(n_cores)
-    #registerDoParallel(cl)
+    # create empty dataframe
+    df.corr <- data.frame(matrix(ncol=4, nrow=0))
+    colnames(result_df) <- c("geneName", "teName", "coef", "pvalue")
     
-    df.corr <- rcpp_corr(df.ortholog, df.te, corrMethod)
+    # calculate correlation with parallel
+    df.corr <- foreach(i=1:nrow(geneInput), .combine=rbind) %dopar% {
+        foreach(j=1:nrow(teInput), .combine=rbind) %dopar% {
+            num1 <- as.numeric(geneInput[i,])
+            num2 <- as.numeric(teInput[j,])
+            corr <- cor.test(num1, num2, method=corrMethod)
+            rbind(
+                data.frame(geneName=rownames(geneInput)[i], 
+                           teName=rownames(teInput)[j], 
+                           coef=corr$estimate, 
+                           pvalue=corr$p.value),
+                df.corr
+            )
+        }
+    }
     
-    # stop the parallel backend
-    #stopCluster(cl)
+    stopImplicitCluster()
     
-    colnames(df.corr)[c(1,2)] <- c("geneName", "teName")
+    # calculate p-adjusted value
     df.corr$padj <- p.adjust(
         df.corr$pvalue,
         method=padjMethod

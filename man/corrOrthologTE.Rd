@@ -18,6 +18,9 @@ Default is pearson.}
 \item{padjMethod}{method to return adjusted p-value, and default is fdr. 
 See ?p.adjust}
 
+\item{numCore}{number of cores to run parallel. Default is 1. You can use 
+detectCores() to get how many cores you can use.}
+
 \item{fileDir}{the name of directory for saving output files. 
 Default is NULL.}
 
