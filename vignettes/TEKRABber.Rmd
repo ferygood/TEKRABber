@@ -170,6 +170,7 @@ interested in.
 hmCorrResult <- corrOrthologTE(
     geneInput = hmchimpDE$geneCorrInputRef[c(1:200),],
     teInput = hmchimpDE$teCorrInputRef,
+    numCore = 1,
     corrMethod = "pearson",
     padjMethod = "fdr"
 )
@@ -177,6 +178,7 @@ hmCorrResult <- corrOrthologTE(
 chimpCorrResult <- corrOrthologTE(
     geneInput = hmchimpDE$geneCorrInputCompare[c(1:200), ],
     teInput = hmchimpDE$teCorrInputCompare,
+    numCore = 1,
     corrMethod = "pearson",
     padjMethod = "fdr"
 )
@@ -268,6 +270,7 @@ calculate their correlations.
 controlCorr <- corrOrthologTE(
     geneInput = resultDE$geneCorrInputRef[c(1:200),],
     teInput = resultDE$teCorrInputRef,
+    numCore = 1,
     corrMethod = "pearson",
     padjMethod = "fdr"
 )
@@ -275,6 +278,7 @@ controlCorr <- corrOrthologTE(
 treatmentCorr <- corrOrthologTE(
     geneInput = resultDE$geneCorrInputCompare[c(1:200),],
     teInput = resultDE$teCorrInputCompare,
+    numCore = 1,
     corrMethod = "pearson",
     padjMethod = "fdr"
 )

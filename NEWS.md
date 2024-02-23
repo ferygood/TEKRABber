@@ -1,3 +1,8 @@
+Changes in version 1.7.2 (2024-02-22)
+
++ New function: prepareRMSK() for getting repeatmasker
++ New parameter: `numCore` in corrOrthologTE() for parallel computing
+
 Changes in version 1.7.1 (2024-01-24)
 
 + fix argument issue in citation.

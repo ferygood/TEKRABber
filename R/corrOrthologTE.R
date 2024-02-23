@@ -48,6 +48,7 @@
 #' controlCorr <- corrOrthologTE(
 #'     geneInput = resultDE$geneCorrInputRef[c(1:10),],
 #'     teInput = resultDE$teCorrInputRef[c(1:10),],
+#'     numCore = 1,
 #'     corrMethod = "pearson",
 #'     padjMethod = "fdr"
 #' )
@@ -60,7 +61,7 @@ corrOrthologTE <- function(
     numCore=1,
     fileDir=NULL, 
     fileName="TEKRABber_geneTECorrResult.csv"){
-
+    
     # register backend
     registerDoParallel(numCore)
     

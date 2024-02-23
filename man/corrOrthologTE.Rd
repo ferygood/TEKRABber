@@ -59,6 +59,7 @@ resultDE <- DEgeneTE(
 controlCorr <- corrOrthologTE(
     geneInput = resultDE$geneCorrInputRef[c(1:10),],
     teInput = resultDE$teCorrInputRef[c(1:10),],
+    numCore = 1,
     corrMethod = "pearson",
     padjMethod = "fdr"
 )

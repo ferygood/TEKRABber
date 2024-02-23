@@ -1,6 +1,6 @@
 #' Prepare a table from two species RepeatMakser track from UCSC genome Table
 #' @description create a table to the rmsk argument in orthologScale(). 
-#' Previously, TEKRABber requires user to prepare this table by themselves and 
+#' Before version 1.8, TEKRABber requires user to prepare this table by themselves and 
 #' this function can help user automatically get the RepeatMasker table from 
 #' UCSC. The arguments required are the abbreviation of the version of 
 #' reference (case-sensitive). For example, "hg38" for human. 
