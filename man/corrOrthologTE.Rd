@@ -5,7 +5,8 @@
 \title{Estimate correlation comparing orthologs and TEs}
 \usage{
 corrOrthologTE(geneInput, teInput, corrMethod = "pearson", 
-padjMethod = "fdr", fileDir=NULL, fileName="TEKRABber_geneTECorrResult.csv")
+padjMethod = "fdr", numCore=1, fileDir=NULL, 
+fileName="TEKRABber_geneTECorrResult.csv")
 }
 \arguments{
 \item{geneInput}{gene count input for correlation from using DECorrInputs()}

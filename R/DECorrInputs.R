@@ -29,7 +29,8 @@
 #'     geneCountCompare = chimpGeneSample,
 #'     teCountRef = hmTE,
 #'     teCountCompare = chimpTE,
-#'     rmsk = hg38_panTro6_rmsk
+#'     rmsk = hg38_panTro6_rmsk,
+#'     version = 105
 #' )
 #' 
 #' inputBundle <- DECorrInputs(fetchData)

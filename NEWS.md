@@ -1,3 +1,8 @@
+Changes in version 1.7.3 (2024-03-28)
+
++ specify biomaRt version 105 in example and test code to avoid spontaneously 
+error from biomaRt package. This help report the issues specific to TEKRABber.
+
 Changes in version 1.7.2 (2024-02-22)
 
 + New function: prepareRMSK() for getting repeatmasker

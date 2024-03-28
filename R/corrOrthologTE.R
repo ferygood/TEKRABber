@@ -5,7 +5,8 @@
 #' just returning them, please specify the fileDir and fileName with the 
 #' extension .csv. The default fileName is TEKRABber_geneTECorrReusult.csv.
 #' @usage corrOrthologTE(geneInput, teInput, corrMethod = "pearson", 
-#' padjMethod = "fdr", fileDir=NULL, fileName="TEKRABber_geneTECorrResult.csv")
+#' padjMethod = "fdr", numCore=1, fileDir=NULL, 
+#' fileName="TEKRABber_geneTECorrResult.csv")
 #' @param geneInput gene count input for correlation from using DECorrInputs()
 #' @param teInput te count input for correlation from using DECorrInputs()
 #' @param corrMethod correlation method, including pearson, kendall, spearman. 

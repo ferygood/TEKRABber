@@ -5,7 +5,7 @@
 \title{Normalized orthologous genes and TEs between two species}
 \usage{
 orthologScale(speciesRef, speciesCompare, geneCountRef, 
-geneCountCompare, teCountRef, teCountCompare, rmsk)
+geneCountCompare, teCountRef, teCountCompare, rmsk, version)
 }
 \arguments{
 \item{speciesRef}{The scientific name for your reference species. 
@@ -31,7 +31,8 @@ the class of TE (3) The average length of that TE from your reference
 species (4) The average length of that TE from the species you want to 
 compare.}
 
-\item{version}{for specify Ensembl version. Default is NULL.}
+\item{version}{for specify Ensembl version. Default is NULL for getting
+the latest version}
 }
 \value{
 a list of outputs: (1) orthologTable, orthology information (2) 
@@ -65,6 +66,7 @@ fetchData <- orthologScale(
     geneCountCompare = chimpGeneSample,
     teCountRef = hmTE,
     teCountCompare = chimpTE,
-    rmsk = hg38_panTro6_rmsk
+    rmsk = hg38_panTro6_rmsk,
+    version = 105
 )
 }

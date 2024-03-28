@@ -2,7 +2,7 @@
 #' @description Normalize orthologous genes and TEs between two species with a 
 #' scaling factor using their expression level and gene lengths.
 #' @usage orthologScale(speciesRef, speciesCompare, geneCountRef, 
-#' geneCountCompare, teCountRef, teCountCompare, rmsk)
+#' geneCountCompare, teCountRef, teCountCompare, rmsk, version)
 #'
 #' @param speciesRef The scientific name for your reference species. 
 #' i.e., hsapiens
@@ -17,10 +17,11 @@
 #' @param teCountCompare TE count from the species you want to compare. First 
 #' column should be teName. 
 #' @param rmsk a repeatmasker table including 4 columns: (1) the name of TE (2)
-#'  the class of TE (3) The average length of that TE from your reference 
-#'  species (4) The average length of that TE from the species you want to 
-#'  compare.
-#' @param version for specify Ensembl version. Default is NULL.
+#' the class of TE (3) The average length of that TE from your reference 
+#' species (4) The average length of that TE from the species you want to 
+#' compare.
+#' @param version for specify Ensembl version. Default is NULL for getting
+#' the latest version
 #' @return a list of outputs: (1) orthologTable, orthology information (2) 
 #' c_ortholog, scaling factor for orthologous genes (3) geneRef, gene count 
 #' table for reference species (4) geneCompare, normalized gene count table for
@@ -50,7 +51,8 @@
 #'     geneCountCompare = chimpGeneSample,
 #'     teCountRef = hmTE,
 #'     teCountCompare = chimpTE,
-#'     rmsk = hg38_panTro6_rmsk
+#'     rmsk = hg38_panTro6_rmsk,
+#'     version = 105
 #' )
 orthologScale <- function(
         speciesRef, speciesCompare, 
