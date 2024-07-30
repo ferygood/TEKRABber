@@ -1,7 +1,7 @@
 Package: TEKRABber
 Type: Package
 Title: An R package estimates the correlations of orthologs and transposable elements between two species 
-Version: 1.7.3
+Version: 1.8.0
 Description: TEKRABber is made to provide a user-friendly pipeline for comparing 
     orthologs and transposable elements (TEs) between two species. It considers the 
     orthology confidence between two species from BioMart to normalize expression 
