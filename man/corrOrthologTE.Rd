@@ -5,7 +5,8 @@
 \title{Estimate correlation comparing orthologs and TEs}
 \usage{
 corrOrthologTE(geneInput, teInput, corrMethod = "pearson", 
-padjMethod = "fdr", fileDir=NULL, fileName="TEKRABber_geneTECorrResult.csv")
+padjMethod = "fdr", numCore=1, fileDir=NULL, 
+fileName="TEKRABber_geneTECorrResult.csv")
 }
 \arguments{
 \item{geneInput}{gene count input for correlation from using DECorrInputs()}
@@ -17,6 +18,9 @@ Default is pearson.}
 
 \item{padjMethod}{method to return adjusted p-value, and default is fdr. 
 See ?p.adjust}
+
+\item{numCore}{number of cores to run parallel. Default is 1. You can use 
+detectCores() to get how many cores you can use.}
 
 \item{fileDir}{the name of directory for saving output files. 
 Default is NULL.}
@@ -56,6 +60,7 @@ resultDE <- DEgeneTE(
 controlCorr <- corrOrthologTE(
     geneInput = resultDE$geneCorrInputRef[c(1:10),],
     teInput = resultDE$teCorrInputRef[c(1:10),],
+    numCore = 1,
     corrMethod = "pearson",
     padjMethod = "fdr"
 )

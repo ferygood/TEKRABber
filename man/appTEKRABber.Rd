@@ -18,7 +18,8 @@ corrOrthologScale()}
 provide an interactive shinyapp
 }
 \description{
-appTEKRABber
+Provide a shiny UI for presenting the results from DE analysis and 
+correlation analysis.
 }
 \examples{
 data(speciesCounts)

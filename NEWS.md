@@ -1,10 +1,24 @@
+Changes in version 1.7.3 (2024-03-28)
+
++ specify biomaRt version 105 in example and test code to avoid spontaneously 
+error from biomaRt package. This help report the issues specific to TEKRABber.
+
+Changes in version 1.7.2 (2024-02-22)
+
++ New function: prepareRMSK() for getting repeatmasker
++ New parameter: `numCore` in corrOrthologTE() for parallel computing
+
+Changes in version 1.7.1 (2024-01-24)
+
++ fix argument issue in citation.
+
 Changes in version 1.7.0 (2024-01-22)
 
 + add bioRxiv citation and fix figure rendering issue.
 
 Changes in version 1.6.0 (2023-10-16)
 
-+ modifed appTEKRABber function for excluding global variable setting and 
++ modified appTEKRABber function for excluding global variable setting and 
 update UI.
 
 Changes in version 1.4.0 (2023-03-01)

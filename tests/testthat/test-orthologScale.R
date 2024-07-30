@@ -25,7 +25,8 @@ test_that("orthologScale returns orthology information and scaling factor", {
         geneCountCompare = chimpGeneSample,
         teCountRef = hmTE,
         teCountCompare = chimpTE,
-        rmsk = hg38_panTro6_rmsk
+        rmsk = hg38_panTro6_rmsk,
+        version = 105
     )
     
     expect_equal(length(fetchData), 7)
