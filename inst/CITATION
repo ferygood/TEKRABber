@@ -4,10 +4,10 @@ citEntry(
   author = personList( as.person("Yao-Chung Chen"),
                        as.person("Arnaud Maupas"),
                        as.person("Katja Nowick")),
-  journal = "bioRxiv",
-  year = 2023,
-  doi = "10.1101/2023.12.18.569574",
+  journal = "eLife",
+  year = 2025,
+  doi = "https://doi.org/10.7554/eLife.103608.1",
   textVersion = 
   paste("Chen, Y.C., Maupas, A., Nowick, K.",
         "Regulatory networks of KRAB zinc finger genes and transposable elements changed during human brain evolution and disease", 
-        "bioRxiv (2023)"))
+        "eLife (2025)"))

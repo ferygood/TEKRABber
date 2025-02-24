@@ -1,3 +1,7 @@
+Changes in version 1.12.0 (TBD)
+
++ update citation link and check with Bioconductor release 3.22
+
 Changes in version 1.7.3 (2024-03-28)
 
 + specify biomaRt version 105 in example and test code to avoid spontaneously 
