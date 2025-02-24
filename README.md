@@ -31,6 +31,14 @@ devtools::install_github("ferygood/TEKRABber")
 
 Find detailed information in `vignettes/TEKRABber.Rmd`
 
+## Citation
+
+If you are using TEKRABber in your publication, please cite:
+
+Chen Yao-Chung, Maupas Arnaud, Nowick Katja (2025) Regulatory networks of KRAB zinc finger genes and transposable elements changed during human brain evolution and disease eLife 14:RP103608
+
+<https://doi.org/10.7554/eLife.103608.1>
+
 ## Contact
 
 email: [yao-chung.chen\@fu-berlin.de](mailto:yao-chung.chen@fu-berlin.de){.email}
