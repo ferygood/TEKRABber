@@ -13,7 +13,7 @@
 #' @return Dataframe with four columns: repName, repClass, rLen and cLen
 #' @export
 #' @importFrom rtracklayer browserSession getTable ucscTableQuery
-#' @importFrom GenomeInfoDb genome
+#' @importFrom Seqinfo genome
 #' @importFrom dplyr mutate select group_by summarise
 #' @importFrom magrittr %>%
 #' @examples 
@@ -23,7 +23,7 @@ prepareRMSK <- function(refSpecies, compareSpecies){
     # create a session and query repeatmakser track
     # reference species
     refSession <- browserSession("UCSC")
-    GenomeInfoDb::genome(refSession) <- refSpecies
+    Seqinfo::genome(refSession) <- refSpecies
     ref.rmsk <- getTable(
         ucscTableQuery(
             refSession, 
@@ -39,7 +39,7 @@ prepareRMSK <- function(refSpecies, compareSpecies){
     
     # compare species
     compareSession <- browserSession("UCSC")
-    GenomeInfoDb::genome(compareSession) <- compareSpecies
+    Seqinfo::genome(compareSession) <- compareSpecies
     compare.rmsk <- getTable(
         ucscTableQuery(
             compareSession, 
