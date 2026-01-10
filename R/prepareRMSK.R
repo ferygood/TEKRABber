@@ -10,52 +10,51 @@
 #' @param refSpecies the version of reference species, i.e. hg38
 #' @param compareSpecies the version of compared species, i.e. panTro6
 #'
-#' @return Dataframe with four columns: repName, repClass, rLen and cLen
 #' @export
-#' @importFrom rtracklayer browserSession getTable ucscTableQuery
-#' @importFrom Seqinfo genome
+#' @return Dataframe with four columns: repName, repClass, rLen and cLen
+#' @importFrom AnnotationHub AnnotationHub query
 #' @importFrom dplyr mutate select group_by summarise
 #' @importFrom magrittr %>%
-#' @examples 
-#' df_rmsk <- prepareRMSK(refSpecies = "hg38", compareSpecies = "panTro6") 
+#' @examples
+#' df_rmsk <- prepareRMSK(refSpecies = "hg38", compareSpecies = "panTro6")
 #' 
-prepareRMSK <- function(refSpecies, compareSpecies){
-    # create a session and query repeatmakser track
-    # reference species
-    refSession <- browserSession("UCSC")
-    Seqinfo::genome(refSession) <- refSpecies
-    ref.rmsk <- getTable(
-        ucscTableQuery(
-            refSession, 
-            track="RepeatMasker", 
-            table="rmsk")
+prepareRMSK <- function(refSpecies, compareSpecies) {
+
+    fetch_rmsk <- function(species) {
+        ah <- AnnotationHub::AnnotationHub()
+        q <- AnnotationHub::query(
+            ah,
+            c("RepeatMasker", "UCSC", species)
+        )
+
+        if (length(q) == 0) {
+            stop("No RepeatMasker data found for species: ", species)
+        }
+
+        rmsk <- q[[1]]
+        as.data.frame(rmsk)
+    }
+
+    summarise_rmsk <- function(df, len_name) {
+        df %>%
+            mutate(.len = abs(repEnd - repStart)) %>%
+            select(repName, repClass, .len) %>%
+            group_by(repName, repClass) %>%
+            summarise(
+                !!len_name := mean(.len),
+                .groups = "drop"
+            )
+    }
+
+    ref_df <- fetch_rmsk(refSpecies)
+    cmp_df <- fetch_rmsk(compareSpecies)
+
+    ref_tbl <- summarise_rmsk(ref_df, "rLen")
+    cmp_tbl <- summarise_rmsk(cmp_df, "cLen")
+
+    merge(
+        ref_tbl,
+        cmp_tbl,
+        by = c("repName", "repClass")
     )
-    
-    ref.rmsk.tbl <- ref.rmsk %>%
-        mutate(rLen = abs(repEnd - repStart)) %>%
-        select(c(repName, repClass, rLen)) %>%
-        group_by(repName, repClass) %>%
-        summarise(rLen = abs(mean(rLen)))
-    
-    # compare species
-    compareSession <- browserSession("UCSC")
-    Seqinfo::genome(compareSession) <- compareSpecies
-    compare.rmsk <- getTable(
-        ucscTableQuery(
-            compareSession, 
-            track="RepeatMasker", 
-            table="rmsk")
-    )
-    
-    compare.rmsk.tbl <- compare.rmsk %>%
-        mutate(cLen = abs(repEnd - repStart)) %>%
-        select(c(repName, repClass, cLen)) %>%
-        group_by(repName, repClass) %>%
-        summarise(rLen = abs(mean(cLen)))
-    
-    # merge table
-    merged_df <- merge(ref.rmsk.tbl, compare.rmsk.tbl, by=c("repName", "repClass"))
-    colnames(merged_df)[c(3,4)] <- c("rLen", "cLen")
-    
-    merged_df
 }

@@ -19,13 +19,13 @@ BugReports: https://github.com/ferygood/TEKRABber/issues
 Encoding: UTF-8
 License: LGPL (>=3)
 Imports: 
+    AnnotationHub,
     apeglm,
     biomaRt,
     dplyr,
     doParallel,
     DESeq2,
     foreach,
-    Seqinfo,
     magrittr,
     Rcpp (>= 1.0.7),
     rtracklayer,
@@ -49,5 +49,5 @@ Suggests:
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 VignetteEngine: knitr
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.3
 biocViews: DifferentialExpression, Normalization, Transcription, GeneExpression

@@ -1,9 +1,9 @@
 .onLoad <- function(libname, pkgname) {
     messages <- c(
-        "Welcome to TEKRABber version 1.8.0",
-        "+ New function: prepareRMSK() for getting repeatmasker",
-        "+ New parameter: `numCore` in corrOrthologTE() for parallel computing"
+        "Welcome to TEKRABber version 1.15.0",
+        "+ prepareRMSK(): automatically retrieves RepeatMasker data via AnnotationHub",
+        "+ corrOrthologTE(): new parameter `numCore` for parallel computing"
     )
-    
+
     packageStartupMessage(paste(messages, collapse = "\n"))
 }

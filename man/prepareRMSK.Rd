@@ -24,6 +24,6 @@ Note: currently only 91 genomes provided. Check if the reference exists with
 GenomeInfoDb::registered_UCSC_genomes().
 }
 \examples{
-df_rmsk <- prepareRMSK(refSpecies = "hg38", compareSpecies = "panTro6") 
+df_rmsk <- prepareRMSK(refSpecies = "hg38", compareSpecies = "panTro6")
 
 }
